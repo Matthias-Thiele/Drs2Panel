@@ -24,5 +24,5 @@ public class Presets {
   
   public static final int LAMP_WIDTH = FIELD_WIDTH / 4;
   public static final int LAMP_MARGIN = FIELD_WIDTH / 14;
-  public static final int LAMP_DIAMETER = MIDDLE_BAR_HEIGHT - 6;
+  public static final int LAMP_DIAMETER = MIDDLE_BAR_HEIGHT - 4;
 }
