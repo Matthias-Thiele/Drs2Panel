@@ -7,6 +7,7 @@ package de.mmth.drs2panel.fields;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 /**
  * Grid zur Aufnahme der Tischfelder.
@@ -44,6 +45,7 @@ public class FieldGrid extends GridPane {
     addLineFields();
     addWeichen();
     addBahnhofsgleise();
+    addCounter();
     for (var col = 0; col < Presets.GRID_WIDTH; col++) {
       for (var row = 0; row < Presets.GRID_HEIGHT; row++) {
         if (!isSet[row * Presets.GRID_WIDTH + col]) {
@@ -90,6 +92,26 @@ public class FieldGrid extends GridPane {
     
     var blockInAH = new StreckeIn("A", false, true);
     addField(blockInAH, 14, 2);
+  }
+  
+  private void addCounter() {
+    var ersgt = new CounterField("Ers GT", Color.RED);
+    addField(ersgt, 3, 0);
+    
+    var blz = new CounterField("BLZ", Color.GRAY);
+    addField(blz, 7, 0);
+    
+    var fht = new CounterField("FHT", Color.RED);
+    addField(fht, 9, 0);
+    
+    var wht = new CounterField("WHT", Color.NAVY);
+    addField(wht, 10, 0);
+    
+    var ast = new CounterField("AsT", Color.BLACK);
+    addField(ast, 12, 0);
+    
+    var rbhgt = new CounterField("RbHGT", Color.BLACK);
+    addField(rbhgt, 13, 1);
   }
   
   private void addLineFields() {
