@@ -79,17 +79,17 @@ public class FieldGrid extends GridPane {
   }
   
   private void addStreckenblock() {
-    var blockOutAH = new StreckeOut("AH", true);
-    addField(blockOutAH, 0, 2);
+    var blockOutWB = new StreckeOut("WB", true);
+    addField(blockOutWB, 0, 2);
     
-    var blockOutWB = new StreckeOut("WB", false);
-    addField(blockOutWB, 14, 3);
+    var blockOutAH = new StreckeOut("AH", false);
+    addField(blockOutAH, 14, 3);
     
-    var blockInAH = new StreckeIn("F", true, false);
-    addField(blockInAH, 0, 4);
+    var blockInWB = new StreckeIn("F", true, false);
+    addField(blockInWB, 0, 4);
     
-    var blockInWB = new StreckeIn("A", false, true);
-    addField(blockInWB, 14, 2);
+    var blockInAH = new StreckeIn("A", false, true);
+    addField(blockInAH, 14, 2);
   }
   
   private void addLineFields() {
