@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+(c) 2026 by Matthias Thiele
+DRS 2 Stellpult
+<#if licenseLast??>
+${licenseLast}
+</#if>
