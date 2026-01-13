@@ -5,7 +5,9 @@
 package de.mmth.drs2panel.fields;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -26,4 +28,12 @@ public class BaseField extends Pane {
     gc.setFill(Presets.FIELD_BACKGROUND);
     gc.fillRect(0,0, Presets.FIELD_WIDTH, Presets.FIELD_HEIGHT);
   }
+  
+  protected void drawBoxedText(GraphicsContext gc, String text, int left, int top, int width, int height, int leftOffset) {
+    gc.setFill(Presets.TEXT_BACKGROUND);
+    gc.fillRect(left, top, width, height);
+    gc.setFill(Color.BLACK);
+    gc.fillText(text, left + leftOffset, top + height - 3);
+  }
+  
 }

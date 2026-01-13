@@ -1,0 +1,15 @@
+/*
+(c) 2026 by Matthias Thiele
+DRS 2 Stellpult
+ */
+package de.mmth.drs2panel.fields;
+
+/**
+ *
+ * @author matthias
+ */
+public enum FieldType {
+  SCHLUESSELWEICHE1A,
+  SCHLUESSELWEICHE1B,
+  SCHLUESSELWEICHE1C
+}

@@ -44,11 +44,13 @@ public class FieldGrid extends GridPane {
     addStreckenblock();
     addLineFields();
     addWeichen();
+    addSchluesselweichen();
     addBahnhofsgleise();
     addCounter();
     addButtons();
     addMelder();
     addSignale();
+    addCustom();
     for (var col = 0; col < Presets.GRID_WIDTH; col++) {
       for (var row = 0; row < Presets.GRID_HEIGHT; row++) {
         if (!isSet[row * Presets.GRID_WIDTH + col]) {
@@ -72,6 +74,17 @@ public class FieldGrid extends GridPane {
     addField(w4, 11, 2);
     var w3 = new Weiche("W3", true, false);
     addField(w3, 12, 3);
+  }
+  
+  private void addSchluesselweichen() {
+    var slftIV = new Schluesselweiche("SlFT IV 13 III", 12);
+    addField(slftIV, 2, 1);
+    
+    var slftIII = new Schluesselweiche("SlFT III 10 IV", 10);
+    addField(slftIII, 3, 1);
+    
+    var slft1 = new Schluesselweiche("SlFT 1 I", 25);
+    addField(slft1, 8, 0);
   }
   
   private void addBahnhofsgleise() {
@@ -160,6 +173,17 @@ public class FieldGrid extends GridPane {
   private void addSignale() {
     var sigA = new SignalA();
     addField(sigA, 13,2);
+  }
+  
+  private void addCustom() {
+    var sw1A = new CustomDrawing(FieldType.SCHLUESSELWEICHE1A);
+    addField(sw1A, 13, 3);
+    
+    var sw1B = new CustomDrawing(FieldType.SCHLUESSELWEICHE1B);
+    addField(sw1B, 12, 4);
+    
+    var sw1C = new CustomDrawing(FieldType.SCHLUESSELWEICHE1C);
+    addField(sw1C, 11, 4);
   }
   
   private void addLineFields() {
