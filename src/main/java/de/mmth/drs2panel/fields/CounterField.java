@@ -14,7 +14,7 @@ public class CounterField extends BaseField {
 
   private final String name;
   private final Color buttonColor;
-  private int counterValue = 12345;
+  private int counterValue = 1234;
   
   public CounterField(String name, Color buttonColor) {
     this.name = name;
@@ -28,12 +28,15 @@ public class CounterField extends BaseField {
     var gc = canvas.getGraphicsContext2D();
     
     gc.setFill(Color.BLACK);
+    gc.fillRect(Presets.FIELD_WIDTH / 2 - 7, Presets.FIELD_HEIGHT / 5 * 2 + 1, Presets.FIELD_WIDTH / 3, Presets.MIDDLE_BAR_HEIGHT + 2);
+    gc.setFill(Color.WHITE);
     gc.fillText(Integer.toString(counterValue), Presets.FIELD_WIDTH / 2, Presets.FIELD_HEIGHT / 5 * 3);
+    gc.setFill(Color.BLACK);
     gc.fillText(name, Presets.FIELD_WIDTH / 2, Presets.FIELD_HEIGHT / 5 * 4);
     
     if (buttonColor != null) {
       gc.setFill(buttonColor);
-      gc.fillOval(Presets.LAMP_MARGIN, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);
+      gc.fillOval(2 * Presets.LAMP_MARGIN, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);
     }
   }
 }

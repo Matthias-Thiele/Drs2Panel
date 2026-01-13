@@ -48,6 +48,7 @@ public class FieldGrid extends GridPane {
     addCounter();
     addButtons();
     addMelder();
+    addSignale();
     for (var col = 0; col < Presets.GRID_WIDTH; col++) {
       for (var row = 0; row < Presets.GRID_HEIGHT; row++) {
         if (!isSet[row * Presets.GRID_WIDTH + col]) {
@@ -154,6 +155,11 @@ public class FieldGrid extends GridPane {
     
     var blk = new Blinklicht();
     addField(blk, 2, 4);
+  }
+  
+  private void addSignale() {
+    var sigA = new SignalA();
+    addField(sigA, 13,2);
   }
   
   private void addLineFields() {
