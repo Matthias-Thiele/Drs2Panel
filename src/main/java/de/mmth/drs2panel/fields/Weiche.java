@@ -32,7 +32,10 @@ public class Weiche extends BaseField {
     gc = canvas.getGraphicsContext2D();
     gc.setFill(Color.BLACK);
     gc.fillRect(0, Presets.MIDDLE_BAR_START, Presets.FIELD_WIDTH, Presets.MIDDLE_BAR_HEIGHT);
-    gc.fillText(name, toLeft ? Presets.FIELD_WIDTH / 5 * 3 : Presets.LAMP_MARGIN, Presets.FIELD_HEIGHT / 5);
+    //gc.fillText(name, toLeft ? Presets.FIELD_WIDTH / 5 * 3 : Presets.LAMP_MARGIN, Presets.FIELD_HEIGHT / 5);
+    var left = toLeft ? Presets.FIELD_WIDTH / 5 * 4 : Presets.LAMP_MARGIN;
+    var offset = (name.length() == 1) ? 10 : 4;
+    drawBoxedText(gc, name,  left, Presets.FIELD_HEIGHT / 12, Presets.FIELD_WIDTH / 5, Presets.FIELD_HEIGHT / 5, offset);
     if (toLeft) {
       if (toBottom) {
         drawLeftBottom();

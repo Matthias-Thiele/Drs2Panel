@@ -62,17 +62,17 @@ public class FieldGrid extends GridPane {
   }
   
   private void addWeichen() {
-    var w20 = new Weiche("W20", false, false);
+    var w20 = new Weiche("20", false, false);
     addField(w20, 1, 3);
-    var w19 = new Weiche("W19", true, true);
+    var w19 = new Weiche("19", true, true);
     addField(w19, 2, 2);
-    var w18 = new Weiche("W18", false, false);
+    var w18 = new Weiche("18", false, false);
     addField(w18, 3, 2);
-    var w5 = new Weiche("W5", true, false);
+    var w5 = new Weiche("5", true, false);
     addField(w5, 10, 2);
-    var w4 = new Weiche("W4", false, true);
+    var w4 = new Weiche("4", false, true);
     addField(w4, 11, 2);
-    var w3 = new Weiche("W3", true, false);
+    var w3 = new Weiche("3", true, false);
     addField(w3, 12, 3);
   }
   

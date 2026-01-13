@@ -28,11 +28,11 @@ public class CounterField extends BaseField {
     var gc = canvas.getGraphicsContext2D();
     
     gc.setFill(Color.BLACK);
-    gc.fillRect(Presets.FIELD_WIDTH / 2 - 7, Presets.FIELD_HEIGHT / 5 * 2 + 1, Presets.FIELD_WIDTH / 3, Presets.MIDDLE_BAR_HEIGHT + 2);
+    gc.fillRect(Presets.FIELD_WIDTH / 2 - 7, Presets.FIELD_HEIGHT / 5 * 2 + 1, Presets.FIELD_WIDTH / 5 * 2, Presets.MIDDLE_BAR_HEIGHT + 2);
     gc.setFill(Color.WHITE);
-    gc.fillText(Integer.toString(counterValue), Presets.FIELD_WIDTH / 2, Presets.FIELD_HEIGHT / 5 * 3);
+    gc.fillText(Integer.toString(counterValue), Presets.FIELD_WIDTH / 2 + 8, Presets.FIELD_HEIGHT / 5 * 3);
     gc.setFill(Color.BLACK);
-    gc.fillText(name, Presets.FIELD_WIDTH / 2, Presets.FIELD_HEIGHT / 5 * 4);
+    drawBoxedText(gc, name,Presets.FIELD_WIDTH / 2 - 7, Presets.FIELD_HEIGHT / 5 * 4 - 5, Presets.FIELD_WIDTH / 5 * 2, Presets.FIELD_HEIGHT / 5, 5);
     
     if (buttonColor != null) {
       gc.setFill(buttonColor);

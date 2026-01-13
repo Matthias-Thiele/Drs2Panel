@@ -35,7 +35,7 @@ public class Melder extends BaseField {
     var gc = canvas.getGraphicsContext2D();
     if (!name.isEmpty()) {
       gc.setFill(Color.BLACK);
-      gc.fillText(name, 2 * achtel + 3, Presets.FIELD_HEIGHT / 5 * 4 + 5);
+      drawBoxedText(gc, name,  2 * achtel, Presets.FIELD_HEIGHT / 5 * 3 + 5, Presets.FIELD_WIDTH / 2, Presets.FIELD_HEIGHT / 5, 3);
     }
     
     if (!leftView.isEmpty()) {

@@ -30,8 +30,8 @@ public class DualButton extends BaseField {
     
     var gc = canvas.getGraphicsContext2D();
     gc.setFill(Color.BLACK);
-    gc.fillText(leftName, Presets.FIELD_WIDTH / 5 - 15, Presets.FIELD_HEIGHT / 5 * 4 + 5);
-    gc.fillText(rightName, Presets.FIELD_WIDTH / 5 * 3 + 8, Presets.FIELD_HEIGHT / 5 * 4 + 5);
+    drawBoxedText(gc, leftName, Presets.FIELD_WIDTH / 5 - 15, Presets.FIELD_HEIGHT / 5 * 3 + 9, Presets.FIELD_WIDTH /3, Presets.FIELD_HEIGHT / 5, 8);
+    drawBoxedText(gc, rightName, Presets.FIELD_WIDTH / 5 * 3 - 4, Presets.FIELD_HEIGHT / 5 * 3 + 9, Presets.FIELD_WIDTH /3, Presets.FIELD_HEIGHT / 5, 8);
     
     gc.setFill(leftColor);
     gc.fillOval((Presets.FIELD_WIDTH - Presets.BUTTON_DIAMETER) / 5 - 5, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);

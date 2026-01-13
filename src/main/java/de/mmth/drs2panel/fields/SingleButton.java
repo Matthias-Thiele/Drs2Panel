@@ -25,7 +25,8 @@ public class SingleButton extends BaseField {
     
     var gc = canvas.getGraphicsContext2D();
     gc.setFill(Color.BLACK);
-    gc.fillText(name, Presets.FIELD_WIDTH / 5 * 2, Presets.FIELD_HEIGHT / 5 * 4 + 5);
+    drawBoxedText(gc, name, Presets.FIELD_WIDTH / 5 * 2 - 8, Presets.FIELD_HEIGHT / 5 * 3 + 9, Presets.FIELD_WIDTH /3, Presets.FIELD_HEIGHT / 5, 8);
+    //gc.fillText(name, Presets.FIELD_WIDTH / 5 * 2, Presets.FIELD_HEIGHT / 5 * 4 + 5);
     
     gc.setFill(color);
     gc.fillOval((Presets.FIELD_WIDTH - Presets.BUTTON_DIAMETER) / 5 * 2 + 10, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);
