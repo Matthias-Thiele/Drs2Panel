@@ -47,6 +47,7 @@ public class FieldGrid extends GridPane {
     addBahnhofsgleise();
     addCounter();
     addButtons();
+    addMelder();
     for (var col = 0; col < Presets.GRID_WIDTH; col++) {
       for (var row = 0; row < Presets.GRID_HEIGHT; row++) {
         if (!isSet[row * Presets.GRID_WIDTH + col]) {
@@ -133,6 +134,23 @@ public class FieldGrid extends GridPane {
     
     var vbhtm = new SingleButton("VbHT", Color.BLACK);
     addField(vbhtm, 14, 4);
+  }
+  
+  private void addMelder() {
+    var wut = new Melder("S|WuT|W", "S", "W", Color.WHITE, Color.WHITE);
+    addField(wut, 4, 0);
+    
+    var unkn = new Melder("", "A", "B", null, null);
+    addField(unkn, 12, 1);
+    
+    var tu = new Melder("", "TÜ", "", null, null);
+    addField(tu, 3, 4);
+    
+    var unkn2 = new Melder("", "Ukn", "", null, null);
+    addField(unkn2, 1, 4);
+    
+    var blk = new Blinklicht();
+    addField(blk, 2, 4);
   }
   
   private void addLineFields() {
