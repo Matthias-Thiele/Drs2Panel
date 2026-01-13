@@ -46,6 +46,7 @@ public class FieldGrid extends GridPane {
     addWeichen();
     addBahnhofsgleise();
     addCounter();
+    addButtons();
     for (var col = 0; col < Presets.GRID_WIDTH; col++) {
       for (var row = 0; row < Presets.GRID_HEIGHT; row++) {
         if (!isSet[row * Presets.GRID_WIDTH + col]) {
@@ -112,6 +113,26 @@ public class FieldGrid extends GridPane {
     
     var rbhgt = new CounterField("RbHGT", Color.BLACK);
     addField(rbhgt, 13, 1);
+  }
+  
+  private void addButtons() {
+    var wgtsgt = new DualButton("WGT", Color.NAVY, "SGT", Color.RED);
+    addField(wgtsgt, 1, 0);
+    
+    var hagtslflt = new DualButton("HaGT", Color.RED, "SlFLT", Color.WHITE);
+    addField(hagtslflt, 2, 0);
+    
+    var vbhth = new SingleButton("VbHT", Color.BLACK);
+    addField(vbhth, 0, 1);
+    
+    var bgt = new SingleButton("BlGT", Color.BLACK);
+    addField(bgt, 5, 0);
+    
+    var aslt = new SingleButton("AsLT", Color.WHITE);
+    addField(aslt, 13, 0);
+    
+    var vbhtm = new SingleButton("VbHT", Color.BLACK);
+    addField(vbhtm, 14, 4);
   }
   
   private void addLineFields() {
