@@ -21,6 +21,7 @@ public class CounterField extends BaseField {
     this.buttonColor = buttonColor;
   }
   
+  @Override
   public void update() {
     super.update();
     
@@ -30,7 +31,9 @@ public class CounterField extends BaseField {
     gc.fillText(Integer.toString(counterValue), Presets.FIELD_WIDTH / 2, Presets.FIELD_HEIGHT / 5 * 3);
     gc.fillText(name, Presets.FIELD_WIDTH / 2, Presets.FIELD_HEIGHT / 5 * 4);
     
-    gc.setFill(buttonColor);
-    gc.fillOval(Presets.LAMP_MARGIN, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);
+    if (buttonColor != null) {
+      gc.setFill(buttonColor);
+      gc.fillOval(Presets.LAMP_MARGIN, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);
+    }
   }
 }

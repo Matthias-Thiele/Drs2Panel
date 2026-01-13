@@ -114,6 +114,9 @@ public class FieldGrid extends GridPane {
     
     var rbhgt = new CounterField("RbHGT", Color.BLACK);
     addField(rbhgt, 13, 1);
+    
+    var af = new CounterField("Af", null);
+    addField(af, 10, 1);
   }
   
   private void addButtons() {
