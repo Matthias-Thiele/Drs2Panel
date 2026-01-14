@@ -36,4 +36,10 @@ public class BaseField extends Pane {
     gc.fillText(text, left + leftOffset, top + height - 3);
   }
   
+  protected void drawShield(GraphicsContext gc, int left, int top, int width, int height) {
+    gc.fillOval(left, top, height, height);
+    gc.fillOval(left + width, top, height, height);
+    gc.fillRect(left + height / 2, top, width, height);
+  }
+  
 }

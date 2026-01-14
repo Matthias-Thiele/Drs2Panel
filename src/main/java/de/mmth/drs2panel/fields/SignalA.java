@@ -69,9 +69,7 @@ public class SignalA extends BaseField {
     gc.fillText("A", Presets.FIELD_WIDTH / 5 * 3, siebtel * 6);
     
     // Hauptsignalfeld
-    gc.fillOval(14, 9, 19, 19);
-    gc.fillOval(36, 9, 19, 19);
-    gc.fillRect(24, 9, 22, 19);
+    drawShield(gc, 14, 9, 22, 19);
     
     gc.beginPath();
     gc.moveTo(40, 17);

@@ -173,6 +173,12 @@ public class FieldGrid extends GridPane {
   private void addSignale() {
     var sigA = new SignalA();
     addField(sigA, 13,2);
+    
+    var sigP3 = new SignalP("P3", false, true);
+    addField(sigP3, 9, 1);
+    
+    var sigP1 = new SignalP("P1", true, false);
+    addField(sigP1, 9, 3);
   }
   
   private void addCustom() {
