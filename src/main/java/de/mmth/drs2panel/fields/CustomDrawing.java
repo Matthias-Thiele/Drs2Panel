@@ -56,8 +56,26 @@ public class CustomDrawing extends BaseField {
         drawSW4B(gc);
         break;
         
-      
+      case TASTENKAPPEN:
+        drawKappen(gc);
+        break;
     }
+  }
+  
+  private void drawKappen(GraphicsContext gc) {
+    var top = Presets.FIELD_HEIGHT / 10;
+    var step = Presets.FIELD_WIDTH / 9;
+    var bigRadius = 30;
+    var smallRadius = 18;
+    gc.setFill(Color.RED);
+    gc.fillOval(step, top, bigRadius, bigRadius);
+    gc.fillOval(4 * step, top, bigRadius, bigRadius);
+    gc.setFill(Color.NAVY);
+    gc.fillOval(step, 5 * top, bigRadius, bigRadius);
+    gc.fillOval(4 * step, 5 * top, bigRadius, bigRadius);
+    gc.setFill(Color.GRAY);
+    gc.fillOval(7 * step + 4, top + 6, smallRadius, smallRadius);
+    gc.fillOval(7 * step + 4, 5 * top + 6, smallRadius, smallRadius);
   }
   
   private void drawSW4A(GraphicsContext gc) {

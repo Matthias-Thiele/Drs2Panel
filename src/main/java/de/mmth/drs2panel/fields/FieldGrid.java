@@ -123,6 +123,9 @@ public class FieldGrid extends GridPane {
     var wht = new CounterField("WHT", Color.NAVY);
     addField(wht, 10, 0);
     
+    var ukn = new CounterField("???", Color.RED);
+    addField(ukn, 11, 0);
+    
     var ast = new CounterField("AsT", Color.BLACK);
     addField(ast, 12, 0);
     
@@ -217,6 +220,9 @@ public class FieldGrid extends GridPane {
     
     var sw4B = new CustomDrawing(FieldType.SCHLUESSELWEICHE4B);
     addField(sw4B, 6, 1);
+    
+    var kappen = new CustomDrawing(FieldType.TASTENKAPPEN);
+    addField(kappen, 0, 0);
   }
   
   private void addLineFields() {
