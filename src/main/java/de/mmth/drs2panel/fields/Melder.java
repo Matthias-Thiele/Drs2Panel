@@ -41,7 +41,7 @@ public class Melder extends BaseField {
     if (!leftView.isEmpty()) {
       gc.setFill(Color.LIGHTYELLOW);
       gc.fillRect(achtel, achtel, 2 * achtel, 2 * achtel - 8);
-      gc.setFill(Color.YELLOW);
+      gc.setFill(Color.SILVER);
       gc.fillText(leftView, achtel, 2 * achtel);
     }
     
@@ -53,7 +53,7 @@ public class Melder extends BaseField {
     if (!rightView.isEmpty()) {
       gc.setFill(Color.LIGHTYELLOW);
       gc.fillRect(Presets.FIELD_WIDTH - 3 * achtel, achtel, 2 * achtel, 2 * achtel - 8);
-      gc.setFill(Color.YELLOW);
+      gc.setFill(Color.SILVER);
       gc.fillText(rightView, Presets.FIELD_WIDTH - 3 * achtel, 2 * achtel);
     }
     

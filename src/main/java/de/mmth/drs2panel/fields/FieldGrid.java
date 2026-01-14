@@ -123,8 +123,8 @@ public class FieldGrid extends GridPane {
     var wht = new CounterField("WHT", Color.NAVY);
     addField(wht, 10, 0);
     
-    var ukn = new CounterField("???", Color.RED);
-    addField(ukn, 11, 0);
+    var azgrt = new CounterField("AZGRT", Color.RED);
+    addField(azgrt, 11, 0);
     
     var ast = new CounterField("AsT", Color.BLACK);
     addField(ast, 12, 0);
@@ -160,14 +160,14 @@ public class FieldGrid extends GridPane {
     var wut = new Melder("S|WuT|W", "S", "W", Color.WHITE, Color.WHITE);
     addField(wut, 4, 0);
     
-    var unkn = new Melder("", "A", "B", null, null);
+    var unkn = new Melder("", "MJI", "MJII", null, null);
     addField(unkn, 12, 1);
     
     var tu = new Melder("", "TÜ", "", null, null);
     addField(tu, 3, 4);
     
-    var unkn2 = new Melder("", "Ukn", "", null, null);
-    addField(unkn2, 1, 4);
+    var zsm = new Melder("", "ZSM", "", null, null);
+    addField(zsm, 11, 1);
     
     var blk = new Blinklicht();
     addField(blk, 2, 4);
