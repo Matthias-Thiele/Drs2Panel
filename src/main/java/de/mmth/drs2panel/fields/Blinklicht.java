@@ -24,6 +24,6 @@ public class Blinklicht extends BaseField {
     
     gc.setFill(Color.GRAY);
     gc.fillText("Blinklicht", 1.5 * fuenftelw, 3 * achtelh);
-    gc.fillText("Störung", 1.5 * fuenftelw, 5 * achtelh);
+    gc.fillText(" Störung", 1.5 * fuenftelw, 5 * achtelh);
   }
 }

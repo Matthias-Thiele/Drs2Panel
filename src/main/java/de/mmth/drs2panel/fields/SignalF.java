@@ -155,7 +155,7 @@ public class SignalF extends BaseField {
   }
   
   private Color getColor5() {
-    return Color.LIGHTYELLOW;
+    return Color.YELLOW;
   }
   
   private Color getColorErsatz() {
