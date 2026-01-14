@@ -16,7 +16,6 @@ public class SignalA extends BaseField {
   public void update() {
     super.update();
     
-    var siebtel = Presets.FIELD_HEIGHT / 7;
     var gc = canvas.getGraphicsContext2D();
     drawBackground(gc);
     
@@ -128,7 +127,7 @@ public class SignalA extends BaseField {
   }
   
   private Color getColor3() {
-    return Color.ORANGE;
+    return Color.GREEN;
   }
   
   private Color getColor4() {

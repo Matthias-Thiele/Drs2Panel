@@ -174,6 +174,9 @@ public class FieldGrid extends GridPane {
     var sigA = new SignalA();
     addField(sigA, 13,2);
     
+    var sigF = new SignalF();
+    addField(sigF, 0,3);
+    
     var sigN3 = new SignalN("N3", true);
     addField(sigN3, 4, 1);
     
