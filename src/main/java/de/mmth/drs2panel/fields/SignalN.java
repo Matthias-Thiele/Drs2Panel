@@ -18,6 +18,9 @@ public class SignalN extends BaseField {
   public SignalN(String name, boolean hasDrop) {
     this.name = name;
     this.hasDrop = hasDrop;
+    this.setOnMouseClicked(ev -> {
+      ButtonHandler.add(this, 1000, 14);
+    });    
   }
   
   @Override

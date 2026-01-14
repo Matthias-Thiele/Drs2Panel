@@ -22,6 +22,10 @@ public class DualButton extends BaseField {
     this.rightName = rightName;
     this.leftColor = leftColor;
     this.rightColor = rightColor;
+    this.setOnMouseClicked(ev -> {
+      boolean left = ev.getX() < Presets.FIELD_WIDTH / 2;
+      ButtonHandler.add(this, 2500, left ? 50 : 60);
+    });
   }
   
   @Override

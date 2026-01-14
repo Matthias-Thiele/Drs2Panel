@@ -23,6 +23,9 @@ public class Weiche extends BaseField {
     this.name = name;
     this.toLeft = toLeft;
     this.toBottom = toBottom;
+    this.setOnMouseClicked(ev -> {
+      ButtonHandler.add(this, 1500, 23);
+    });
   }
   
   @Override

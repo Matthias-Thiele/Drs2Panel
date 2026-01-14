@@ -19,6 +19,11 @@ public class CounterField extends BaseField {
   public CounterField(String name, Color buttonColor) {
     this.name = name;
     this.buttonColor = buttonColor;
+    this.setOnMouseClicked(ev -> {
+      counterValue++;
+      update();
+      ButtonHandler.add(this, 1500, 13);
+    });
   }
   
   @Override

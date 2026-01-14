@@ -21,6 +21,9 @@ public class StreckeIn extends BaseField {
     this.name = name;
     this.toLeft = toLeft;
     this.withStrecke = withStrecke;
+    this.setOnMouseClicked(ev -> {
+      ButtonHandler.add(this, 1500, 41);
+    });    
   }
   
   @Override

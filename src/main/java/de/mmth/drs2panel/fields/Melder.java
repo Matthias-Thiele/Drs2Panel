@@ -24,6 +24,10 @@ public class Melder extends BaseField {
     this.rightView = rightView;
     this.leftButtonColor = leftButton;
     this.rightButtonColor = rightButton;
+    this.setOnMouseClicked(ev -> {
+      boolean left = ev.getX() < Presets.FIELD_WIDTH / 2;
+      ButtonHandler.add(this, 2500, left ? 51 : 61);
+    });
   }
   
   @Override

@@ -19,6 +19,9 @@ public class Schluesselweiche extends BaseField {
   public Schluesselweiche(String name, int textOffset) {
     this.name = name;
     this.textOffset = textOffset;
+    this.setOnMouseClicked(ev -> {
+      ButtonHandler.add(this, 2500, 8);
+    });
   }
   
   @Override

@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 public class BaseField extends Pane {
 
   protected final Canvas canvas;
+  protected boolean isPressed = false;
   
   public BaseField() {
     this.setStyle("-fx-border-color: black");
@@ -27,6 +28,11 @@ public class BaseField extends Pane {
     var gc = canvas.getGraphicsContext2D();
     gc.setFill(Presets.FIELD_BACKGROUND);
     gc.fillRect(0,0, Presets.FIELD_WIDTH, Presets.FIELD_HEIGHT);
+  }
+  
+  public void setButtonPressed(boolean setPressed) {
+    isPressed = setPressed;
+    this.setStyle(isPressed ? "-fx-border-color: red" : "-fx-border-color: black");
   }
   
   protected void drawBoxedText(GraphicsContext gc, String text, int left, int top, int width, int height, int leftOffset) {

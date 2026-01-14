@@ -17,6 +17,9 @@ public class SingleButton extends BaseField {
   public SingleButton(String name, Color color) {
     this.name = name;
     this.color = color;
+    this.setOnMouseClicked(ev -> {
+      ButtonHandler.add(this, 2500, 63);
+    });
   }
   
   @Override

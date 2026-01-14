@@ -21,13 +21,15 @@ public class SignalP extends BaseField {
     this.name = name;
     this.hasErsatz = hasErsatz;
     this.hasDrop = hasDrop;
+    this.setOnMouseClicked(ev -> {
+      ButtonHandler.add(this, 1000, 13);
+    });    
   }
   
   @Override
   public void update() {
     super.update();
     
-    var siebtel = Presets.FIELD_HEIGHT / 7;
     var gc = canvas.getGraphicsContext2D();
     drawBackground(gc);
     

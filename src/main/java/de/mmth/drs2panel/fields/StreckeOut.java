@@ -19,6 +19,9 @@ public class StreckeOut extends BaseField {
     super();
     this.name = name;
     this.toLeft = toLeft;
+    this.setOnMouseClicked(ev -> {
+      ButtonHandler.add(this, 1500, 42);
+    });    
   }
   
   @Override

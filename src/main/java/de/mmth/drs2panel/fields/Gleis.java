@@ -17,6 +17,9 @@ public class Gleis extends BaseField {
   public Gleis(String name) {
     super();
     this.name = name;
+    this.setOnMouseClicked(ev -> {
+      ButtonHandler.add(this, 1000, 7);
+    });
   }
   
   @Override
