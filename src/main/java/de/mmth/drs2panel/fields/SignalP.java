@@ -34,19 +34,19 @@ public class SignalP extends BaseField {
     gc.setFill(Color.GRAY);
     gc.fillOval((Presets.FIELD_WIDTH - Presets.BUTTON_DIAMETER) / 2, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);
     
-    int leftFahrt = 46;
-    int leftHalt = 67;
+    int leftFahrt = 67;
+    int leftHalt = 46;
     int leftRangier = 20;
     int rangierTop = 59;
     if (hasErsatz) {
-      leftFahrt = 85;
-      leftHalt = 107;
+      leftFahrt = 107;
+      leftHalt = 85;
       leftRangier = 35;
       gc.setFill(getErsatz());
       gc.beginPath();
-      gc.moveTo(leftFahrt - 18, rangierTop);
-      gc.lineTo(leftFahrt - 10 , rangierTop + 6);
-      gc.lineTo(leftFahrt - 18, rangierTop + 12);
+      gc.moveTo(leftHalt - 18, rangierTop);
+      gc.lineTo(leftHalt - 10 , rangierTop + 6);
+      gc.lineTo(leftHalt - 18, rangierTop + 12);
       gc.fill();
     }
     gc.setFill(getFahrt());

@@ -30,15 +30,15 @@ public class SignalN extends BaseField {
     gc.setFill(Color.GRAY);
     gc.fillOval((Presets.FIELD_WIDTH - Presets.BUTTON_DIAMETER) / 2, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);
     
-    int leftFahrt = 42;
-    int leftHalt = 21;
+    int leftFahrt = 21;
+    int leftHalt = 42;
     int leftRangier = 95;
     int rangierTop = 9;
     gc.setFill(getErsatz());
     gc.beginPath();
-    gc.moveTo(leftFahrt + 31, rangierTop);
-    gc.lineTo(leftFahrt + 23 , rangierTop + 6);
-    gc.lineTo(leftFahrt + 31, rangierTop + 12);
+    gc.moveTo(leftHalt + 31, rangierTop);
+    gc.lineTo(leftHalt + 23 , rangierTop + 6);
+    gc.lineTo(leftHalt + 31, rangierTop + 12);
     gc.fill();
     gc.setFill(getFahrt());
     gc.fillOval(leftFahrt, rangierTop, 11, 11);

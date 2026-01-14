@@ -120,11 +120,11 @@ public class SignalA extends BaseField {
   }
   
   private Color getColor1() {
-    return Color.RED;
+    return Color.GRAY;
   }
   
   private Color getColor2() {
-    return Color.GRAY;
+    return Color.RED;
   }
   
   private Color getColor3() {
