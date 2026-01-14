@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
  * @author matthias
  */
 public class FieldGrid extends GridPane {
-  private final static int[] LINE_FIELD_LIST = {5, 1, 6, 1, 1, 2, 5, 2, 6,2, 7, 2, 9, 2, 12, 2, 2, 3, 3, 3, 4, 3, 7, 3, 10, 3, 11, 3};
+  private final static int[] LINE_FIELD_LIST = {5, 1, 1, 2, 5, 2, 6,2, 7, 2, 9, 2, 12, 2, 2, 3, 3, 3, 4, 3, 7, 3, 10, 3, 11, 3};
   
   private final List<BaseField> allFields = new ArrayList<>();
   private final boolean[] isSet = new boolean[Presets.GRID_WIDTH * Presets.GRID_HEIGHT];
@@ -190,6 +190,21 @@ public class FieldGrid extends GridPane {
     
     var sw1C = new CustomDrawing(FieldType.SCHLUESSELWEICHE1C);
     addField(sw1C, 11, 4);
+    
+    var sw3A = new CustomDrawing(FieldType.SCHLUESSELWEICHE3A);
+    addField(sw3A, 5, 3);
+    
+    var sw3B = new CustomDrawing(FieldType.SCHLUESSELWEICHE3B);
+    addField(sw3B, 5, 4);
+    
+    var sw3C = new CustomDrawing(FieldType.SCHLUESSELWEICHE3C);
+    addField(sw3C, 6, 4);
+    
+    var sw4A = new CustomDrawing(FieldType.SCHLUESSELWEICHE4A);
+    addField(sw4A, 7, 1);
+    
+    var sw4B = new CustomDrawing(FieldType.SCHLUESSELWEICHE4B);
+    addField(sw4B, 6, 1);
   }
   
   private void addLineFields() {
