@@ -4,6 +4,7 @@
  */
 package de.mmth.drs2panel.fields;
 
+import de.mmth.drs2panel.io.Drs2;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -17,6 +18,7 @@ public class BaseField extends Pane {
 
   protected final Canvas canvas;
   protected boolean isPressed = false;
+  protected Drs2 drs2;
   
   public BaseField() {
     this.setStyle("-fx-border-color: black");
@@ -29,6 +31,12 @@ public class BaseField extends Pane {
     gc.setFill(Presets.FIELD_BACKGROUND);
     gc.fillRect(0,0, Presets.FIELD_WIDTH, Presets.FIELD_HEIGHT);
   }
+  
+  public void setDrs2(Drs2 drs2) {
+    this.drs2 = drs2;
+  }
+  
+  public void checkedUpdate(){};
   
   public void setButtonPressed(boolean setPressed) {
     isPressed = setPressed;

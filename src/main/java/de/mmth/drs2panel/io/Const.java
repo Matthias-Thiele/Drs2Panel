@@ -128,4 +128,17 @@ public class Const {
     // Relaisblock
     public static final int StreckeNachAH = 123;
     public static final int StreckeVonAH = 124;
+    
+    // Bahnhofsgleise
+    public static final int Gleis1Weiss = 30;
+    public static final int Gleis1Rot = 31;
+    public static final int Gleis2Weiss = 28;
+    public static final int Gleis2Rot = 29;
+    public static final int Gleis3Weiss = 26;
+    public static final int Gleis3Rot = 27;
+    public static final int GleisAWeiss = 41;
+    public static final int GleisARot = 40;
+    public static final int GleisFWeiss = 55;
+    public static final int GleisFRot = 54;
+    
 }

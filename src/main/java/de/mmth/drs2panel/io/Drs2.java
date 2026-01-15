@@ -1,0 +1,194 @@
+/*
+(c) 2026 by Matthias Thiele
+DRS 2 Stellpult
+ */
+package de.mmth.drs2panel.io;
+
+
+/**
+ *
+ * @author matthias
+ */
+public class Drs2 {
+  private final static int OUTPUT_BYTE_COUNT = 14;
+  private final static int IO_START = 120;
+  private static final int MAX_LAMPS = 136;
+  private static final int MAX_SWITCHES = 64;
+  private static final int BUFFER_SIZE = 32;
+  
+  private boolean[] lamps = new boolean[MAX_LAMPS];
+  private boolean[] switches = new boolean[MAX_SWITCHES];
+  private boolean switchesDirty = false;
+  private boolean lampsChanged = false;
+  
+  private byte[] receiveBuffer = new byte[BUFFER_SIZE];
+  private byte[] transmitBuffer = new byte[BUFFER_SIZE];
+
+  private byte[] receiveIBuffer = new byte[BUFFER_SIZE];
+  private byte[] transmitIBuffer = new byte[BUFFER_SIZE];
+
+  public enum CommandState {
+    WAIT,
+    OUT_STARTED,
+    OUT_TERMINATED,
+    IN_QUERY,
+    IO_RUNNING,
+    IO_DONE
+  }
+  
+  private Uart uartD, uartIO;
+  private CommandState actState = CommandState.WAIT;
+  private int outCount = 0;
+  private CommandState actIState = CommandState.WAIT;
+  private int outICount = 0;
+  
+  public Drs2() {
+    uartD = new Uart("/dev/ttyUSB2");
+    uartIO = new Uart("/dev/ttyUSB3");
+  }
+  
+  public void tick(long now) {
+    tickD(now);
+    tickIO(now);
+  }
+  
+  public void tickD(long now) {
+    if (uartD.check()) {
+      byte next = uartD.readByte();
+      switch (actState) {
+        case WAIT:
+        switch (next) {
+          case 'C':
+            actState = CommandState.OUT_STARTED;
+            outCount = 0;
+            break;
+          case 'Q':
+            sendInputs();
+            break;
+          default:
+            break;
+        }
+          break;
+
+          
+        case OUT_STARTED:
+          receiveBuffer[outCount++] = next;
+          if (outCount == OUTPUT_BYTE_COUNT) {
+            actState = CommandState.OUT_TERMINATED;
+          }
+          break;
+        
+        case OUT_TERMINATED:
+          if (next == 'X') {
+            fillLamps();
+          } else {
+            System.out.println("Invalid termination");
+          }
+          actState = CommandState.WAIT;
+          break;
+      }
+    }
+  }
+  
+  public void tickIO(long now) {
+    if (uartIO.check()) {
+      byte next = uartIO.readByte();
+      switch (actState) {
+        case WAIT:
+          if (next == 'X') {
+            actIState = CommandState.IO_RUNNING;
+            outICount = 0;
+          }
+          break;
+
+        case IO_RUNNING:
+          if (next == 'y') {
+            actIState = CommandState.IO_DONE;
+          }
+          receiveIBuffer[outICount++] = next;
+          break;
+          
+        case IO_DONE:
+          for (var i = 0; i < outICount; i++) {
+            byte c = receiveIBuffer[i];
+            boolean isSet = c >= 'a';
+            int pos = (c - 'A') & 0x1f;
+            lamps[IO_START + pos] = isSet;
+          }
+      }
+    }
+  }
+  
+  private void fillLamps() {
+    var lampPos = 0;
+    for (var i = 0; i < OUTPUT_BYTE_COUNT; i++) {
+      byte val = receiveBuffer[i];
+      for (var j = 0; j < 8; j++) {
+        lamps[lampPos++] = (val & 1) == 1;
+        val >>= 1;
+      }
+    }
+    
+    lampsChanged = true;
+  }
+  
+  private void fillTransmitBufferByte(int bufferPos, int bitPos) {
+    byte value = 0;
+    byte mask = 1;
+    for (var i = 0; i < 8; i++) {
+      if (switches[bitPos + i]) {
+        value |= mask;
+      }
+      
+      mask <<= 1;
+    }
+    
+    transmitBuffer[bufferPos] = value;
+  }
+  
+  private void fillTransmitBufferD() {
+    transmitBuffer[0] = 'B';
+    for (var i = 0; i < 6; i++) {
+      fillTransmitBufferByte(i + 1, i << 3);
+    }
+    transmitBuffer[8] = 'X';
+  }
+  
+  private void fillTransmitBufferIO() {
+    fillTransmitBufferByte(0, 48);
+    fillTransmitBufferByte(1, 56);
+  }
+  
+  private void sendInputs() {
+    fillTransmitBufferD();
+    uartD.sendBytes(transmitBuffer, 0, 8);
+
+    fillTransmitBufferIO();
+    uartIO.send("Z5");
+    int ioVal = (transmitBuffer[0] & 0xff) + ((transmitBuffer[1] & 0xff) << 8) + 0x50000;
+    uartIO.send(Integer.toHexString(ioVal));
+    uartIO.send("T");
+  }
+  
+  public void checkSend() {
+    if (switchesDirty) {
+      System.out.println("Send switch state.");
+      switchesDirty = false;
+    }
+  }
+  
+  public boolean checkReceived() {
+    boolean result = lampsChanged;
+    lampsChanged = false;
+    return result;
+  }
+  
+  public void setSwitch(int id, boolean newValue) {
+    switchesDirty |= switches[id] != newValue;
+    switches[id] = newValue;
+  }
+  
+  public boolean getLampState(int id) {
+    return lamps[id];
+  }
+}

@@ -2,7 +2,7 @@ package de.mmth.drs2panel;
 
 import de.mmth.drs2panel.fields.FieldGrid;
 import de.mmth.drs2panel.fields.IOGrid;
-import de.mmth.drs2panel.io.Uart;
+import de.mmth.drs2panel.io.Drs2;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -16,7 +16,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        var uart = new Uart();
+        var uart = new Drs2();
         
         var grid = new FieldGrid(uart);
         var io = new IOGrid(uart);

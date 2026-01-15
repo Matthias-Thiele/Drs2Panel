@@ -11,14 +11,19 @@ import javafx.scene.paint.Color;
  * @author matthias
  */
 public class Gleis extends BaseField {
-
+  private final static int LampWhite = 0;
+  private final static int LampRed = 1;
+  
   private final String name;
   private final int ioId;
+  private final int[] lampIds;
+  private final boolean[] lampState = new boolean[2];
   
-  public Gleis(String name, int id) {
+  public Gleis(String name, int id, int[] lampIds) {
     super();
     this.name = name;
     this.ioId = id;
+    this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 1000, ioId);
     });
@@ -41,6 +46,24 @@ public class Gleis extends BaseField {
   }
   
   private Color getGleisColor() {
-    return Color.RED;
+    if (lampState[LampRed]) {
+      return Presets.RED_LAMP;
+    } else if (lampState[LampWhite]) {
+      return Color.LIGHTYELLOW;
+    } else {
+      return Presets.DARK_LAMP;
+    }
+  }
+  
+  @Override
+  public void checkedUpdate() {
+    boolean wh = drs2.getLampState(lampIds[LampWhite]);
+    boolean rd = drs2.getLampState(lampIds[LampRed]);
+    
+    if (wh != lampState[LampWhite] || rd != lampState[LampRed]) {
+      lampState[LampWhite] = wh;
+      lampState[LampRed] = rd;
+      update();
+    }
   }
 }

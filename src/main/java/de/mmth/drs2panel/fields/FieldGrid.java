@@ -5,7 +5,7 @@ DRS 2 Stellpult
 package de.mmth.drs2panel.fields;
 
 import de.mmth.drs2panel.io.Const;
-import de.mmth.drs2panel.io.Uart;
+import de.mmth.drs2panel.io.Drs2;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.AnimationTimer;
@@ -24,10 +24,10 @@ public class FieldGrid extends GridPane {
   private final List<BaseField> allFields = new ArrayList<>();
   private final boolean[] isSet = new boolean[Presets.GRID_WIDTH * Presets.GRID_HEIGHT];
   
-  private final Uart drs2;
+  private final Drs2 drs2;
   private int tickCount = 0;
   
-  public FieldGrid(Uart drs2) {
+  public FieldGrid(Drs2 drs2) {
     this.drs2 = drs2;
     ButtonHandler.drs2 = drs2;
     
@@ -35,16 +35,23 @@ public class FieldGrid extends GridPane {
     this.setHgap(1);
     this.setVgap(1);
     populateGrid();
+    injectUart();
     update();
     new AnimationTimer() {
       @Override
       public void handle(long now) {
+        drs2.tick(now);
+        
         if (tickCount++ < REFRESH_RATE) {
           return;
         }
         
         tickCount = 0;
         drs2.checkSend();
+        
+        if (drs2.checkReceived()) {
+          checkedUpdate();
+        }
       }
       
     }.start();
@@ -59,6 +66,21 @@ public class FieldGrid extends GridPane {
     }
   }
   
+  /**
+   * Fordert alle Felder auf zu prüfen, ob sich die
+   * Anzeige verändert hat und bei Bedarf zu aktualisieren.
+   */
+  public final void checkedUpdate() {
+    for (var f: allFields) {
+      f.checkedUpdate();
+    }
+  }
+  
+  private void injectUart() {
+    for (var f: allFields) {
+      f.setDrs2(drs2);
+    }
+  }
   /**
    * Füllt das Tischfeld mit den einzelnen Feldern.
    */
@@ -110,11 +132,11 @@ public class FieldGrid extends GridPane {
   }
   
   private void addBahnhofsgleise() {
-    var g1 = new Gleis("1", Const.GLEIS1);
+    var g1 = new Gleis("1", Const.GLEIS1, new int[] {Const.Gleis1Weiss, Const.Gleis1Rot});
     addField(g1, 8, 3);
-    var g2 = new Gleis("2", Const.GLEIS2);
+    var g2 = new Gleis("2", Const.GLEIS2, new int[] {Const.Gleis2Weiss, Const.Gleis2Rot});
     addField(g2, 8, 2);
-    var g3 = new Gleis("3", Const.GLEIS3);
+    var g3 = new Gleis("3", Const.GLEIS3, new int[] {Const.Gleis3Weiss, Const.Gleis3Rot});
     addField(g3, 8, 1);
   }
   

@@ -5,7 +5,7 @@ DRS 2 Stellpult
 package de.mmth.drs2panel.fields;
 
 import de.mmth.drs2panel.io.Const;
-import de.mmth.drs2panel.io.Uart;
+import de.mmth.drs2panel.io.Drs2;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -16,9 +16,9 @@ import javafx.scene.layout.GridPane;
  */
 public class IOGrid extends GridPane {
   private int nextButtonCol = 0;
-  private final Uart drs2;
+  private final Drs2 drs2;
   
-  public IOGrid(Uart drs2) {
+  public IOGrid(Drs2 drs2) {
     this.drs2 = drs2;
     this.setStyle("-fx-border-color: green; -fx-padding: 10px");
     this.setHgap(10);
