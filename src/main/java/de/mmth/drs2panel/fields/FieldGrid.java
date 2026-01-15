@@ -29,6 +29,8 @@ public class FieldGrid extends GridPane {
   
   public FieldGrid(Uart drs2) {
     this.drs2 = drs2;
+    ButtonHandler.drs2 = drs2;
+    
     this.setStyle("-fx-border-color: green; -fx-padding: 10px");
     this.setHgap(1);
     this.setVgap(1);

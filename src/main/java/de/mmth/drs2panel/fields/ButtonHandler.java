@@ -4,6 +4,7 @@ DRS 2 Stellpult
  */
 package de.mmth.drs2panel.fields;
 
+import de.mmth.drs2panel.io.Uart;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.AnimationTimer;
@@ -14,10 +15,12 @@ import javafx.animation.AnimationTimer;
  */
 public class ButtonHandler {
   private final static List<ButtonEvent> pendingEvents = new ArrayList<>();
+  public static Uart drs2;
   
   public static void add(BaseField source, int delay, int buttonId) {
     System.out.println("Button " + buttonId + " pressed at " + System.nanoTime());
     source.setButtonPressed(true);
+    drs2.setSwitch(buttonId, true);
     pendingEvents.add(new ButtonEvent(source, System.nanoTime() + (delay * 1000000l), buttonId));
   }
   
@@ -36,6 +39,7 @@ public class ButtonHandler {
         
         if (forDeletion != null) {
           forDeletion.source().setButtonPressed(false);
+          drs2.setSwitch(forDeletion.buttonId(), false);
           pendingEvents.remove(forDeletion);
         }
       }
