@@ -17,14 +17,16 @@ public class Weiche extends BaseField {
   private final boolean toBottom;
   private GraphicsContext gc;
   private final String name;
+  private final int ioId;
   
-  public Weiche(String name, boolean toLeft, boolean toBottom) {
+  public Weiche(String name, int id, boolean toLeft, boolean toBottom) {
     super();
     this.name = name;
+    this.ioId = id;
     this.toLeft = toLeft;
     this.toBottom = toBottom;
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 1500, 23);
+      ButtonHandler.add(this, 1500, ioId);
     });
   }
   

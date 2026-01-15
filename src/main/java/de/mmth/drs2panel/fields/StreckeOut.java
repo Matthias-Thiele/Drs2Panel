@@ -15,12 +15,12 @@ public class StreckeOut extends BaseField {
   private final boolean toLeft;
   private final String name;
   
-  public StreckeOut(String name, boolean toLeft) {
+  public StreckeOut(String name, int id, boolean toLeft) {
     super();
     this.name = name;
     this.toLeft = toLeft;
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 1500, 42);
+      ButtonHandler.add(this, 1500, id);
     });    
   }
   

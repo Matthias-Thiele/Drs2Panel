@@ -16,13 +16,13 @@ public class StreckeIn extends BaseField {
   private final boolean withStrecke;
   private final boolean toLeft;
   
-  public StreckeIn(String name, boolean toLeft, boolean withStrecke) {
+  public StreckeIn(String name, int id, boolean toLeft, boolean withStrecke) {
     super();
     this.name = name;
     this.toLeft = toLeft;
     this.withStrecke = withStrecke;
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 1500, 41);
+      ButtonHandler.add(this, 1500, id);
     });    
   }
   

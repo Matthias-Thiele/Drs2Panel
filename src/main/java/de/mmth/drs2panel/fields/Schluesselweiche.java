@@ -15,12 +15,14 @@ public class Schluesselweiche extends BaseField {
 
   private final String name;
   private final int textOffset;
+  private final int ioId;
   
-  public Schluesselweiche(String name, int textOffset) {
+  public Schluesselweiche(String name, int id, int textOffset) {
     this.name = name;
+    this.ioId = id;
     this.textOffset = textOffset;
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 2500, 8);
+      ButtonHandler.add(this, 2500, ioId);
     });
   }
   

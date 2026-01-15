@@ -4,8 +4,11 @@ DRS 2 Stellpult
  */
 package de.mmth.drs2panel.fields;
 
+import de.mmth.drs2panel.io.Const;
+import de.mmth.drs2panel.io.Uart;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.AnimationTimer;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
@@ -16,16 +19,33 @@ import javafx.scene.paint.Color;
  */
 public class FieldGrid extends GridPane {
   private final static int[] LINE_FIELD_LIST = {5, 1, 1, 2, 5, 2, 6,2, 7, 2, 9, 2, 12, 2, 2, 3, 3, 3, 4, 3, 7, 3, 10, 3, 11, 3};
+  private static final int REFRESH_RATE = 20;
   
   private final List<BaseField> allFields = new ArrayList<>();
   private final boolean[] isSet = new boolean[Presets.GRID_WIDTH * Presets.GRID_HEIGHT];
   
-  public FieldGrid() {
-    this.setStyle("-fx-border-color: green");
+  private final Uart drs2;
+  private int tickCount = 0;
+  
+  public FieldGrid(Uart drs2) {
+    this.drs2 = drs2;
+    this.setStyle("-fx-border-color: green; -fx-padding: 10px");
     this.setHgap(1);
     this.setVgap(1);
     populateGrid();
     update();
+    new AnimationTimer() {
+      @Override
+      public void handle(long now) {
+        if (tickCount++ < REFRESH_RATE) {
+          return;
+        }
+        
+        tickCount = 0;
+        drs2.checkSend();
+      }
+      
+    }.start();
   }
   
   /**
@@ -62,111 +82,111 @@ public class FieldGrid extends GridPane {
   }
   
   private void addWeichen() {
-    var w20 = new Weiche("20", false, false);
+    var w20 = new Weiche("20", Const.WEICHE20, false, false);
     addField(w20, 1, 3);
-    var w19 = new Weiche("19", true, true);
+    var w19 = new Weiche("19", Const.WEICHE19, true, true);
     addField(w19, 2, 2);
-    var w18 = new Weiche("18", false, false);
+    var w18 = new Weiche("18", Const.WEICHE18, false, false);
     addField(w18, 3, 2);
-    var w5 = new Weiche("5", true, false);
+    var w5 = new Weiche("5", Const.WEICHE5, true, false);
     addField(w5, 10, 2);
-    var w4 = new Weiche("4", false, true);
+    var w4 = new Weiche("4", Const.WEICHE4, false, true);
     addField(w4, 11, 2);
-    var w3 = new Weiche("3", true, false);
+    var w3 = new Weiche("3", Const.WEICHE3, true, false);
     addField(w3, 12, 3);
   }
   
   private void addSchluesselweichen() {
-    var slftIV = new Schluesselweiche("SlFT IV 13 III", 12);
+    var slftIV = new Schluesselweiche("SlFT IV 13 III", Const.SlFT4, 12);
     addField(slftIV, 2, 1);
     
-    var slftIII = new Schluesselweiche("SlFT III 10 IV", 10);
+    var slftIII = new Schluesselweiche("SlFT III 10 IV", Const.SlFT3, 10);
     addField(slftIII, 3, 1);
     
-    var slft1 = new Schluesselweiche("SlFT 1 I", 25);
+    var slft1 = new Schluesselweiche("SlFT 1 I", Const.SlFT1, 25);
     addField(slft1, 8, 0);
   }
   
   private void addBahnhofsgleise() {
-    var g1 = new Gleis("1");
+    var g1 = new Gleis("1", Const.GLEIS1);
     addField(g1, 8, 3);
-    var g2 = new Gleis("2");
+    var g2 = new Gleis("2", Const.GLEIS2);
     addField(g2, 8, 2);
-    var g3 = new Gleis("3");
+    var g3 = new Gleis("3", Const.GLEIS3);
     addField(g3, 8, 1);
   }
   
   private void addStreckenblock() {
-    var blockOutWB = new StreckeOut("WB", true);
+    var blockOutWB = new StreckeOut("WB", Const.BlockMOut, true);
     addField(blockOutWB, 0, 2);
     
-    var blockOutAH = new StreckeOut("AH", false);
+    var blockOutAH = new StreckeOut("AH", Const.BlockHOut, false);
     addField(blockOutAH, 14, 3);
     
-    var blockInWB = new StreckeIn("F", true, false);
+    var blockInWB = new StreckeIn("F", Const.BlockMIn, true, false);
     addField(blockInWB, 0, 4);
     
-    var blockInAH = new StreckeIn("A", false, true);
+    var blockInAH = new StreckeIn("A", Const.BlockHIn, false, true);
     addField(blockInAH, 14, 2);
   }
   
   private void addCounter() {
-    var ersgt = new CounterField("Ers GT", Color.RED);
+    var ersgt = new CounterField("Ers GT", Const.ErsGT, Color.RED);
     addField(ersgt, 3, 0);
     
-    var blz = new CounterField("  BLZ", Color.GRAY);
+    var blz = new CounterField("  BLZ", Const.BLZ, Color.GRAY);
     addField(blz, 7, 0);
     
-    var fht = new CounterField("  FHT", Color.RED);
+    var fht = new CounterField("  FHT", Const.FHT, Color.RED);
     addField(fht, 9, 0);
     
-    var wht = new CounterField("  WHT", Color.NAVY);
+    var wht = new CounterField("  WHT", Const.WHT, Color.NAVY);
     addField(wht, 10, 0);
     
-    var azgrt = new CounterField("AZGRT", Color.RED);
+    var azgrt = new CounterField("AZGRT", Const.AZGRT, Color.RED);
     addField(azgrt, 11, 0);
     
-    var ast = new CounterField("  AsT", Color.BLACK);
+    var ast = new CounterField("  AsT", Const.AsT, Color.BLACK);
     addField(ast, 12, 0);
     
-    var rbhgt = new CounterField("RbHGT", Color.BLACK);
+    var rbhgt = new CounterField("RbHGT", Const.RbHGT, Color.BLACK);
     addField(rbhgt, 13, 1);
     
-    var af = new CounterField("    Af", null);
+    var af = new CounterField("    Af", 0, null);
     addField(af, 10, 1);
   }
   
   private void addButtons() {
-    var wgtsgt = new DualButton("WGT", Color.NAVY, "SGT", Color.RED);
+    var wgtsgt = new DualButton("WGT", Const.WGT, Color.NAVY, "SGT", Const.SGT, Color.RED);
     addField(wgtsgt, 1, 0);
     
-    var hagtslflt = new DualButton("HaGT", Color.RED, "SlFLT", Color.WHITE);
+    var hagtslflt = new DualButton("HaGT", Const.HaGT, Color.RED, "SlFLT", Const.SlFLT, Color.WHITE);
     addField(hagtslflt, 2, 0);
     
-    var vbhth = new SingleButton("VbHT", Color.BLACK);
+    var vbhth = new SingleButton("VbHT", Const.VbHT_M, Color.BLACK);
     addField(vbhth, 0, 1);
     
-    var bgt = new SingleButton("BlGT", Color.BLACK);
+    var bgt = new SingleButton("BlGT", Const.BlGT, Color.BLACK);
     addField(bgt, 5, 0);
     
-    var aslt = new SingleButton("AsLT", Color.WHITE);
+    var aslt = new SingleButton("AsLT", Const.AsLT, Color.WHITE);
     addField(aslt, 13, 0);
     
-    var vbhtm = new SingleButton("VbHT", Color.BLACK);
+    var vbhtm = new SingleButton("VbHT", Const.VbHT_H, Color.BLACK);
     addField(vbhtm, 14, 4);
   }
   
   private void addMelder() {
-    var wut = new Melder("S|WuT|W", "   S", "   W", Color.WHITE, Color.WHITE);
+    var wut = new Melder("S|WuT|W", "   S", "   W", Const.WuT_S, Const.WuT_W, Color.WHITE, Color.WHITE);
     addField(wut, 4, 0);
     
-    var unkn = new Melder("", "  MJI", " MJII", null, null);
+    var unkn = new Melder("", "  MJI", " MJII", 0, 0, null, null);
     addField(unkn, 12, 1);
     
-    var tu = new Melder("", "  TÜ", "", null, null);
+    var tu = new Melder("", "  TÜ", "", 0, 0, null, null);
     addField(tu, 3, 4);
     
-    var zsm = new Melder("", " ZSM", "", null, null);
+    var zsm = new Melder("", " ZSM", "", 0, 0, null, null);
     addField(zsm, 11, 1);
     
     var blk = new Blinklicht();
@@ -174,22 +194,22 @@ public class FieldGrid extends GridPane {
   }
   
   private void addSignale() {
-    var sigA = new SignalA();
+    var sigA = new SignalA(Const.SIGNAL_A);
     addField(sigA, 13,2);
     
-    var sigF = new SignalF();
+    var sigF = new SignalF(Const.SIGNAL_F);
     addField(sigF, 0,3);
     
-    var sigN3 = new SignalN("N3", true);
+    var sigN3 = new SignalN("N3", Const.SIGNAL_N3, true);
     addField(sigN3, 4, 1);
     
-    var sigN2 = new SignalN("N2", false);
+    var sigN2 = new SignalN("N2", Const.SIGNAL_N2, false);
     addField(sigN2, 4, 2);
     
-    var sigP3 = new SignalP("P3", false, true);
+    var sigP3 = new SignalP("P3", Const.SIGNAL_P3, false, true);
     addField(sigP3, 9, 1);
     
-    var sigP1 = new SignalP("P1", true, false);
+    var sigP1 = new SignalP("P1", Const.SIGNAL_P1, true, false);
     addField(sigP1, 9, 3);
     
     var wvP1 = new SignalWVp1();

@@ -16,15 +16,19 @@ public class DualButton extends BaseField {
   private final String rightName;
   private final Color leftColor;
   private final Color rightColor;
+  private final int leftId;
+  private final int rightId;
   
-  public DualButton(String leftName, Color leftColor, String rightName, Color rightColor) {
+  public DualButton(String leftName, int leftId, Color leftColor, String rightName, int rightId, Color rightColor) {
     this.leftName = leftName;
     this.rightName = rightName;
+    this.leftId = leftId;
+    this.rightId = rightId;
     this.leftColor = leftColor;
     this.rightColor = rightColor;
     this.setOnMouseClicked(ev -> {
       boolean left = ev.getX() < Presets.FIELD_WIDTH / 2;
-      ButtonHandler.add(this, 2500, left ? 50 : 60);
+      ButtonHandler.add(this, 2500, left ? leftId : rightId);
     });
   }
   

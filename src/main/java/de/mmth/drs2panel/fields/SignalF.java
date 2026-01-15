@@ -12,9 +12,9 @@ import javafx.scene.paint.Color;
  * @author matthias
  */
 public class SignalF extends BaseField {
-  public SignalF() {
+  public SignalF(int id) {
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 2500, 12);
+      ButtonHandler.add(this, 2500, id);
     });    
   }
   

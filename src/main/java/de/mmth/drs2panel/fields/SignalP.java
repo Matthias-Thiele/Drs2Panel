@@ -17,12 +17,12 @@ public class SignalP extends BaseField {
   private final boolean hasErsatz;
   private final boolean hasDrop;
   
-  public SignalP(String name, boolean hasErsatz, boolean hasDrop) {
+  public SignalP(String name, int id, boolean hasErsatz, boolean hasDrop) {
     this.name = name;
     this.hasErsatz = hasErsatz;
     this.hasDrop = hasDrop;
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 1000, 13);
+      ButtonHandler.add(this, 1000, id);
     });    
   }
   

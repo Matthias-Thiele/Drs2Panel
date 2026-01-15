@@ -13,12 +13,14 @@ import javafx.scene.paint.Color;
 public class Gleis extends BaseField {
 
   private final String name;
+  private final int ioId;
   
-  public Gleis(String name) {
+  public Gleis(String name, int id) {
     super();
     this.name = name;
+    this.ioId = id;
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 1000, 7);
+      ButtonHandler.add(this, 1000, ioId);
     });
   }
   

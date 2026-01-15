@@ -15,11 +15,11 @@ public class SignalN extends BaseField {
   private final String name;
   private final boolean hasDrop;
   
-  public SignalN(String name, boolean hasDrop) {
+  public SignalN(String name, int id, boolean hasDrop) {
     this.name = name;
     this.hasDrop = hasDrop;
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 1000, 14);
+      ButtonHandler.add(this, 1000, id);
     });    
   }
   

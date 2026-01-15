@@ -18,7 +18,7 @@ public class Melder extends BaseField {
   private final Color leftButtonColor;
   private final Color rightButtonColor;
   
-  public Melder(String name, String leftView, String rightView, Color leftButton, Color rightButton) {
+  public Melder(String name, String leftView, String rightView, int leftId, int rightId, Color leftButton, Color rightButton) {
     this.name = name;
     this.leftView = leftView;
     this.rightView = rightView;
@@ -26,7 +26,7 @@ public class Melder extends BaseField {
     this.rightButtonColor = rightButton;
     this.setOnMouseClicked(ev -> {
       boolean left = ev.getX() < Presets.FIELD_WIDTH / 2;
-      ButtonHandler.add(this, 2500, left ? 51 : 61);
+      ButtonHandler.add(this, 500, left ? leftId : rightId);
     });
   }
   

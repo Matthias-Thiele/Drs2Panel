@@ -15,14 +15,16 @@ public class CounterField extends BaseField {
   private final String name;
   private final Color buttonColor;
   private int counterValue = 1234;
+  private final int ioId;
   
-  public CounterField(String name, Color buttonColor) {
+  public CounterField(String name, int id, Color buttonColor) {
     this.name = name;
+    this.ioId = id;
     this.buttonColor = buttonColor;
     this.setOnMouseClicked(ev -> {
       counterValue++;
       update();
-      ButtonHandler.add(this, 1500, 13);
+      ButtonHandler.add(this, 500, ioId);
     });
   }
   
