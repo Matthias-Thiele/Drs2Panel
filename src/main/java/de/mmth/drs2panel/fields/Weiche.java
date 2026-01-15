@@ -59,77 +59,77 @@ public class Weiche extends BaseField {
   
   private void drawRightTop() {
     gc.beginPath();
-    gc.moveTo(Presets.FIELD_WIDTH / 2, Presets.MIDDLE_BAR_START);
-    gc.lineTo(Presets.FIELD_WIDTH - 10, 0);
+    gc.moveTo(Presets.FIELD_WIDTH / 2 + 1, Presets.MIDDLE_BAR_START);
+    gc.lineTo(Presets.FIELD_WIDTH - 13, 0);
     gc.lineTo(Presets.FIELD_WIDTH, 0);
-    gc.lineTo(Presets.FIELD_WIDTH, 10);
-    gc.lineTo(Presets.FIELD_WIDTH / 2 + 30, Presets.MIDDLE_BAR_START);
+    gc.lineTo(Presets.FIELD_WIDTH, 7);
+    gc.lineTo(Presets.FIELD_WIDTH / 2 + 29, Presets.MIDDLE_BAR_START);
     gc.fill();
     
     gc.setFill(getLampColor(true));
-    gc.fillRect(Presets.FIELD_WIDTH / 5 * 3 + Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 3, Presets.FIELD_WIDTH / 4, Presets.MIDDLE_BAR_HEIGHT - 6);
+    gc.fillRect(Presets.FIELD_WIDTH / 5 * 3 + Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 4, Presets.FIELD_WIDTH / 4, Presets.MIDDLE_BAR_HEIGHT / 2);
     
     gc.save();
     gc.setFill(getLampColor(false));
-    gc.rotate(-29);
-    gc.fillRect(65.0, 64.5, 36.0, 10.0); // ToDo Absolute Koordinaten entfernen
+    gc.rotate(-31);
+    gc.fillRect(65.0, 67.5, 36.0, 8); // ToDo Absolute Koordinaten entfernen
     gc.restore();
   }
   
   private void drawLeftTop() {
     gc.beginPath();
     gc.moveTo(Presets.FIELD_WIDTH / 2 - 30, Presets.MIDDLE_BAR_START);
-    gc.lineTo(0, 10);
+    gc.lineTo(0, 7);
     gc.lineTo(0, 0);
-    gc.lineTo(10, 0);
-    gc.lineTo(Presets.FIELD_WIDTH / 2, Presets.MIDDLE_BAR_START);
+    gc.lineTo(13, 0);
+    gc.lineTo(Presets.FIELD_WIDTH / 2 - 3, Presets.MIDDLE_BAR_START);
     gc.fill();
     
     gc.setFill(getLampColor(true));
-    gc.fillRect(Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 3, Presets.FIELD_WIDTH / 4, Presets.MIDDLE_BAR_HEIGHT - 6);
+    gc.fillRect(Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 4, Presets.FIELD_WIDTH / 4, Presets.MIDDLE_BAR_HEIGHT / 2);
     
     gc.save();
     gc.setFill(getLampColor(false));
-    gc.rotate(-151);
-    gc.fillRect(-53.0, -6.5, 36.0, 10.0); // ToDo Absolute Koordinaten entfernen
+    gc.rotate(-149);
+    gc.fillRect(-53.0, -4.0, 36.0, 8.0); // ToDo Absolute Koordinaten entfernen
     gc.restore();
   }
   
   private void drawRightBottom() {
     gc.beginPath();
     gc.moveTo(Presets.FIELD_WIDTH / 2, Presets.MIDDLE_BAR_START + Presets.MIDDLE_BAR_HEIGHT);
-    gc.lineTo(Presets.FIELD_WIDTH - 10, Presets.FIELD_HEIGHT);
+    gc.lineTo(Presets.FIELD_WIDTH - 13, Presets.FIELD_HEIGHT);
     gc.lineTo(Presets.FIELD_WIDTH, Presets.FIELD_HEIGHT);
-    gc.lineTo(Presets.FIELD_WIDTH, Presets.FIELD_HEIGHT - 10);
-    gc.lineTo(Presets.FIELD_WIDTH / 2 + 30, Presets.MIDDLE_BAR_START + Presets.MIDDLE_BAR_HEIGHT);
+    gc.lineTo(Presets.FIELD_WIDTH, Presets.FIELD_HEIGHT - 7);
+    gc.lineTo(Presets.FIELD_WIDTH / 2 + 27, Presets.MIDDLE_BAR_START + Presets.MIDDLE_BAR_HEIGHT);
     gc.fill();
     
     gc.setFill(getLampColor(true));
-    gc.fillRect(Presets.FIELD_WIDTH / 5 * 3 + Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 3, Presets.FIELD_WIDTH / 4, Presets.MIDDLE_BAR_HEIGHT - 6);
+    gc.fillRect(Presets.FIELD_WIDTH / 5 * 3 + Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 4, Presets.FIELD_WIDTH / 4, Presets.MIDDLE_BAR_HEIGHT / 2);
     
     gc.save();
     gc.setFill(getLampColor(false));
-    gc.rotate(29);
-    gc.fillRect(104.0, -4.5, 36.0, 10.0); // ToDo Absolute Koordinaten entfernen
+    gc.rotate(30);
+    gc.fillRect(104.0, -4, 36.0, 8.0); // ToDo Absolute Koordinaten entfernen
     gc.restore();
   }
   
   private void drawLeftBottom() {
     gc.beginPath();
     gc.moveTo(Presets.FIELD_WIDTH / 2, Presets.MIDDLE_BAR_START + Presets.MIDDLE_BAR_HEIGHT);
-    gc.lineTo(10, Presets.FIELD_HEIGHT);
+    gc.lineTo(13, Presets.FIELD_HEIGHT);
     gc.lineTo(0, Presets.FIELD_HEIGHT);
-    gc.lineTo(0, Presets.FIELD_HEIGHT - 10);
-    gc.lineTo(Presets.FIELD_WIDTH / 2 - 30, Presets.MIDDLE_BAR_START + Presets.MIDDLE_BAR_HEIGHT);
+    gc.lineTo(0, Presets.FIELD_HEIGHT - 7);
+    gc.lineTo(Presets.FIELD_WIDTH / 2 - 27, Presets.MIDDLE_BAR_START + Presets.MIDDLE_BAR_HEIGHT);
     gc.fill();
     
     gc.setFill(getLampColor(true));
-    gc.fillRect(Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 3, Presets.FIELD_WIDTH / 4, Presets.MIDDLE_BAR_HEIGHT - 6);
+    gc.fillRect(Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 4, Presets.FIELD_WIDTH / 4, Presets.MIDDLE_BAR_HEIGHT / 2);
     
     gc.save();
     gc.setFill(getLampColor(false));
-    gc.rotate(151);
-    gc.fillRect(-15.0, -73.5, 36.0, 10.0); // ToDo Absolute Koordinaten entfernen
+    gc.rotate(150);
+    gc.fillRect(-15.0, -73.5, 36.0, 8.0); // ToDo Absolute Koordinaten entfernen
     gc.restore();
   }
   
@@ -137,7 +137,7 @@ public class Weiche extends BaseField {
     if (!lineTrack) {
       return Color.LIGHTYELLOW;
     } else {
-      return Presets.DARK_LAMP;
+      return Color.RED; //Presets.DARK_LAMP;
     }
   }
 }

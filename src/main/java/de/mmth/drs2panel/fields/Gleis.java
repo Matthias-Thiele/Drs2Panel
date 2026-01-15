@@ -32,7 +32,7 @@ public class Gleis extends BaseField {
     gc.fillText(name, Presets.FIELD_WIDTH / 5 * 2 , Presets.FIELD_HEIGHT / 10 * 9);
     
     gc.setFill(getGleisColor());
-    gc.fillRect(Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 3, Presets.FIELD_WIDTH - Presets.LAMP_MARGIN * 2, Presets.MIDDLE_BAR_HEIGHT - 6);
+    gc.fillRect(Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 4, Presets.FIELD_WIDTH - Presets.LAMP_MARGIN * 2, Presets.MIDDLE_BAR_HEIGHT / 2);
     gc.setFill(Color.GRAY);
     gc.fillOval((Presets.FIELD_WIDTH - Presets.BUTTON_DIAMETER) / 2, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);
     

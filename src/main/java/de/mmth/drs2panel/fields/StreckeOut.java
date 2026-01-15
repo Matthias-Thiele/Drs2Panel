@@ -51,7 +51,7 @@ public class StreckeOut extends BaseField {
     } else {
       startX = Presets.LAMP_MARGIN;
     }
-    gc.fillRect(startX, Presets.MIDDLE_BAR_START + 3, Presets.LAMP_WIDTH, Presets.LAMP_DIAMETER);
+    gc.fillRect(startX, Presets.MIDDLE_BAR_START + 4, Presets.LAMP_WIDTH, Presets.MIDDLE_BAR_HEIGHT / 2);
     
     gc.setFill(getWHSperre());
     if (toLeft) {

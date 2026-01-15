@@ -26,7 +26,7 @@ public class SignalA extends BaseField {
     drawBackground(gc);
     
     gc.setFill(getGleisColor());
-    gc.fillRect(Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 3, Presets.FIELD_WIDTH / 2 - Presets.LAMP_MARGIN * 3, Presets.MIDDLE_BAR_HEIGHT - 6);
+    gc.fillRect(Presets.LAMP_MARGIN, Presets.MIDDLE_BAR_START + 4, Presets.FIELD_WIDTH / 2 - Presets.LAMP_MARGIN * 3, Presets.MIDDLE_BAR_HEIGHT / 2);
     
     gc.setFill(Color.GRAY);
     gc.fillOval((Presets.FIELD_WIDTH - Presets.BUTTON_DIAMETER) / 2, (Presets.FIELD_HEIGHT - Presets.BUTTON_DIAMETER) / 2, Presets.BUTTON_DIAMETER, Presets.BUTTON_DIAMETER);

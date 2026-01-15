@@ -64,9 +64,9 @@ public class SignalN extends BaseField {
       gc.beginPath();
       gc.moveTo(Presets.FIELD_WIDTH, Presets.MIDDLE_BAR_START);
       gc.lineTo(Presets.FIELD_WIDTH / 2, Presets.MIDDLE_BAR_START);
-      gc.lineTo(0, Presets.FIELD_HEIGHT - 10);
+      gc.lineTo(0, Presets.FIELD_HEIGHT - 7);
       gc.lineTo(0, Presets.FIELD_HEIGHT);
-      gc.lineTo(10, Presets.FIELD_HEIGHT);
+      gc.lineTo(13, Presets.FIELD_HEIGHT);
       gc.lineTo(Presets.FIELD_WIDTH / 2, Presets.MIDDLE_BAR_START + Presets.MIDDLE_BAR_HEIGHT);
       gc.lineTo(Presets.FIELD_WIDTH, Presets.MIDDLE_BAR_START + Presets.MIDDLE_BAR_HEIGHT);
       gc.fill();
