@@ -158,14 +158,7 @@ public class SignalA extends BaseField {
   
   @Override
   public void checkedUpdate() {
-    boolean changed = false;
-    for (var i = 0; i < 9; i++) {
-      var actState = drs2.getLampState(lampIds[i]);
-      changed |= lampState[i] != actState;
-      lampState[i] = actState;
-    }
-    
-    if (changed) {
+    if (updateState(lampState, lampIds)) {
       update();
     }
   }

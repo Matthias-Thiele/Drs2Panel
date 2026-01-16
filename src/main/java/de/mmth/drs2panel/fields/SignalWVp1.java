@@ -80,12 +80,7 @@ public class SignalWVp1 extends BaseField {
   
   @Override
   public void checkedUpdate() {
-    boolean hp0 = drs2.getLampState(lampIds[0]);
-    boolean hp1 = drs2.getLampState(lampIds[1]);
-    
-    if (hp0 != lampState[0] || hp1 != lampState[1]) {
-      lampState[0] = hp0;
-      lampState[1] = hp1;
+    if (updateState(lampState, lampIds)) {
       update();
     }
   }

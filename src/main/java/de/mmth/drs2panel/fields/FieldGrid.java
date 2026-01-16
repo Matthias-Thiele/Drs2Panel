@@ -132,13 +132,16 @@ public class FieldGrid extends GridPane {
   }
   
   private void addSchluesselweichen() {
-    var slftIV = new Schluesselweiche("SlFT IV 13 III", Const.SlFT4, 12);
+    int[] sw4 = {Const.SlFT4Rot, Const.SlFT4Weiss};
+    var slftIV = new Schluesselweiche("SlFT IV 13 III", Const.SlFT4, 12, sw4);
     addField(slftIV, 2, 1);
     
-    var slftIII = new Schluesselweiche("SlFT III 10 IV", Const.SlFT3, 10);
+    int[] sw3 = {Const.SlFT3Rot, Const.SlFT3Weiss};
+    var slftIII = new Schluesselweiche("SlFT III 10 IV", Const.SlFT3, 10, sw3);
     addField(slftIII, 3, 1);
     
-    var slft1 = new Schluesselweiche("SlFT 1 I", Const.SlFT1, 25);
+    int[] sw1 = {Const.SlFT1Rot, Const.SlFT1Weiss};
+    var slft1 = new Schluesselweiche("SlFT 1 I", Const.SlFT1, 25, sw1);
     addField(slft1, 8, 0);
   }
   

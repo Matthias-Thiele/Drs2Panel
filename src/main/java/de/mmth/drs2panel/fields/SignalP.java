@@ -142,14 +142,7 @@ public class SignalP extends BaseField {
   
   @Override
   public void checkedUpdate() {
-    boolean changed = false;
-    for (var i = 0; i < 4; i++) {
-      var actState = drs2.getLampState(lampIds[i]);
-      changed |= lampState[i] != actState;
-      lampState[i] = actState;
-    }
-    
-    if (changed) {
+    if (updateState(lampState, lampIds)) {
       update();
     }
   }
