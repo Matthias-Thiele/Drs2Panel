@@ -4,7 +4,6 @@ DRS 2 Stellpult
  */
 package de.mmth.drs2panel.fields;
 
-import de.mmth.drs2panel.io.Const;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -20,7 +19,7 @@ public class Weiche extends BaseField {
   private final String name;
   private final int ioId;
   
-  private int[] lampIds;
+  private final int[] lampIds;
   private final boolean[] lampState = new boolean[4];
   
   public Weiche(String name, int id, boolean toLeft, boolean toBottom, int[] lampIds) {
