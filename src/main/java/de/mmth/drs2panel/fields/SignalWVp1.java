@@ -12,6 +12,13 @@ import javafx.scene.paint.Color;
  * @author matthias
  */
 public class SignalWVp1 extends BaseField {
+  private final int[] lampIds;
+  private final boolean[] lampState = new boolean[2];
+
+  public SignalWVp1(int[] lampIds) {
+    this.lampIds = lampIds;
+  }
+  
   @Override
   public void update() {
     super.update();
@@ -64,10 +71,22 @@ public class SignalWVp1 extends BaseField {
   }
   
   private Color getHP0Color() {
-    return Color.YELLOW;
+   return (lampState[0]) ? Presets.YELLOW_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getHP1Color() {
-    return Color.GREEN;
+   return (lampState[1]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
+  }
+  
+  @Override
+  public void checkedUpdate() {
+    boolean hp0 = drs2.getLampState(lampIds[0]);
+    boolean hp1 = drs2.getLampState(lampIds[1]);
+    
+    if (hp0 != lampState[0] || hp1 != lampState[1]) {
+      lampState[0] = hp0;
+      lampState[1] = hp1;
+      update();
+    }
   }
 }

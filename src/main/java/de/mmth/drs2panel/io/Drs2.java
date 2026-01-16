@@ -13,7 +13,7 @@ public class Drs2 {
   private final static int OUTPUT_BYTE_COUNT = 14;
   private final static int IO_START = 120;
   private static final int MAX_LAMPS = 136;
-  private static final int MAX_SWITCHES = 64;
+  private static final int MAX_SWITCHES = 72;
   private static final int BUFFER_SIZE = 32;
   private static final byte[] switchInverter = {(byte)0x80, (byte)0xff, (byte)0x7e, (byte)0x64, (byte)0x1f, (byte)0xff, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00};
   
@@ -149,16 +149,17 @@ public class Drs2 {
   
   private void fillTransmitBufferD() {
     transmitBuffer[0] = 'B';
-    for (var i = 0; i < 6; i++) {
-      fillTransmitBufferByte(i + 1, i << 3);
+    for (int i = 0, bit = 0; i < 6; i++, bit += 8) {
+      if (bit == 32) bit += 8; // altes Statusbyte überspringen
+      fillTransmitBufferByte(i + 1, bit);
       transmitBuffer[i + 1]  ^= switchInverter[i];
     }
     transmitBuffer[7] = 'X';
   }
   
   private void fillTransmitBufferIO() {
-    fillTransmitBufferByte(0, 48);
-    fillTransmitBufferByte(1, 56);
+    fillTransmitBufferByte(0, 56);
+    fillTransmitBufferByte(1, 64);
   }
   
   private void sendInputs() {

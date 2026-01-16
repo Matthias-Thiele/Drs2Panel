@@ -20,23 +20,16 @@ public class Weiche extends BaseField {
   private final String name;
   private final int ioId;
   
-  private int lampStartId;
+  private int[] lampIds;
   private final boolean[] lampState = new boolean[4];
   
-  public Weiche(String name, int id, boolean toLeft, boolean toBottom) {
+  public Weiche(String name, int id, boolean toLeft, boolean toBottom, int[] lampIds) {
     super();
     this.name = name;
     this.ioId = id;
     this.toLeft = toLeft;
     this.toBottom = toBottom;
-    switch(name) {
-      case "3": lampStartId = 4; break;
-      case "4": lampStartId = 0; break;
-      case "5": lampStartId = 12; break;
-      case "18": lampStartId = 8; break;
-      case "19": lampStartId = 20; break;
-      case "20": lampStartId = 16; break;
-    }
+    this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 1500, ioId);
     });
@@ -160,15 +153,7 @@ public class Weiche extends BaseField {
   
   @Override
   public void checkedUpdate() {
-    boolean changed = false;
-    boolean[] states = new boolean[4];
-    for (var i = 0; i < 4; i++) {
-      states[i] = drs2.getLampState(lampStartId + i);
-      changed |= states[i] != lampState[i];
-    }
-    
-    if (changed) {
-      System.arraycopy(states, 0, lampState, 0, 4);
+    if (updateState(lampState, lampIds)) {
       update();
     }
   }

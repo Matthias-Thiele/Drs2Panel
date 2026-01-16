@@ -66,4 +66,18 @@ public class BaseField extends Pane {
     }
     
   }
+  
+  protected boolean updateState(boolean[] lampState, int[] lampIds) {
+    boolean changed = false;
+    for (var i = 0; i < lampIds.length; i++) {
+      if (lampIds[i] < 0) continue;
+      
+      var actState = drs2.getLampState(lampIds[i]);
+      changed |= lampState[i] != actState;
+      lampState[i] = actState;
+    }
+    
+    return changed;
+  }
+  
 }

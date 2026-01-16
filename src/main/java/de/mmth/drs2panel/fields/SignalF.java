@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
  */
 public class SignalF extends BaseField {
   private final int[] lampIds;
-  private final boolean[] lampState = new boolean[8];
+  private final boolean[] lampState = new boolean[9];
   
   public SignalF(int id, int[] lampIds) {
     this.lampIds = lampIds;
@@ -151,7 +151,7 @@ public class SignalF extends BaseField {
   }
   
   private Color getColor3() {
-    return Color.NAVY;// (lampState[2]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
+    return (lampState[8]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getColor4() {
@@ -173,7 +173,7 @@ public class SignalF extends BaseField {
   @Override
   public void checkedUpdate() {
     boolean changed = false;
-    for (var i = 0; i < 8; i++) {
+    for (var i = 0; i < 9; i++) {
       var actState = drs2.getLampState(lampIds[i]);
       changed |= lampState[i] != actState;
       lampState[i] = actState;

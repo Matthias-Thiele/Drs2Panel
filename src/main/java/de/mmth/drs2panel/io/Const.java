@@ -134,6 +134,10 @@ public class Const {
     public static final int MJ2 = 91;
     public static final int KURBELINDUKTOR_RUNDEN = 120;
     
+    // Störmelder
+    public static final int WuTS = 68;
+    public static final int WuTW = 67;
+    
     // Streckenblock
     public static final int StreckeVonHWeiss = 62;
     public static final int StreckeVonHRot = 61;
@@ -163,6 +167,9 @@ public class Const {
     public static final int SlFT3Relais = 96;
     public static final int SlFT1Relais = 121;
     public static final int SlFT4Relais = 122;
+    
+    public static final int Klingel = 66;
+    public static final int TastenUeberwacher = 65;
     public static final int Wecker = 120;
     
     // Relaisblock

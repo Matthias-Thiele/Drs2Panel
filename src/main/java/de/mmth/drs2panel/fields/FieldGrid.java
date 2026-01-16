@@ -19,7 +19,7 @@ import javafx.scene.paint.Color;
  */
 public class FieldGrid extends GridPane {
   private final static int[] LINE_FIELD_LIST = {5, 1, 1, 2, 5, 2, 6,2, 7, 2, 9, 2, 12, 2, 2, 3, 3, 3, 4, 3, 7, 3, 10, 3, 11, 3};
-  private static final int REFRESH_RATE = 20;
+  private static final int REFRESH_RATE = 10;
   
   private final List<BaseField> allFields = new ArrayList<>();
   private final boolean[] isSet = new boolean[Presets.GRID_WIDTH * Presets.GRID_HEIGHT];
@@ -106,17 +106,28 @@ public class FieldGrid extends GridPane {
   }
   
   private void addWeichen() {
-    var w20 = new Weiche("20", Const.WEICHE20, false, false);
+    int[] lampIds20 = {16, 17, 18, 19};
+    var w20 = new Weiche("20", Const.WEICHE20, false, false, lampIds20);
     addField(w20, 1, 3);
-    var w19 = new Weiche("19", Const.WEICHE19, true, true);
+    
+    int[] lampIds19 = {21, 20, 23, 22};
+    var w19 = new Weiche("19", Const.WEICHE19, true, true, lampIds19);
     addField(w19, 2, 2);
-    var w18 = new Weiche("18", Const.WEICHE18, false, false);
+    
+    int[] lampIds18 = {8, 9, 10, 11};
+    var w18 = new Weiche("18", Const.WEICHE18, false, false, lampIds18);
     addField(w18, 3, 2);
-    var w5 = new Weiche("5", Const.WEICHE5, true, false);
+    
+    int[] lampIds5 = {12, 13, 14, 15};
+    var w5 = new Weiche("5", Const.WEICHE5, true, false, lampIds5);
     addField(w5, 10, 2);
-    var w4 = new Weiche("4", Const.WEICHE4, false, true);
+    
+    int[] lampIds4 = {0, 1, 2, 3};
+    var w4 = new Weiche("4", Const.WEICHE4, false, true, lampIds4);
     addField(w4, 11, 2);
-    var w3 = new Weiche("3", Const.WEICHE3, true, false);
+    
+    int[] lampIds3 = {4, 5, 6, 7};
+    var w3 = new Weiche("3", Const.WEICHE3, true, false, lampIds3);
     addField(w3, 12, 3);
   }
   
@@ -141,16 +152,16 @@ public class FieldGrid extends GridPane {
   }
   
   private void addStreckenblock() {
-    var blockOutWB = new StreckeOut("WB", Const.BlockMOut, true);
+    var blockOutWB = new StreckeOut("WB", Const.BlockHOut, true);
     addField(blockOutWB, 0, 2);
     
-    var blockOutAH = new StreckeOut("AH", Const.BlockHOut, false);
+    var blockOutAH = new StreckeOut("AH", Const.BlockMOut, false);
     addField(blockOutAH, 14, 3);
     
-    var blockInWB = new StreckeIn("F", Const.BlockMIn, true, false);
+    var blockInWB = new StreckeIn("F", Const.BlockHIn, true, false);
     addField(blockInWB, 0, 4);
     
-    var blockInAH = new StreckeIn("A", Const.BlockHIn, false, true);
+    var blockInAH = new StreckeIn("A", Const.BlockMIn, false, true);
     addField(blockInAH, 14, 2);
   }
   
@@ -201,16 +212,24 @@ public class FieldGrid extends GridPane {
   }
   
   private void addMelder() {
-    var wut = new Melder("S|WuT|W", "   S", "   W", Const.WuT_S, Const.WuT_W, Color.WHITE, Color.WHITE);
+    int[] lampIds = {Const.WuTS, Const.WuTW};
+    var wut = new Melder("S|WuT|W", "   S", "   W", Const.WuT_S, Const.WuT_W, Color.WHITE, Color.WHITE, lampIds);
     addField(wut, 4, 0);
     
-    var unkn = new Melder("", "  MJI", " MJII", 0, 0, null, null);
-    addField(unkn, 12, 1);
+    int[] wk = {Const.Wecker, Const.Klingel};
+    var wkanzeige = new Melder("Wecker Kl", "  W", " K", 0, 0, null, null, wk);
+    addField(wkanzeige, 4, 4);
     
-    var tu = new Melder("", "  TÜ", "", 0, 0, null, null);
+    int[] induktor = {Const.MJ1, Const.MJ2};
+    var ind = new Melder("", "  MJI", " MJII", 0, 0, null, null, wk);
+    addField(ind, 12, 1);
+    
+    int[] tue = {Const.TastenUeberwacher};
+    var tu = new Melder("", "  TÜ", "", 0, 0, null, null, tue);
     addField(tu, 3, 4);
     
-    var zsm = new Melder("", " ZSM", "", 0, 0, null, null);
+    int[] dummy = {-1};
+    var zsm = new Melder("", " ZSM", "", 0, 0, null, null, dummy);
     addField(zsm, 11, 1);
     
     var blk = new Blinklicht();
@@ -219,12 +238,12 @@ public class FieldGrid extends GridPane {
   
   private void addSignale() {
     var lampIds = new int[] {Const.SigAfahrt, Const.SigAhalt, Const.VSigAfahrt, Const.VSigAhalt, Const.SigAwegRot, Const.SigAwegWeiss, 
-      Const.EinfRaeumungsmelderM, Const.EinfFestlegemelderM};
+      Const.EinfRaeumungsmelderM, Const.EinfFestlegemelderM, Const.Vn23};
     var sigA = new SignalA(Const.SIGNAL_A, lampIds);
     addField(sigA, 13,2);
     
     lampIds = new int[] {Const.SigFfahrt, Const.SigFhalt, Const.VSigFfahrt, Const.VSigFhalt, Const.SigFwegRot, Const.SigFwegWeiss, 
-      Const.EinfFestlegemelderH, Const.EinfRaeumungsmelderH};
+      Const.EinfFestlegemelderH, Const.EinfRaeumungsmelderH, Const.Vp13};
     var sigF = new SignalF(Const.SIGNAL_F, lampIds);
     addField(sigF, 0,3);
     
@@ -244,7 +263,8 @@ public class FieldGrid extends GridPane {
     var sigP1 = new SignalP("P1", Const.SIGNAL_P1, true, false, lampIds);
     addField(sigP1, 9, 3);
     
-    var wvP1 = new SignalWVp1();
+    lampIds = new int[] {Const.WVp1Weiss, Const.WVp1Gruen};
+    var wvP1 = new SignalWVp1(lampIds);
     addField(wvP1, 6, 3);
   }
   
