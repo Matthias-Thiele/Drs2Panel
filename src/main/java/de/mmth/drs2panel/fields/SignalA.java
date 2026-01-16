@@ -12,7 +12,11 @@ import javafx.scene.paint.Color;
  * @author matthias
  */
 public class SignalA extends BaseField {
-  public SignalA(int id) {
+  private final int[] lampIds;
+  private final boolean[] lampState = new boolean[8];
+  
+  public SignalA(int id, int[] lampIds) {
+    this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 2500, id);
     });    
@@ -121,34 +125,49 @@ public class SignalA extends BaseField {
   }
   
   private Color getGleisColor() {
-    return Color.LIGHTYELLOW;
+    return getTrackColor(lampState[4], lampState[5]);
   }
   
   private Color getColor1() {
-    return Color.GRAY;
+    return (lampState[0]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getColor2() {
-    return Color.RED;
+    return (lampState[1]) ? Presets.RED_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getColor3() {
-    return Color.GREEN;
+    return Color.NAVY;// (lampState[2]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getColor4() {
-    return Color.GREEN;
+    return (lampState[2]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getColor5() {
-    return Color.YELLOW;
+    return (lampState[3]) ? Presets.YELLOW_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getColorErsatz() {
-    return Color.GRAY;
+    return (lampState[6]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getColorMarker() {
-    return Color.GRAY;
+    return (lampState[6]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
+  
+  @Override
+  public void checkedUpdate() {
+    boolean changed = false;
+    for (var i = 0; i < 8; i++) {
+      var actState = drs2.getLampState(lampIds[i]);
+      changed |= lampState[i] != actState;
+      lampState[i] = actState;
+    }
+    
+    if (changed) {
+      update();
+    }
+  }
+  
 }

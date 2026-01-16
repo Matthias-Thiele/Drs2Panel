@@ -56,4 +56,14 @@ public class BaseField extends Pane {
     gc.fillRect(left + height / 2, top, width, height);
   }
   
+  protected Color getTrackColor(boolean withTrain, boolean inUse) {
+    if (withTrain) {
+      return Presets.RED_LAMP;
+    } else if (inUse) {
+      return Presets.WHITE_LAMP;
+    } else {
+      return Presets.DARK_LAMP;
+    }
+    
+  }
 }

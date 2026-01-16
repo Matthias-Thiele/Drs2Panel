@@ -17,10 +17,14 @@ public class SignalP extends BaseField {
   private final boolean hasErsatz;
   private final boolean hasDrop;
   
-  public SignalP(String name, int id, boolean hasErsatz, boolean hasDrop) {
+  private final int[] lampIds;
+  private final boolean[] lampState = new boolean[4];
+  
+  public SignalP(String name, int id, boolean hasErsatz, boolean hasDrop, int[] lampIds) {
     this.name = name;
     this.hasErsatz = hasErsatz;
     this.hasDrop = hasDrop;
+    this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 1000, id);
     });    
@@ -40,17 +44,24 @@ public class SignalP extends BaseField {
     int leftHalt = 46;
     int leftRangier = 20;
     int rangierTop = 59;
+    int ersatzX = 134;
+    int ersatzY = 14;
+    
     if (hasErsatz) {
       leftFahrt = 107;
       leftHalt = 85;
       leftRangier = 35;
-      gc.setFill(getErsatz());
-      gc.beginPath();
-      gc.moveTo(leftHalt - 18, rangierTop);
-      gc.lineTo(leftHalt - 10 , rangierTop + 6);
-      gc.lineTo(leftHalt - 18, rangierTop + 12);
-      gc.fill();
+      ersatzX = leftHalt - 1;
+      ersatzY = rangierTop;
     }
+    
+    gc.setFill(getErsatz());
+    gc.beginPath();
+    gc.moveTo(ersatzX - 18, ersatzY);
+    gc.lineTo(ersatzX - 10 , ersatzY + 6);
+    gc.lineTo(ersatzX - 18, ersatzY + 12);
+    gc.fill();
+
     gc.setFill(getFahrt());
     gc.fillOval(leftFahrt, 59, 11, 11);
     gc.setFill(getHalt());
@@ -90,6 +101,7 @@ public class SignalP extends BaseField {
       baseX = 20;
     } else {
       drawShield(gc, 40, 55, 25, 19);
+      gc.fillOval(110, 10, 19, 19);
     }
     
     gc.beginPath();
@@ -113,18 +125,33 @@ public class SignalP extends BaseField {
   }
   
   private Color getHalt() {
-    return Color.RED;
+    return (lampState[1]) ? Presets.RED_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getFahrt() {
-    return Color.GREEN;
+    return (lampState[0]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getErsatz() {
-    return Color.LIGHTYELLOW;
+    return (lampState[3]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getRangier() {
-    return Color.LIGHTYELLOW;
+    return (lampState[2]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
+  
+  @Override
+  public void checkedUpdate() {
+    boolean changed = false;
+    for (var i = 0; i < 4; i++) {
+      var actState = drs2.getLampState(lampIds[i]);
+      changed |= lampState[i] != actState;
+      lampState[i] = actState;
+    }
+    
+    if (changed) {
+      update();
+    }
+  }
+  
 }

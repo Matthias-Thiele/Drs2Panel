@@ -24,7 +24,7 @@ public class CounterField extends BaseField {
     this.setOnMouseClicked(ev -> {
       counterValue++;
       update();
-      ButtonHandler.add(this, 500, ioId);
+      ButtonHandler.add(this, 1500, ioId);
     });
   }
   

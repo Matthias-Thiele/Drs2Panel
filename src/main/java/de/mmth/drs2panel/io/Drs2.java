@@ -15,6 +15,7 @@ public class Drs2 {
   private static final int MAX_LAMPS = 136;
   private static final int MAX_SWITCHES = 64;
   private static final int BUFFER_SIZE = 32;
+  private static final byte[] switchInverter = {(byte)0x80, (byte)0xff, (byte)0x7e, (byte)0x64, (byte)0x1f, (byte)0xff, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00};
   
   private boolean[] lamps = new boolean[MAX_LAMPS];
   private boolean[] switches = new boolean[MAX_SWITCHES];
@@ -150,8 +151,9 @@ public class Drs2 {
     transmitBuffer[0] = 'B';
     for (var i = 0; i < 6; i++) {
       fillTransmitBufferByte(i + 1, i << 3);
+      transmitBuffer[i + 1]  ^= switchInverter[i];
     }
-    transmitBuffer[8] = 'X';
+    transmitBuffer[7] = 'X';
   }
   
   private void fillTransmitBufferIO() {
@@ -174,6 +176,7 @@ public class Drs2 {
     if (switchesDirty) {
       System.out.println("Send switch state.");
       switchesDirty = false;
+      sendInputs();
     }
   }
   

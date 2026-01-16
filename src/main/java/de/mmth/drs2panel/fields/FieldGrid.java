@@ -218,22 +218,30 @@ public class FieldGrid extends GridPane {
   }
   
   private void addSignale() {
-    var sigA = new SignalA(Const.SIGNAL_A);
+    var lampIds = new int[] {Const.SigAfahrt, Const.SigAhalt, Const.VSigAfahrt, Const.VSigAhalt, Const.SigAwegRot, Const.SigAwegWeiss, 
+      Const.EinfRaeumungsmelderM, Const.EinfFestlegemelderM};
+    var sigA = new SignalA(Const.SIGNAL_A, lampIds);
     addField(sigA, 13,2);
     
-    var sigF = new SignalF(Const.SIGNAL_F);
+    lampIds = new int[] {Const.SigFfahrt, Const.SigFhalt, Const.VSigFfahrt, Const.VSigFhalt, Const.SigFwegRot, Const.SigFwegWeiss, 
+      Const.EinfFestlegemelderH, Const.EinfRaeumungsmelderH};
+    var sigF = new SignalF(Const.SIGNAL_F, lampIds);
     addField(sigF, 0,3);
     
-    var sigN3 = new SignalN("N3", Const.SIGNAL_N3, true);
+    lampIds = new int[] {Const.SigN3fahrt, Const.SigN3halt, Const.SigN3Rangier, Const.SigN3Ersatz};
+    var sigN3 = new SignalN("N3", Const.SIGNAL_N3, true, lampIds);
     addField(sigN3, 4, 1);
     
-    var sigN2 = new SignalN("N2", Const.SIGNAL_N2, false);
+    lampIds = new int[] {Const.SigN2fahrt, Const.SigN2halt, Const.SigN2Rangier, Const.SigN2Ersatz};
+    var sigN2 = new SignalN("N2", Const.SIGNAL_N2, false, lampIds);
     addField(sigN2, 4, 2);
     
-    var sigP3 = new SignalP("P3", Const.SIGNAL_P3, false, true);
+    lampIds = new int[] {Const.SigP3fahrt, Const.SigP3halt, Const.SigP3Rangier, Const.SigP3Ersatz};
+    var sigP3 = new SignalP("P3", Const.SIGNAL_P3, false, true, lampIds);
     addField(sigP3, 9, 1);
     
-    var sigP1 = new SignalP("P1", Const.SIGNAL_P1, true, false);
+    lampIds = new int[] {Const.SigP1fahrt, Const.SigP1halt, Const.SigP1Rangier, Const.SigP1Ersatz};
+    var sigP1 = new SignalP("P1", Const.SIGNAL_P1, true, false, lampIds);
     addField(sigP1, 9, 3);
     
     var wvP1 = new SignalWVp1();

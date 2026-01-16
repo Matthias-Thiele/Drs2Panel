@@ -4,6 +4,7 @@ DRS 2 Stellpult
  */
 package de.mmth.drs2panel.fields;
 
+import de.mmth.drs2panel.io.Const;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -19,12 +20,23 @@ public class Weiche extends BaseField {
   private final String name;
   private final int ioId;
   
+  private int lampStartId;
+  private final boolean[] lampState = new boolean[4];
+  
   public Weiche(String name, int id, boolean toLeft, boolean toBottom) {
     super();
     this.name = name;
     this.ioId = id;
     this.toLeft = toLeft;
     this.toBottom = toBottom;
+    switch(name) {
+      case "3": lampStartId = 4; break;
+      case "4": lampStartId = 0; break;
+      case "5": lampStartId = 12; break;
+      case "18": lampStartId = 8; break;
+      case "19": lampStartId = 20; break;
+      case "20": lampStartId = 16; break;
+    }
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 1500, ioId);
     });
@@ -136,10 +148,29 @@ public class Weiche extends BaseField {
   }
   
   private Color getLampColor(boolean lineTrack) {
-    if (!lineTrack) {
-      return Color.LIGHTYELLOW;
+    int offset = lineTrack ? 1 : 0;
+    if (lampState[offset + 0]) {
+      return Presets.RED_LAMP;
+    } else if (lampState[offset + 2]) {
+      return Presets.WHITE_LAMP;
     } else {
-      return Color.RED; //Presets.DARK_LAMP;
+      return Presets.DARK_LAMP;
     }
   }
+  
+  @Override
+  public void checkedUpdate() {
+    boolean changed = false;
+    boolean[] states = new boolean[4];
+    for (var i = 0; i < 4; i++) {
+      states[i] = drs2.getLampState(lampStartId + i);
+      changed |= states[i] != lampState[i];
+    }
+    
+    if (changed) {
+      System.arraycopy(states, 0, lampState, 0, 4);
+      update();
+    }
+  }
+  
 }

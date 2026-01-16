@@ -15,9 +15,13 @@ public class SignalN extends BaseField {
   private final String name;
   private final boolean hasDrop;
   
-  public SignalN(String name, int id, boolean hasDrop) {
+  private final int[] lampIds;
+  private final boolean[] lampState = new boolean[4];
+  
+  public SignalN(String name, int id, boolean hasDrop, int[] lampIds) {
     this.name = name;
     this.hasDrop = hasDrop;
+    this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 1000, id);
     });    
@@ -100,19 +104,33 @@ public class SignalN extends BaseField {
   }
   
   private Color getHalt() {
-    return Color.RED;
+    return (lampState[1]) ? Presets.RED_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getFahrt() {
-    return Color.GREEN;
+    return (lampState[0]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getErsatz() {
-    return Color.LIGHTYELLOW;
+    return (lampState[3]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getRangier() {
-    return Color.LIGHTYELLOW;
+    return (lampState[2]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
+  }
+  
+  @Override
+  public void checkedUpdate() {
+    boolean changed = false;
+    for (var i = 0; i < 4; i++) {
+      var actState = drs2.getLampState(lampIds[i]);
+      changed |= lampState[i] != actState;
+      lampState[i] = actState;
+    }
+    
+    if (changed) {
+      update();
+    }
   }
   
 }

@@ -19,6 +19,8 @@ public class Presets {
   public static final Color DARK_LAMP = Color.rgb(0x30, 0x30, 0x30);
   public static final Color RED_LAMP = Color.rgb(0xc0, 0x00, 0x20);
   public static final Color GREEN_LAMP = Color.rgb(0x00, 0xc0, 0x20);
+  public static final Color WHITE_LAMP = Color.rgb(0xff, 0xff, 0xc0);
+  public static final Color YELLOW_LAMP = Color.rgb(0xff, 0xf0, 0x20);
   public static final Color TEXT_BACKGROUND = Color.rgb(0xe8, 0xe8, 0xe0);
   
   public static final int MIDDLE_BAR_HEIGHT = FIELD_HEIGHT / 5;
