@@ -4,7 +4,6 @@ DRS 2 Stellpult
  */
 package de.mmth.drs2panel.fields;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
@@ -12,15 +11,19 @@ import javafx.scene.paint.Color;
  * @author matthias
  */
 public class Schluesselweiche extends BaseField {
+  private final int[] lampIds;
+  private final boolean[] lampState = new boolean[9];
+  
 
   private final String name;
   private final int textOffset;
   private final int ioId;
   
-  public Schluesselweiche(String name, int id, int textOffset) {
+  public Schluesselweiche(String name, int id, int textOffset, int[] lampIds) {
     this.name = name;
     this.ioId = id;
     this.textOffset = textOffset;
+    this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 2500, ioId);
     });
@@ -45,10 +48,18 @@ public class Schluesselweiche extends BaseField {
   }
   
   private Color getFreigabeColor() {
-    return Color.LIGHTYELLOW;
+    return (lampState[0]) ? Presets.RED_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getEntnommenColor() {
-    return Color.RED;
+    return (lampState[1]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
+  
+  @Override
+  public void checkedUpdate() {
+    if (updateState(lampState, lampIds)) {
+      update();
+    }
+  }
+  
 }

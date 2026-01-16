@@ -31,8 +31,10 @@ public class IOGrid extends GridPane {
     var label = new Label("Eingaben");
     label.setPrefWidth(Presets.FIELD_WIDTH - 10);
     this.add(label, nextButtonCol++, 0);
-    addInput("Fa A", Const.SCHLUESSEL_A);
-    addInput("Fa F", Const.SCHLUESSEL_F);
+    addInput("Fa A", Const.SCHLUESSEL_A, -1);
+    addInput("Fa F", Const.SCHLUESSEL_F, -1);
+    addInput("SW I", Const.WSCHLUESSEL1, Const.SlFT1Relais);
+    addInput("SW IV", Const.WSCHLUESSEL4, Const.SlFT4Relais);
   }
   
   private void addLamps() {
@@ -40,15 +42,23 @@ public class IOGrid extends GridPane {
     this.add(label, 0, 1);
   }
   
-  private void addInput(String name, int ioId) {
+  private void addInput(String name, int ioId, int checkId) {
     var bt = new Button(name);
     var state = new ButtonState();
     state.isPressed = false;
     state.ioId = ioId;
+    state.checkId = checkId;
     bt.setUserData(state);
     bt.setPrefWidth(Presets.FIELD_WIDTH / 2 - 5);
     bt.setOnAction(e -> {
       ButtonState s = (ButtonState) bt.getUserData();
+      if (s.checkId >= 0) {
+        if (!drs2.getLampState(s.checkId)) {
+          System.out.println("Nicht freigegeben: " + s.ioId + ", check: " + s.checkId);
+          return;
+        }
+      }
+      
       s.isPressed = !s.isPressed;
       bt.setStyle(s.isPressed ? "-fx-background-color: lightgreen": "");
       drs2.setSwitch(s.ioId, s.isPressed);
@@ -59,5 +69,6 @@ public class IOGrid extends GridPane {
   class ButtonState {
     boolean isPressed;
     int ioId;
+    int checkId;
   }
 }

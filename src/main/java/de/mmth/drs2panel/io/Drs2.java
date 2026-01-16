@@ -10,7 +10,7 @@ package de.mmth.drs2panel.io;
  * @author matthias
  */
 public class Drs2 {
-  private final static int OUTPUT_BYTE_COUNT = 14;
+  private final static int OUTPUT_BYTE_COUNT = 15;
   private final static int IO_START = 120;
   private static final int MAX_LAMPS = 136;
   private static final int MAX_SWITCHES = 72;
@@ -124,6 +124,10 @@ public class Drs2 {
     var lampPos = 0;
     for (var i = 0; i < OUTPUT_BYTE_COUNT; i++) {
       byte val = receiveBuffer[i];
+      if (lampPos == 96) {
+        lampPos += 8;
+      }
+      
       for (var j = 0; j < 8; j++) {
         lamps[lampPos++] = (val & 1) == 1;
         val >>= 1;
