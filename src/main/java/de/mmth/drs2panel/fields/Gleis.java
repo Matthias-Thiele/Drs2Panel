@@ -46,13 +46,7 @@ public class Gleis extends BaseField {
   }
   
   private Color getGleisColor() {
-    if (lampState[LampRed]) {
-      return Presets.RED_LAMP;
-    } else if (lampState[LampWhite]) {
-      return Color.LIGHTYELLOW;
-    } else {
-      return Presets.DARK_LAMP;
-    }
+    return getTrackColor(lampState[LampRed], lampState[LampWhite]);
   }
   
   @Override

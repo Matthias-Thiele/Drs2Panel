@@ -94,7 +94,7 @@ public class Drs2 {
   public void tickIO(long now) {
     if (uartIO.check()) {
       byte next = uartIO.readByte();
-      switch (actState) {
+      switch (actIState) {
         case WAIT:
           if (next == 'X') {
             actIState = CommandState.IO_RUNNING;
@@ -104,18 +104,19 @@ public class Drs2 {
 
         case IO_RUNNING:
           if (next == 'y') {
-            actIState = CommandState.IO_DONE;
+            for (var i = 0; i < outICount; i++) {
+              byte c = receiveIBuffer[i];
+              boolean isSet = c >= 'a';
+              int pos = (c - 'A') & 0xf;
+              lamps[IO_START + pos] = isSet;
+            }
+            
+            lampsChanged = true;
+            actIState = CommandState.WAIT;
+          } else {
+            receiveIBuffer[outICount++] = next;
           }
-          receiveIBuffer[outICount++] = next;
           break;
-          
-        case IO_DONE:
-          for (var i = 0; i < outICount; i++) {
-            byte c = receiveIBuffer[i];
-            boolean isSet = c >= 'a';
-            int pos = (c - 'A') & 0x1f;
-            lamps[IO_START + pos] = isSet;
-          }
       }
     }
   }
@@ -188,6 +189,9 @@ public class Drs2 {
   public boolean checkReceived() {
     boolean result = lampsChanged;
     lampsChanged = false;
+    if (result) {
+      System.out.println("Lamps changed.");
+    }
     return result;
   }
   

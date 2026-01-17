@@ -155,16 +155,22 @@ public class FieldGrid extends GridPane {
   }
   
   private void addStreckenblock() {
-    var blockOutWB = new StreckeOut("WB", Const.BlockHOut, true);
+    int[] outWB = {Const.StreckeNachHRot, Const.StreckeNachHWeiss, Const.AusfSperrmelderH, 
+      Const.GleisFRot, Const.GleisFWeiss, Const.AusfSperrmelderH};
+    var blockOutWB = new StreckeOut("WB", Const.BlockHOut, true, outWB);
     addField(blockOutWB, 0, 2);
     
-    var blockOutAH = new StreckeOut("AH", Const.BlockMOut, false);
+    int[] outAH = {Const.StreckeNachMRot, Const.StreckeNachMWeiss, Const.AusfSperrmelderM, 
+      Const.GleisARot, Const.GleisAWeiss, Const.AusfSperrmelderM};
+    var blockOutAH = new StreckeOut("AH", Const.BlockMOut, false, outAH);
     addField(blockOutAH, 14, 3);
     
-    var blockInWB = new StreckeIn("F", Const.BlockHIn, true, false);
+    int[] inWB = {Const.StreckeVonHWeiss, Const.StreckeVonHRot, Const.EinfRaeumungsmelderH}; 
+    var blockInWB = new StreckeIn("F", Const.BlockHIn, true, false, inWB);
     addField(blockInWB, 0, 4);
     
-    var blockInAH = new StreckeIn("A", Const.BlockMIn, false, true);
+    int[] inAH = {Const.StreckeVonMWeiss, Const.StreckeVonMRot, Const.EinfRaeumungsmelderM}; 
+    var blockInAH = new StreckeIn("A", Const.BlockMIn, false, true, inAH);
     addField(blockInAH, 14, 2);
   }
   
@@ -224,7 +230,7 @@ public class FieldGrid extends GridPane {
     addField(wkanzeige, 4, 4);
     
     int[] induktor = {Const.MJ1, Const.MJ2};
-    var ind = new Melder("", "  MJI", " MJII", 0, 0, null, null, wk);
+    var ind = new Melder("", "  MJI", " MJII", 0, 0, null, null, induktor);
     addField(ind, 12, 1);
     
     int[] tue = {Const.TastenUeberwacher};
@@ -241,12 +247,12 @@ public class FieldGrid extends GridPane {
   
   private void addSignale() {
     var lampIds = new int[] {Const.SigAfahrt, Const.SigAhalt, Const.VSigAfahrt, Const.VSigAhalt, Const.SigAwegRot, Const.SigAwegWeiss, 
-      Const.EinfRaeumungsmelderM, Const.EinfFestlegemelderM, Const.Vn23};
+      Const.SigAersatz, Const.EinfRaeumungsmelderM, Const.Vn23};
     var sigA = new SignalA(Const.SIGNAL_A, lampIds);
     addField(sigA, 13,2);
     
     lampIds = new int[] {Const.SigFfahrt, Const.SigFhalt, Const.VSigFfahrt, Const.VSigFhalt, Const.SigFwegRot, Const.SigFwegWeiss, 
-      Const.EinfFestlegemelderH, Const.EinfRaeumungsmelderH, Const.Vp13};
+      Const.SigFersatz, Const.EinfFestlegemelderH, Const.Vp13};
     var sigF = new SignalF(Const.SIGNAL_F, lampIds);
     addField(sigF, 0,3);
     

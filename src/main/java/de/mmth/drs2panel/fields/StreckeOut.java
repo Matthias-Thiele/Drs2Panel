@@ -14,11 +14,14 @@ public class StreckeOut extends BaseField {
 
   private final boolean toLeft;
   private final String name;
+  private final int[] lampIds;
+  private final boolean[] lampState = new boolean[6];
   
-  public StreckeOut(String name, int id, boolean toLeft) {
+  public StreckeOut(String name, int id, boolean toLeft, int[] lampIds) {
     super();
     this.name = name;
     this.toLeft = toLeft;
+    this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 1500, id);
     });    
@@ -99,18 +102,25 @@ public class StreckeOut extends BaseField {
   }
   
   private Color getStreckenFarbe() {
-    return Color.RED;
+    return getTrackColor(lampState[3], lampState[4]);
   }
   
   private Color getMelder() {
-    return Color.BLUE;
+    return lampState[2] ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getBlockFarbe() {
-    return Color.LIGHTYELLOW;
+    return getTrackColor(lampState[0], lampState[1]);
   }
   
   private Color getWHSperre() {
-    return Color.LIGHTYELLOW;
+    return lampState[5] ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
+  }
+  
+  @Override
+  public void checkedUpdate() {
+    if (updateState(lampState, lampIds)) {
+      update();
+    }
   }
 }

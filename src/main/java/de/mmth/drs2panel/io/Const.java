@@ -59,6 +59,8 @@ public class Const {
     // Schlüsselschalter
     public static final int SCHLUESSEL_A = 56;
     public static final int SCHLUESSEL_F = 57;
+    public static final int BLOCK_AH_OUT = 58;
+    public static final int BLOCK_AH_IN = 59;
     
     // Schlüsselweiche
     public static final int WSCHLUESSEL3 = 34;
@@ -88,6 +90,7 @@ public class Const {
     public static final int VSigAhalt = 76;
     public static final int SigAwegRot = 44;
     public static final int SigAwegWeiss = 45;
+    public static final int SigAersatz = 53;
             
     // Signal F
     public static final int SigFfahrt = 36;
@@ -96,6 +99,7 @@ public class Const {
     public static final int VSigFhalt = 74;
     public static final int SigFwegRot = 42;
     public static final int SigFwegWeiss = 43;
+    public static final int SigFersatz = 50;
     
     // Signal P1
     public static final int SigP1fahrt = 38;

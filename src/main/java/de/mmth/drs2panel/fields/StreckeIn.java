@@ -15,12 +15,15 @@ public class StreckeIn extends BaseField {
   private final String name;
   private final boolean withStrecke;
   private final boolean toLeft;
+  private final int[] lampIds;
+  private final boolean[] lampState = new boolean[3];
   
-  public StreckeIn(String name, int id, boolean toLeft, boolean withStrecke) {
+  public StreckeIn(String name, int id, boolean toLeft, boolean withStrecke, int[] lampIds) {
     super();
     this.name = name;
     this.toLeft = toLeft;
     this.withStrecke = withStrecke;
+    this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       ButtonHandler.add(this, 1500, id);
     });    
@@ -71,10 +74,17 @@ public class StreckeIn extends BaseField {
   }
   
   private Color getBlockColor() {
-    return Color.LIGHTYELLOW;
+    return getTrackColor(lampState[1], lampState[0]);
   }
   
   private Color getMelderColor() {
-    return Color.LIGHTYELLOW;
+    return lampState[2] ? Color.LIGHTYELLOW : Presets.DARK_LAMP;
+  }
+  
+  @Override
+  public void checkedUpdate() {
+    if (updateState(lampState, lampIds)) {
+      update();
+    }
   }
 }

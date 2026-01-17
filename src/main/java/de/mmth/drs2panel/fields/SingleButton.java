@@ -20,7 +20,7 @@ public class SingleButton extends BaseField {
     this.ioId = id;
     this.color = color;
     this.setOnMouseClicked(ev -> {
-      ButtonHandler.add(this, 2500, ioId);
+      ButtonHandler.add(this, 1500, ioId);
     });
   }
   
