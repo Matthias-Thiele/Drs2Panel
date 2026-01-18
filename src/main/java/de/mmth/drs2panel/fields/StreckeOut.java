@@ -106,7 +106,7 @@ public class StreckeOut extends BaseField {
   }
   
   private Color getMelder() {
-    return lampState[2] ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
+    return lampState[5] ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
   private Color getBlockFarbe() {
@@ -114,7 +114,7 @@ public class StreckeOut extends BaseField {
   }
   
   private Color getWHSperre() {
-    return lampState[5] ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
+    return lampState[2] ? Presets.BLUE_LAMP : Presets.DARK_LAMP;
   }
   
   @Override

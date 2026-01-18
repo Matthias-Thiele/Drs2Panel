@@ -78,7 +78,7 @@ public class StreckeIn extends BaseField {
   }
   
   private Color getMelderColor() {
-    return lampState[2] ? Color.LIGHTYELLOW : Presets.DARK_LAMP;
+    return lampState[2] ? Presets.YELLOW_LAMP : Presets.DARK_LAMP;
   }
   
   @Override

@@ -156,7 +156,7 @@ public class FieldGrid extends GridPane {
   
   private void addStreckenblock() {
     int[] outWB = {Const.StreckeNachHRot, Const.StreckeNachHWeiss, Const.AusfSperrmelderH, 
-      Const.GleisFRot, Const.GleisFWeiss, Const.AusfSperrmelderH};
+      Const.GleisFRot, Const.GleisFWeiss, Const.AusfFestlegemelderH};
     var blockOutWB = new StreckeOut("WB", Const.BlockHOut, true, outWB);
     addField(blockOutWB, 0, 2);
     
@@ -207,7 +207,7 @@ public class FieldGrid extends GridPane {
     var hagtslflt = new DualButton("HaGT", Const.HaGT, Color.RED, "SlFLT", Const.SlFLT, Color.WHITE);
     addField(hagtslflt, 2, 0);
     
-    var vbhth = new SingleButton("VbHT", Const.VbHT_M, Color.BLACK);
+    var vbhth = new SingleButton("VbHT", Const.VbHT_H, Color.BLACK);
     addField(vbhth, 0, 1);
     
     var bgt = new SingleButton("BlGT", Const.BlGT, Color.BLACK);
@@ -216,7 +216,7 @@ public class FieldGrid extends GridPane {
     var aslt = new SingleButton("AsLT", Const.AsLT, Color.WHITE);
     addField(aslt, 13, 0);
     
-    var vbhtm = new SingleButton("VbHT", Const.VbHT_H, Color.BLACK);
+    var vbhtm = new SingleButton("VbHT", Const.VbHT_M, Color.BLACK);
     addField(vbhtm, 14, 4);
   }
   
@@ -241,13 +241,14 @@ public class FieldGrid extends GridPane {
     var zsm = new Melder("", " ZSM", "", 0, 0, null, null, dummy);
     addField(zsm, 11, 1);
     
-    var blk = new Blinklicht();
+    int[] blink = {Const.BLINK_STOERUNG};
+    var blk = new Blinklicht(blink);
     addField(blk, 2, 4);
   }
   
   private void addSignale() {
     var lampIds = new int[] {Const.SigAfahrt, Const.SigAhalt, Const.VSigAfahrt, Const.VSigAhalt, Const.SigAwegRot, Const.SigAwegWeiss, 
-      Const.SigAersatz, Const.EinfRaeumungsmelderM, Const.Vn23};
+      Const.SigAersatz, Const.EinfFestlegemelderM, Const.Vn23};
     var sigA = new SignalA(Const.SIGNAL_A, lampIds);
     addField(sigA, 13,2);
     
