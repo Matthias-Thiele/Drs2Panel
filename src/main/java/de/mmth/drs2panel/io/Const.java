@@ -176,6 +176,7 @@ public class Const {
     public static final int TastenUeberwacher = 65;
     public static final int Wecker = 120;
     public static final int BLINK_STOERUNG = 107;
+    public static final int ZSM = 106;
     
     // Relaisblock
     public static final int StreckeNachAH = 123;

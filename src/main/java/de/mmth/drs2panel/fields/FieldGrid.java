@@ -161,7 +161,7 @@ public class FieldGrid extends GridPane {
     addField(blockOutWB, 0, 2);
     
     int[] outAH = {Const.StreckeNachMRot, Const.StreckeNachMWeiss, Const.AusfSperrmelderM, 
-      Const.GleisARot, Const.GleisAWeiss, Const.AusfSperrmelderM};
+      Const.GleisARot, Const.GleisAWeiss, Const.AusfFestlegemelderM};
     var blockOutAH = new StreckeOut("AH", Const.BlockMOut, false, outAH);
     addField(blockOutAH, 14, 3);
     
@@ -237,8 +237,8 @@ public class FieldGrid extends GridPane {
     var tu = new Melder("", "  TÜ", "", 0, 0, null, null, tue);
     addField(tu, 3, 4);
     
-    int[] dummy = {-1};
-    var zsm = new Melder("", " ZSM", "", 0, 0, null, null, dummy);
+    int[] zm = {Const.ZSM};
+    var zsm = new Melder("", " ZSM", "", 0, 0, null, null, zm);
     addField(zsm, 11, 1);
     
     int[] blink = {Const.BLINK_STOERUNG};
