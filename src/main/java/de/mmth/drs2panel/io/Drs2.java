@@ -17,16 +17,15 @@ public class Drs2 {
   private static final int BUFFER_SIZE = 32;
   private static final byte[] switchInverter = {(byte)0x80, (byte)0xff, (byte)0x7e, (byte)0x64, (byte)0x1f, (byte)0xff, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00};
   
-  private boolean[] lamps = new boolean[MAX_LAMPS];
-  private boolean[] switches = new boolean[MAX_SWITCHES];
+  private final boolean[] lamps = new boolean[MAX_LAMPS];
+  private final boolean[] switches = new boolean[MAX_SWITCHES];
   private boolean switchesDirty = false;
   private boolean lampsChanged = false;
   
-  private byte[] receiveBuffer = new byte[BUFFER_SIZE];
-  private byte[] transmitBuffer = new byte[BUFFER_SIZE];
+  private final byte[] receiveBuffer = new byte[BUFFER_SIZE];
+  private final byte[] transmitBuffer = new byte[BUFFER_SIZE];
 
-  private byte[] receiveIBuffer = new byte[BUFFER_SIZE];
-  private byte[] transmitIBuffer = new byte[BUFFER_SIZE];
+  private final byte[] receiveIBuffer = new byte[BUFFER_SIZE];
 
   public enum CommandState {
     WAIT,
@@ -37,7 +36,8 @@ public class Drs2 {
     IO_DONE
   }
   
-  private Uart uartD, uartIO;
+  private final Uart uartD;
+  private final Uart uartIO;
   private CommandState actState = CommandState.WAIT;
   private int outCount = 0;
   private CommandState actIState = CommandState.WAIT;

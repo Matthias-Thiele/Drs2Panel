@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
  * @author matthias
  */
 public class LineField extends BaseField {
+  @Override
   public void update() {
     super.update();
     var gc = canvas.getGraphicsContext2D();

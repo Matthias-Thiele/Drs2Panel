@@ -13,7 +13,7 @@ import com.fazecast.jSerialComm.SerialPort;
  */
 public class Uart {
 
-  private String portName;
+  private final String portName;
   private final SerialPort comPort;
   private final byte[] readBuffer = new byte[1];
  

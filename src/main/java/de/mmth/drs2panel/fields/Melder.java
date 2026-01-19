@@ -19,7 +19,7 @@ public class Melder extends BaseField {
   private final Color leftButtonColor;
   private final Color rightButtonColor;
   
-  private int[] lampIds;
+  private final int[] lampIds;
   private final boolean[] lampState = new boolean[2];
   
   public Melder(String name, String leftView, String rightView, int leftId, int rightId, Color leftButton, Color rightButton, int[] lampIds) {
