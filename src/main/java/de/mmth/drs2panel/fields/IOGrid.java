@@ -12,6 +12,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -20,6 +22,7 @@ import javafx.scene.layout.GridPane;
 public class IOGrid extends GridPane {
   private int nextButtonCol = 0;
   private int nextLabelCol = 0;
+  private boolean lastWecker = false;
   
   private final Drs2 drs2;
   private final List<Label> lampList = new ArrayList<>();
@@ -36,6 +39,16 @@ public class IOGrid extends GridPane {
     new AnimationTimer() {
       @Override
       public void handle(long now) {
+        // Wecker
+        var actWecker = drs2.getLampState(Const.Wecker);
+        if (actWecker != lastWecker) {
+          lastWecker = actWecker;
+          if (actWecker) {
+            Media media = new Media(this.getClass().getResource("bell.mp3").toExternalForm());
+            MediaPlayer mp3Player = new MediaPlayer(media);
+            mp3Player.play();
+          }
+        }
         for (var lamp: lampList) {
           var state = (LabelState)lamp.getUserData();
           var lampState = drs2.getLampState(state.ioId);
@@ -76,6 +89,8 @@ public class IOGrid extends GridPane {
     var label = new Label("Ausgaben");
     this.add(label, nextLabelCol++, 1);
     
+    this.addLamp(" SW I", Const.SlFT1Relais, null);
+    this.addLamp(" SW IV", Const.SlFT4Relais, null);
     this.addLamp(" VB nach AH", Const.StreckeNachAH, vorblockAH);
     this.addLamp(" RB von AH", Const.StreckeVonAH, rückblockAH);
   }
@@ -107,7 +122,7 @@ public class IOGrid extends GridPane {
     
     bt.setOnAction(e -> {
       ButtonState s = (ButtonState) bt.getUserData();
-      if (s.checkId >= 0) {
+      if (!s.isPressed && s.checkId >= 0) {
         if (!drs2.getLampState(s.checkId)) {
           System.out.println("Nicht freigegeben: " + s.ioId + ", check: " + s.checkId);
           return;
