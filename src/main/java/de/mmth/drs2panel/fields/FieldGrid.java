@@ -305,6 +305,12 @@ public class FieldGrid extends GridPane {
     
     var kappen = new CustomDrawing(FieldType.TASTENKAPPEN);
     addField(kappen, 0, 0);
+    
+    var tatop = new CustomDrawing(FieldType.TASTENANSCHALTER_TOP);
+    addField(tatop, 14, 0);
+    
+    var tabot = new CustomDrawing(FieldType.TASTENANSCHALTER_BOTTOM);
+    addField(tabot, 14, 1);
   }
   
   private void addLineFields() {

@@ -77,6 +77,7 @@ public class IOGrid extends GridPane {
     var label = new Label("Eingaben");
     label.setPrefWidth(Presets.FIELD_WIDTH - 10);
     this.add(label, nextButtonCol++, 0);
+    addInput("TA", Const.TA, -1, false);
     addInput("Fa A", Const.SCHLUESSEL_A, -1, false);
     addInput("Fa F", Const.SCHLUESSEL_F, -1, false);
     addInput("SW I", Const.WSCHLUESSEL1, Const.SlFT1Relais, false);
