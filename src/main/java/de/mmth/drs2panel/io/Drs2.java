@@ -121,6 +121,10 @@ public class Drs2 {
     }
   }
   
+  public void setChanged() {
+    lampsChanged = true;
+  }
+  
   private void fillLamps() {
     var lampPos = 0;
     for (var i = 0; i < OUTPUT_BYTE_COUNT; i++) {
@@ -198,6 +202,10 @@ public class Drs2 {
   public void setSwitch(int id, boolean newValue) {
     switchesDirty |= switches[id] != newValue;
     switches[id] = newValue;
+  }
+  
+  public boolean getSwitch(int id) {
+    return switches[id];
   }
   
   public boolean getLampState(int id) {

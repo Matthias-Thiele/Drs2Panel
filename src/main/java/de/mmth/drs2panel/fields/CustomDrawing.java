@@ -59,56 +59,9 @@ public class CustomDrawing extends BaseField {
       case TASTENKAPPEN:
         drawKappen(gc);
         break;
-        
-      case TASTENANSCHALTER_TOP:
-        drawTAtop(gc);
-        break;
-        
-      case TASTENANSCHALTER_BOTTOM:
-        drawTAbottom(gc);
-        break;
     }
   }
   
-  private void drawTAtop(GraphicsContext gc) {
-    gc.setFill(Color.BLACK);
-    var mid = Presets.FIELD_WIDTH / 2;
-    gc.fillOval(mid - 15, Presets.FIELD_HEIGHT - 30, 30, 30);
-    gc.beginPath();
-    gc.moveTo(mid - 9, Presets.FIELD_HEIGHT - 15);
-    gc.lineTo(mid - 10, Presets.FIELD_HEIGHT);
-    gc.lineTo(mid + 10, Presets.FIELD_HEIGHT);
-    gc.lineTo(mid + 9, Presets.FIELD_HEIGHT - 15);
-    gc.fill();
-    
-    gc.setFill(Color.GRAY);
-    gc.fillOval(mid - 10, Presets.FIELD_HEIGHT - 25, 20, 20);
-    gc.beginPath();
-    gc.moveTo(mid - 4, Presets.FIELD_HEIGHT - 12);
-    gc.lineTo(mid - 5, Presets.FIELD_HEIGHT);
-    gc.lineTo(mid + 5, Presets.FIELD_HEIGHT);
-    gc.lineTo(mid + 4, Presets.FIELD_HEIGHT - 12);
-    gc.fill();
-  }
-  
-  private void drawTAbottom(GraphicsContext gc) {
-    gc.setFill(Color.BLACK);
-    var mid = Presets.FIELD_WIDTH / 2;
-    gc.beginPath();
-    gc.moveTo(mid - 10, 0);
-    gc.lineTo(mid - 13, 30);
-    gc.lineTo(mid + 13, 30);
-    gc.lineTo(mid + 10, 0);
-    gc.fill();
-    
-    gc.setFill(Color.GRAY);
-    gc.beginPath();
-    gc.moveTo(mid - 5, 0);
-    gc.lineTo(mid - 7, 26);
-    gc.lineTo(mid + 7, 26);
-    gc.lineTo(mid + 5, 0);
-    gc.fill();
-  }
   
   private void drawKappen(GraphicsContext gc) {
     var top = Presets.FIELD_HEIGHT / 10;

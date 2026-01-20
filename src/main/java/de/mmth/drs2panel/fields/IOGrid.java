@@ -20,6 +20,7 @@ import javafx.scene.media.MediaPlayer;
  * @author matthias
  */
 public class IOGrid extends GridPane {
+  private static final int TA_CHANGED = -2;
   private int nextButtonCol = 0;
   private int nextLabelCol = 0;
   private boolean lastWecker = false;
@@ -77,7 +78,7 @@ public class IOGrid extends GridPane {
     var label = new Label("Eingaben");
     label.setPrefWidth(Presets.FIELD_WIDTH - 10);
     this.add(label, nextButtonCol++, 0);
-    addInput("TA", Const.TA, -1, false);
+    addInput("TA", Const.TA, TA_CHANGED, false);
     addInput("Fa A", Const.SCHLUESSEL_A, -1, false);
     addInput("Fa F", Const.SCHLUESSEL_F, -1, false);
     addInput("SW I", Const.WSCHLUESSEL1, Const.SlFT1Relais, false);
@@ -131,6 +132,10 @@ public class IOGrid extends GridPane {
       }
       
       processButton(bt, ButtonAction.INVERT);
+      if (checkId == TA_CHANGED) {
+        // Tastenabschalter betätigt.
+        drs2.setChanged();
+      }
     });
     this.add(bt, nextButtonCol++, 0);
     
