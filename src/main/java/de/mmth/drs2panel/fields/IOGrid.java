@@ -21,6 +21,7 @@ import javafx.scene.media.MediaPlayer;
  */
 public class IOGrid extends GridPane {
   private static final int TA_CHANGED = -2;
+  private static MediaPlayer mp3Player;
   private int nextButtonCol = 0;
   private int nextLabelCol = 0;
   private boolean lastWecker = false;
@@ -46,7 +47,7 @@ public class IOGrid extends GridPane {
           lastWecker = actWecker;
           if (actWecker) {
             Media media = new Media(this.getClass().getResource("bell.mp3").toExternalForm());
-            MediaPlayer mp3Player = new MediaPlayer(media);
+            mp3Player = new MediaPlayer(media);
             mp3Player.play();
           }
         }
