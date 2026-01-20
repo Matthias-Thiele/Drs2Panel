@@ -193,9 +193,6 @@ public class Drs2 {
   public boolean checkReceived() {
     boolean result = lampsChanged;
     lampsChanged = false;
-    if (result) {
-      System.out.println("Lamps changed.");
-    }
     return result;
   }
   

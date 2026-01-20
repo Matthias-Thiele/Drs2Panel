@@ -4,7 +4,6 @@ DRS 2 Stellpult
  */
 package de.mmth.drs2panel.fields;
 
-import de.mmth.drs2panel.io.Const;
 import javafx.scene.paint.Color;
 
 /**
@@ -74,9 +73,6 @@ public class Melder extends BaseField {
   
   @Override
   public void checkedUpdate() {
-    if (lampIds.length == 2 && lampIds[0] == Const.Wecker) {
-      System.out.println("Wecker: " + drs2.getLampState(Const.Wecker));
-    }
     if (updateState(lampState, lampIds)) {
       update();
     }
