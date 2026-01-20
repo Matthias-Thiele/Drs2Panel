@@ -38,8 +38,21 @@ public class ButtonHandler {
         }
         
         if (forDeletion != null) {
-          forDeletion.source().setButtonPressed(false);
-          drs2.setSwitch(forDeletion.buttonId(), false);
+          boolean keepTriggered = false;
+          for (var ev: pendingEvents) {
+            if (ev != forDeletion) {
+              if (ev.buttonId() == forDeletion.buttonId()) {
+                // Erneut betätigt
+                keepTriggered = true;
+              }
+            }
+          }
+          
+          if (!keepTriggered) {
+            forDeletion.source().setButtonPressed(false);
+            drs2.setSwitch(forDeletion.buttonId(), false);
+          }
+          
           pendingEvents.remove(forDeletion);
         }
       }
