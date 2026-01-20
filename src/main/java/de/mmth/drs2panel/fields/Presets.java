@@ -7,7 +7,8 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Globale Konstanten
+ * 
  * @author matthias
  */
 public class Presets {

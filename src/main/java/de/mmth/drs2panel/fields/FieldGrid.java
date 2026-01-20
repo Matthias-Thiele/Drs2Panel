@@ -27,11 +27,17 @@ public class FieldGrid extends GridPane {
   private final Drs2 drs2;
   private int tickCount = 0;
   
+  /**
+   * Konstruktor mit Übergabe des Kommunikations-Objekts zur
+   * DRS 2 Simulation.
+   * 
+   * @param drs2 
+   */
   public FieldGrid(Drs2 drs2) {
     this.drs2 = drs2;
+    // alle Buttons bekommen Zugriff auf das drs2 Objekt.
     ButtonHandler.drs2 = drs2;
     
-    this.setStyle("-fx-border-color: green; -fx-padding: 10px");
     this.setHgap(1);
     this.setVgap(1);
     populateGrid();
@@ -40,6 +46,10 @@ public class FieldGrid extends GridPane {
     new AnimationTimer() {
       @Override
       public void handle(long now) {
+        // das Senden von Tastendrücken findet nicht für jeden
+        // einzelnen Tastendruck statt, sondern gesammelt alle
+        // 16 Millisekunden. Auch eine Aktualisierung der
+        // Lampenanzeige erfolgt im gleichen Intervall.
         drs2.tick(now);
         
         if (tickCount++ < REFRESH_RATE) {
@@ -59,6 +69,10 @@ public class FieldGrid extends GridPane {
   
   /**
    * Aktualisiert alle Felder des Tischfeldes.
+   * 
+   * Diese Funktion wird zum ersten Zeichnen des Tischfelds 
+   * aufgerufen. Spätere Aktualisierungen prüfen nach, ob
+   * sich etwas geändert hat und zeichen nur bei Bedarf neu.
    */
   public final void update() {
     for (var f: allFields) {
@@ -76,6 +90,14 @@ public class FieldGrid extends GridPane {
     }
   }
   
+  /**
+   * Übergibt das drs2 Objekt an alle Tischfelder.
+   * 
+   * Hierüber können sie den aktuellen Lampenstatus
+   * abfragen und Tasterzustände an die Simulation
+   * melden.
+   * 
+   */
   private void injectUart() {
     for (var f: allFields) {
       f.setDrs2(drs2);
@@ -105,6 +127,9 @@ public class FieldGrid extends GridPane {
     }
   }
   
+  /**
+   * Trägt alle Weichen in das Tischfeld ein.
+   */
   private void addWeichen() {
     int[] lampIds20 = {16, 17, 18, 19};
     var w20 = new Weiche("20", Const.WEICHE20, false, false, lampIds20);
@@ -131,6 +156,13 @@ public class FieldGrid extends GridPane {
     addField(w3, 12, 3);
   }
   
+  /**
+   * Trägt alle Schlüsselweichen in das Tischfeld ein.
+   * 
+   * Das hier sind die Felder mit den Tastern für die Freigabe. Die
+   * grafische Darstellung ohne Funktion wird über CustomDrawing
+   * Felder erzeugt.
+   */
   private void addSchluesselweichen() {
     int[] sw4 = {Const.SlFT4Rot, Const.SlFT4Weiss};
     var slftIV = new Schluesselweiche("SlFT IV 13 III", Const.SlFT4, 12, sw4);
@@ -145,6 +177,9 @@ public class FieldGrid extends GridPane {
     addField(slft1, 8, 0);
   }
   
+  /**
+   * Trägt die drei Bahnhofsgleise ein.
+   */
   private void addBahnhofsgleise() {
     var g1 = new Gleis("1", Const.GLEIS1, new int[] {Const.Gleis1Weiss, Const.Gleis1Rot});
     addField(g1, 8, 3);
@@ -154,6 +189,12 @@ public class FieldGrid extends GridPane {
     addField(g3, 8, 1);
   }
   
+  /**
+   * Trägt die Streckenblöcke ein.
+   * 
+   * Es gibt unterschiedliche Objekte für Ein- und Ausfahrten,
+   * da sich die Anzeige und Funktion erheblich unterscheiden.
+   */
   private void addStreckenblock() {
     int[] outWB = {Const.StreckeNachHRot, Const.StreckeNachHWeiss, Const.AusfSperrmelderH, 
       Const.GleisFRot, Const.GleisFWeiss, Const.AusfFestlegemelderH};
@@ -174,6 +215,11 @@ public class FieldGrid extends GridPane {
     addField(blockInAH, 14, 2);
   }
   
+  /**
+   * Trägt die Tasten mit Zähler Felder in das Tischfeld ein.
+   * 
+   * Eine null Farbe zeigt an, dass das Zählerfeld keine Taste besitzt.
+   */
   private void addCounter() {
     var ersgt = new CounterField("Ers GT", Const.ErsGT, Color.RED);
     addField(ersgt, 3, 0);
@@ -200,6 +246,12 @@ public class FieldGrid extends GridPane {
     addField(af, 10, 1);
   }
   
+  /**
+   * Trägt alle Tastenfelder in das Tischfeld ein.
+   * 
+   * Es gibt Felder mit einer Taste und Felder mit zwei Tasten.
+   * Diese werden durch unterschiedliche Objekte behandelt.
+   */
   private void addButtons() {
     var wgtsgt = new DualButton("WGT", Const.WGT, Color.NAVY, "SGT", Const.SGT, Color.RED);
     addField(wgtsgt, 1, 0);
@@ -220,6 +272,13 @@ public class FieldGrid extends GridPane {
     addField(vbhtm, 14, 4);
   }
   
+  /**
+   * Trägt die Melder-Anzeigen in das Tischfeld ein.
+   * 
+   * Ein Melder kann auch Taster enthalten, in diesem Fall wird
+   * eine Taster-Farbe übergeben. Ist diese null, gibt es keinen
+   * Taster, nur eine Anzeige.
+   */
   private void addMelder() {
     int[] lampIds = {Const.WuTS, Const.WuTW};
     var wut = new Melder("S|WuT|W", "   S", "   W", Const.WuT_S, Const.WuT_W, Color.WHITE, Color.WHITE, lampIds);
@@ -246,6 +305,12 @@ public class FieldGrid extends GridPane {
     addField(blk, 2, 4);
   }
   
+  /**
+   * Trägt alle Signale in das Tischfeld ein.
+   * 
+   * Da sich die Signale in Anzeige und Funktion deutlich
+   * unterscheiden, gibt es kein gemeinsames Basisobjekt.
+   */
   private void addSignale() {
     var lampIds = new int[] {Const.SigAfahrt, Const.SigAhalt, Const.VSigAfahrt, Const.VSigAhalt, Const.SigAwegRot, Const.SigAwegWeiss, 
       Const.SigAersatz, Const.EinfFestlegemelderM, Const.Vn23};
@@ -278,6 +343,9 @@ public class FieldGrid extends GridPane {
     addField(wvP1, 6, 3);
   }
   
+  /**
+   * Trägt die Grafik-Elemente in das Tischfeld ein.
+   */
   private void addCustom() {
     var sw1A = new CustomDrawing(FieldType.SCHLUESSELWEICHE1A);
     addField(sw1A, 13, 3);
@@ -313,14 +381,24 @@ public class FieldGrid extends GridPane {
     addField(tabot, 14, 1);
   }
   
+  /**
+   * Trägt die Gleisfelder in das Tischfeld ein.
+   * 
+   * Hiermit sind nur Felder mit einer geraden durchgehenden
+   * Linie, ohne Funktion, gemeint.
+   */
   private void addLineFields() {
     for (var i = 0; i < LINE_FIELD_LIST.length; i += 2) {
       var lf = new LineField();
       addField(lf, LINE_FIELD_LIST[i], LINE_FIELD_LIST[i + 1]);
     }
   }
+  
   /**
    * Fügt ein Feld in das Tischfeld ein und markiert die Position als besetzt.
+   * 
+   * Alle nicht besetzten Felder bekommen im Nachgang eine leere Kappe
+   * (BaseField) welches eine einfache graue Anzeige enthält.
    * 
    * @param field
    * @param column

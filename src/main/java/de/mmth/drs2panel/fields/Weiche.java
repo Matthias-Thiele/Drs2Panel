@@ -8,7 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Klasse zur Anzeige einer Weiche.
+ * 
  * @author matthias
  */
 public class Weiche extends BaseField {
@@ -22,6 +23,18 @@ public class Weiche extends BaseField {
   private final int[] lampIds;
   private final boolean[] lampState = new boolean[4];
   
+  /**
+   * Konstruktor mit Name, Tastennummer, Ausrichtung und Lampen-Ids.
+   * 
+   * Eine Weiche kann nach links oder rechts zeigen, sowie nach
+   * oben oder unten.
+   * 
+   * @param name
+   * @param id
+   * @param toLeft
+   * @param toBottom
+   * @param lampIds 
+   */
   public Weiche(String name, int id, boolean toLeft, boolean toBottom, int[] lampIds) {
     super();
     this.name = name;
@@ -34,6 +47,9 @@ public class Weiche extends BaseField {
     });
   }
   
+  /**
+   * Löst ein Neuzeichnen der Anzeige aus.
+   */
   @Override
   public void update() {
     super.update();
@@ -139,6 +155,12 @@ public class Weiche extends BaseField {
     gc.restore();
   }
   
+  /**
+   * Ermittelt die Anzeigefarbe des Gleismelders.
+   * 
+   * @param lineTrack
+   * @return 
+   */
   private Color getLampColor(boolean lineTrack) {
     int offset = lineTrack ? 1 : 0;
     if (lampState[offset + 0]) {
@@ -150,6 +172,10 @@ public class Weiche extends BaseField {
     }
   }
   
+  /**
+   * Prüft nach, ob sich ein Lampenzustand geändert hat und
+   * löst bei Bedarf ein Neuzeichnen aus.
+   */
   @Override
   public void checkedUpdate() {
     if (updateState(lampState, lampIds)) {

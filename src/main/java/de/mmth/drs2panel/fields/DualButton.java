@@ -7,7 +7,8 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Diese Klasse enthält ein Tischfeld mit zwei Tastern.
+ * 
  * @author matthias
  */
 public class DualButton extends BaseField {
@@ -17,6 +18,19 @@ public class DualButton extends BaseField {
   private final Color leftColor;
   private final Color rightColor;
   
+  /**
+   * Konstruktor mit den Namen, Farben und Nummern der beiden Taster.
+   * 
+   * Ein Tastendruck führt dazu, dass in der Schalterliste ein
+   * Drücken und wieder Loslassen erzeugt wird.
+   * 
+   * @param leftName
+   * @param leftId
+   * @param leftColor
+   * @param rightName
+   * @param rightId
+   * @param rightColor 
+   */
   public DualButton(String leftName, int leftId, Color leftColor, String rightName, int rightId, Color rightColor) {
     this.leftName = leftName;
     this.rightName = rightName;
@@ -28,6 +42,12 @@ public class DualButton extends BaseField {
     });
   }
   
+  /**
+   * Zeichnet den Feldinhalt neu.
+   * 
+   * Es gibt keine checkUpdate Funktion da sich der Tasterzustand nicht durch
+   * ein externes Ereignis ändern kann.
+   */
   @Override
   public void update() {
     super.update();

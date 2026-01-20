@@ -9,7 +9,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Klasse zur Anzeige des Tastenabschalters.
+ * 
  * @author matthias
  */
 public class Tastenabschalter extends BaseField {
@@ -20,6 +21,12 @@ public class Tastenabschalter extends BaseField {
     this.type = type;
   }
   
+  /**
+   * Zeichnet das Feld neu.
+   * 
+   * Das TA Feld besteht aus zwei Teilfeldern, im
+   * Original ist es ein einzelnes großes Feld.
+   */
   @Override
   public void update() {
     super.update();
@@ -35,6 +42,10 @@ public class Tastenabschalter extends BaseField {
     }
   }
   
+  /**
+   * Zeichnet die obere Hälfte.
+   * @param gc 
+   */
   private void drawTAtop(GraphicsContext gc) {
     gc.setFill(Color.BLACK);
     var mid = Presets.FIELD_WIDTH / 2;
@@ -61,6 +72,11 @@ public class Tastenabschalter extends BaseField {
     }
   }
   
+  /**
+   * Zeichnet die untere Hälfte.
+   * 
+   * @param gc 
+   */
   private void drawTAbottom(GraphicsContext gc) {
     gc.setFill(Color.BLACK);
     var mid = Presets.FIELD_WIDTH / 2;
@@ -82,6 +98,10 @@ public class Tastenabschalter extends BaseField {
     }
   }
 
+  /**
+   * Prüft nach, ob sich der Tastenabschalter geändert
+   * hat und löst bei Bedarf ein Neuzeichnen aus.
+   */
   @Override
   public void checkedUpdate() {
     boolean tas = !drs2.getSwitch(Const.TA);

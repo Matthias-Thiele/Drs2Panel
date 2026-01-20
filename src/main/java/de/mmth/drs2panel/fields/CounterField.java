@@ -7,7 +7,8 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Diese Klasse erzeugt ein Zählerfeld mit Taster.
+ * 
  * @author matthias
  */
 public class CounterField extends BaseField {
@@ -17,6 +18,14 @@ public class CounterField extends BaseField {
   private int counterValue = 1234;
   private final int ioId;
   
+  /**
+   * Konstruktor mit Anzeigenamen, der Button-Id für den
+   * Taster und der Tasterfarbe.
+   * 
+   * @param name
+   * @param id
+   * @param buttonColor 
+   */
   public CounterField(String name, int id, Color buttonColor) {
     this.name = name;
     this.ioId = id;
@@ -28,6 +37,14 @@ public class CounterField extends BaseField {
     });
   }
   
+  /**
+   * Löst ein Neuzeichen des Feldinhalts aus.
+   * 
+   * Es gibt hier kein checkUpdate, da sich der Zustand
+   * niemals extern ändert. Der Zählerstand wird nur
+   * innerhalb dieser Klasse verwaltet und ändert sich
+   * nur auf Tastendruck.
+   */
   @Override
   public void update() {
     super.update();

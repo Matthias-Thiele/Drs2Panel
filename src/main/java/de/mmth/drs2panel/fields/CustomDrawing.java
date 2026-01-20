@@ -8,17 +8,37 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Diese Klasse enthält Felder, die keine Bedien-
+ * oder Anzeigeelemente enthält aber auch nicht
+ * leer sind.
+ * 
+ * Das sind im Wesentlichen die Felder, die die
+ * grafische Anzeige der Schlüsselweichen enthalten.
+ * 
  * @author matthias
  */
 public class CustomDrawing extends BaseField {
 
   private final FieldType type;
   
+  /**
+   * Konstruktor mit der Information, welcher
+   * Inhalt gezeichnet werden soll.
+   * 
+   * @param type 
+   */
   public CustomDrawing(FieldType type) {
     this.type = type;
   }
   
+  /**
+   * Zeichnet den Feldinhalt neu.
+   * 
+   * Es gibt keine checkUpdate Funktion, da es
+   * keine statusabhängigen Änderungen gibt.
+   * Diese Felder enthalten einen statischen
+   * unveränderlichen Aufdruck.
+   */
   @Override
   public void update() {
     super.update();
@@ -62,7 +82,11 @@ public class CustomDrawing extends BaseField {
     }
   }
   
-  
+  /**
+   * Zeichnet das Feld zur Aufbewahrung der Tastenkappen.
+   * 
+   * @param gc 
+   */
   private void drawKappen(GraphicsContext gc) {
     var top = Presets.FIELD_HEIGHT / 10;
     var step = Presets.FIELD_WIDTH / 9;
@@ -79,6 +103,11 @@ public class CustomDrawing extends BaseField {
     gc.fillOval(7 * step + 4, 5 * top + 6, smallRadius, smallRadius);
   }
   
+  /**
+   * Zeichnet den ersten Teil der Schlüsselweiche 4.
+   * 
+   * @param gc 
+   */
   private void drawSW4A(GraphicsContext gc) {
     gc.setFill(Color.BLACK);
     gc.fillRect(0, Presets.MIDDLE_BAR_START, Presets.FIELD_WIDTH, Presets.MIDDLE_BAR_HEIGHT);
@@ -98,12 +127,22 @@ public class CustomDrawing extends BaseField {
     gc.fill();
   }
 
+  /**
+   * Zeichnet den zweiten Teil der Schlüsselweiche 4.
+   * 
+   * @param gc 
+   */
   private void drawSW4B(GraphicsContext gc) {
     gc.setFill(Color.BLACK);
     gc.fillRect(0, Presets.MIDDLE_BAR_START, Presets.FIELD_WIDTH, Presets.MIDDLE_BAR_HEIGHT);
     gc.fillRect(0, 2, Presets.FIELD_WIDTH, Presets.MIDDLE_BAR_HEIGHT / 2);
   }
 
+  /**
+   * Zeichnet den ersten Teil der Schlüsselweiche 3.
+   * 
+   * @param gc 
+   */
   private void drawSW3A(GraphicsContext gc) {
     gc.setFill(Color.BLACK);
     gc.fillRect(0, Presets.MIDDLE_BAR_START, Presets.FIELD_WIDTH, Presets.MIDDLE_BAR_HEIGHT);
@@ -117,6 +156,11 @@ public class CustomDrawing extends BaseField {
     gc.fill();
   }
 
+  /**
+   * Zeichnet den zweiten Teil der Schlüsselweiche 3.
+   * 
+   * @param gc 
+   */
   private void drawSW3B(GraphicsContext gc) {
     gc.setFill(Color.BLACK);
     gc.fillText("[III]", Presets.FIELD_WIDTH / 2, Presets.FIELD_HEIGHT / 5 * 2 + 4);
@@ -140,6 +184,11 @@ public class CustomDrawing extends BaseField {
     gc.fill();
   }
   
+  /**
+   * Zeichnet den dritten Teil der Schlüsselweiche 3.
+   * 
+   * @param gc 
+   */
   private void drawSW3C(GraphicsContext gc) {
     var midLine = Presets.FIELD_HEIGHT/ 7 * 4;
     
@@ -148,6 +197,11 @@ public class CustomDrawing extends BaseField {
     gc.fillRect(0, midLine - 10, Presets.FIELD_WIDTH, 10);
   }
     
+  /**
+   * Zeichnet den ersten Teil der Schlüsselweiche 1.
+   * 
+   * @param gc 
+   */
   private void drawSW1A(GraphicsContext gc) {
     gc.setFill(Color.BLACK);
     gc.fillRect(0, Presets.MIDDLE_BAR_START, Presets.FIELD_WIDTH, Presets.MIDDLE_BAR_HEIGHT);
@@ -162,6 +216,11 @@ public class CustomDrawing extends BaseField {
     gc.fill();
   }
   
+  /**
+   * Zeichnet den zweiten Teil der Schlüsselweiche 1.
+   * 
+   * @param gc 
+   */
   private void drawSW1B(GraphicsContext gc) {
     var lowerLine = Presets.FIELD_HEIGHT / 7 * 6;
     var midLine = Presets.FIELD_HEIGHT/ 7 * 4;
@@ -189,6 +248,11 @@ public class CustomDrawing extends BaseField {
     gc.fill();
   }
   
+  /**
+   * Zeichnet den dritten Teil der Schlüsselweiche 1.
+   * 
+   * @param gc 
+   */
   private void drawSW1C(GraphicsContext gc) {
     var midLine = Presets.FIELD_HEIGHT/ 7 * 4;
     

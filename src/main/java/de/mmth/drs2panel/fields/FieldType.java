@@ -5,7 +5,11 @@ DRS 2 Stellpult
 package de.mmth.drs2panel.fields;
 
 /**
- *
+ * Feldtypen für die CustomDrawing Felder.
+ * 
+ * Der Feldtyp bestimmt welche Grafik auf dem
+ * Feld angezeigt wird.
+ * 
  * @author matthias
  */
 public enum FieldType {

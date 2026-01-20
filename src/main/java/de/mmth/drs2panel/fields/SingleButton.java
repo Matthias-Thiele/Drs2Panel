@@ -7,7 +7,8 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Klasse zur Anzeige eines einfachen Tasters.
+ * 
  * @author matthias
  */
 public class SingleButton extends BaseField {
@@ -15,6 +16,14 @@ public class SingleButton extends BaseField {
   private final String name;
   private final Color color;
   private final int ioId;
+  
+  /**
+   * Konstruktor mit Anzeigename, Tastennummer und Tastenfarbe.
+   * 
+   * @param name
+   * @param id
+   * @param color 
+   */
   public SingleButton(String name, int id, Color color) {
     this.name = name;
     this.ioId = id;
@@ -24,6 +33,13 @@ public class SingleButton extends BaseField {
     });
   }
   
+  /**
+   * Löst ein Neuzeichnen der Anzeige aus.
+   * 
+   * Ein checkUpdate gibt es nicht, weil es keine
+   * Lampenanzeigt gibt und somit eine externe
+   * Zustandsänderung nicht möglich ist.
+   */
   @Override
   public void update() {
     super.update();

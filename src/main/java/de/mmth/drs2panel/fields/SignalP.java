@@ -20,6 +20,14 @@ public class SignalP extends BaseField {
   private final int[] lampIds;
   private final boolean[] lampState = new boolean[4];
   
+  /**
+   * Konstruktor mit der Tastennummer und den Lampen-Ids.
+   * @param name
+   * @param id
+   * @param hasErsatz
+   * @param hasDrop
+   * @param lampIds 
+   */
   public SignalP(String name, int id, boolean hasErsatz, boolean hasDrop, int[] lampIds) {
     this.name = name;
     this.hasErsatz = hasErsatz;
@@ -30,6 +38,9 @@ public class SignalP extends BaseField {
     });    
   }
   
+  /**
+   * Löst ein Neuzeichnen der Anzeige aus.
+   */
   @Override
   public void update() {
     super.update();
@@ -75,6 +86,11 @@ public class SignalP extends BaseField {
     gc.fill();
   }
   
+  /**
+   * Zeichnet den Hintergrund mit stilisierten Signalmast.
+   * 
+   * @param gc 
+   */
   private void drawBackground(GraphicsContext gc) {
     var siebtel = Presets.FIELD_HEIGHT / 7;
     gc.setFill(Color.BLACK);
@@ -124,22 +140,42 @@ public class SignalP extends BaseField {
     gc.fill();
   }
   
+  /**
+   * Ermittelt die Farbe der Haltanzeige.
+   * @return 
+   */
   private Color getHalt() {
     return (lampState[1]) ? Presets.RED_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Ermittelt die Farbe der Fahrtanzeige.
+   * @return 
+   */
   private Color getFahrt() {
     return (lampState[0]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Ermittelt die Farbe für die Anzeige des Ersatzsignals.
+   * @return 
+   */
   private Color getErsatz() {
     return (lampState[3]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Ermittelt die Farbe für die Anzeige des Rangiersignals.
+   * @return 
+   */
   private Color getRangier() {
     return (lampState[2]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Prüft nach, ob sich ein Lampenzustand geändert hat und
+   * löst bei Bedarf ein Neuzeichnen aus.
+   */
   @Override
   public void checkedUpdate() {
     if (updateState(lampState, lampIds)) {

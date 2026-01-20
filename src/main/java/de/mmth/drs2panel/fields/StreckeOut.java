@@ -7,7 +7,7 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Klasse zur Anzeige eines Ausfahrts-Blockfeldes.
  * @author matthias
  */
 public class StreckeOut extends BaseField {
@@ -17,6 +17,14 @@ public class StreckeOut extends BaseField {
   private final int[] lampIds;
   private final boolean[] lampState = new boolean[6];
   
+  /**
+   * Konstruktor mit Name, Tastennummer und Lampen-Ids.
+   * 
+   * @param name
+   * @param id
+   * @param toLeft
+   * @param lampIds 
+   */
   public StreckeOut(String name, int id, boolean toLeft, int[] lampIds) {
     super();
     this.name = name;
@@ -27,6 +35,9 @@ public class StreckeOut extends BaseField {
     });    
   }
   
+  /**
+   * Löst ein Neuzeichnen der Anzeige aus.
+   */
   @Override
   public void update() {
     super.update();
@@ -117,6 +128,10 @@ public class StreckeOut extends BaseField {
     return lampState[2] ? Presets.BLUE_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Prüft nach, ob sich ein Lampenzustand geändert hat und
+   * löst bei Bedarf ein Neuzeichnen aus.
+   */
   @Override
   public void checkedUpdate() {
     if (updateState(lampState, lampIds)) {

@@ -8,13 +8,19 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Klasse zur Anzeige des Einfahrtsignals F
+ * 
  * @author matthias
  */
 public class SignalF extends BaseField {
   private final int[] lampIds;
   private final boolean[] lampState = new boolean[9];
   
+  /**
+   * Konstruktor mit der Tastennummer und den Lampen-Ids.
+   * @param id
+   * @param lampIds 
+   */
   public SignalF(int id, int[] lampIds) {
     this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
@@ -22,6 +28,9 @@ public class SignalF extends BaseField {
     });    
   }
   
+  /**
+   * Löst ein Neuzeichnen der Anzeige aus.
+   */
   @Override
   public void update() {
     super.update();
@@ -38,6 +47,11 @@ public class SignalF extends BaseField {
     drawSignalState(gc);
   }
   
+  /**
+   * Zeichnet die aktuellen Anzeigefarben des Signalzustands.
+   * 
+   * @param gc 
+   */
   private void drawSignalState(GraphicsContext gc) {
     var top = Presets.FIELD_HEIGHT - 22;
     var right = Presets.FIELD_WIDTH - 24;
@@ -75,6 +89,11 @@ public class SignalF extends BaseField {
 
   }
   
+  /**
+   * Zeichnet den Hintergrund mit stilisierten Signalmast.
+   * 
+   * @param gc 
+   */
   private void drawBackground(GraphicsContext gc) {
     var siebtel = Presets.FIELD_HEIGHT / 7;
     gc.setFill(Color.BLACK);
@@ -138,14 +157,26 @@ public class SignalF extends BaseField {
     
   }
   
+  /**
+   * Ermittelt die Farbe der Gleisbesetztanzeige.
+   * @return 
+   */
   private Color getGleisColor() {
     return getTrackColor(lampState[4], lampState[5]);
   }
   
+  /**
+   * Ermittelt die Farbe der Fahrtanzeige.
+   * @return 
+   */
   private Color getColor1() {
     return (lampState[0]) ? Presets.GREEN_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Ermittelt die Farbe der Haltanzeige.
+   * @return 
+   */
   private Color getColor2() {
     return (lampState[1]) ? Presets.RED_LAMP : Presets.DARK_LAMP;
   }
@@ -162,6 +193,10 @@ public class SignalF extends BaseField {
     return (lampState[3]) ? Presets.YELLOW_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Ermittelt die Farbe für die Anzeige des Ersatzsignals.
+   * @return 
+   */
   private Color getColorErsatz() {
     return (lampState[6]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
@@ -170,6 +205,10 @@ public class SignalF extends BaseField {
     return (lampState[7]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Prüft nach, ob sich ein Lampenzustand geändert hat und
+   * löst bei Bedarf ein Neuzeichnen aus.
+   */
   @Override
   public void checkedUpdate() {
     if (updateState(lampState, lampIds)) {

@@ -7,7 +7,8 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Klasse zur Anzeige eines Blockfeldes zur Einfahrt.
+ * 
  * @author matthias
  */
 public class StreckeIn extends BaseField {
@@ -18,6 +19,15 @@ public class StreckeIn extends BaseField {
   private final int[] lampIds;
   private final boolean[] lampState = new boolean[3];
   
+  /**
+   * Konstruktor mit Name, Tastennummer und Lampen-Ids.
+   * 
+   * @param name
+   * @param id
+   * @param toLeft
+   * @param withStrecke
+   * @param lampIds 
+   */
   public StreckeIn(String name, int id, boolean toLeft, boolean withStrecke, int[] lampIds) {
     super();
     this.name = name;
@@ -29,6 +39,9 @@ public class StreckeIn extends BaseField {
     });    
   }
   
+  /**
+   * Löst ein Neuzeichnen der Anzeige aus.
+   */
   @Override
   public void update() {
     super.update();
@@ -73,6 +86,10 @@ public class StreckeIn extends BaseField {
     
   }
   
+  /**
+   * Ermittelt die Farbe der Block-Belegt Anzeige.
+   * @return 
+   */
   private Color getBlockColor() {
     return getTrackColor(lampState[1], lampState[0]);
   }
@@ -81,6 +98,10 @@ public class StreckeIn extends BaseField {
     return lampState[2] ? Presets.YELLOW_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Prüft nach, ob sich ein Lampenzustand geändert hat und
+   * löst bei Bedarf ein Neuzeichnen aus.
+   */
   @Override
   public void checkedUpdate() {
     if (updateState(lampState, lampIds)) {

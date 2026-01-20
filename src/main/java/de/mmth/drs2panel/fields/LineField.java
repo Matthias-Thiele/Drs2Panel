@@ -7,7 +7,9 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Zeichnet einen gerade Gleisabschnitt ohne Anzeige-
+ * oder Tastfunktion.
+ * 
  * @author matthias
  */
 public class LineField extends BaseField {

@@ -7,7 +7,12 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Zeichnet ein Feld mit zwei Anzeigelampen.
+ * 
+ * Nur das WuT Feld für Störmeldungen hat zwei
+ * zusätzliche Tasten zur Abschaltung des Weckers.
+ * Alle anderen Melder haben reine Anzeigefunktion.
+ * 
  * @author matthias
  */
 public class Melder extends BaseField {
@@ -21,6 +26,18 @@ public class Melder extends BaseField {
   private final int[] lampIds;
   private final boolean[] lampState = new boolean[2];
   
+  /**
+   * Konstruktor mit Namen, Tasterdaten und Lampen-Ids.
+   * 
+   * @param name
+   * @param leftView
+   * @param rightView
+   * @param leftId
+   * @param rightId
+   * @param leftButton    null wenn kein linker Taster vorhanden ist
+   * @param rightButton   null wenn kein rechter Taster vorhanden ist.
+   * @param lampIds 
+   */
   public Melder(String name, String leftView, String rightView, int leftId, int rightId, Color leftButton, Color rightButton, int[] lampIds) {
     this.name = name;
     this.leftView = leftView;
@@ -34,6 +51,9 @@ public class Melder extends BaseField {
     });
   }
   
+  /**
+   * Zeichnet den Feldinhalt neu.
+   */
   @Override
   public void update() {
     super.update();
@@ -71,6 +91,10 @@ public class Melder extends BaseField {
     }
   }
   
+  /**
+   * Prüft nach, ob sich der Zustand einer der Anzeigelampen
+   * verändert hat und löst bei Bedarf ein Neuzeichnen aus.
+   */
   @Override
   public void checkedUpdate() {
     if (updateState(lampState, lampIds)) {

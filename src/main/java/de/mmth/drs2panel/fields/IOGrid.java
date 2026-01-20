@@ -16,7 +16,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 /**
- *
+ * Diese Klasse enthält die Elemente die die beiden
+ * externen Relais/ Optokoppler Platinen enthalten.
+ * 
+ * Die Karten haben eine eigene UART Verbindung, ihre
+ * Daten werden aber mit in das Tasten/ Lampen Array
+ * eingetragen.
+ * 
  * @author matthias
  */
 public class IOGrid extends GridPane {
@@ -31,6 +37,12 @@ public class IOGrid extends GridPane {
   private Button vorblockAH;
   private Button rückblockAH;
   
+  /**
+   * Konstruktor erzeugt die Anzeigen und Schalter für die
+   * Simulation der Relais und Optokoppler.
+   * 
+   * @param drs2 
+   */
   public IOGrid(Drs2 drs2) {
     this.drs2 = drs2;
     this.setStyle("-fx-border-color: green; -fx-padding: 10px");
@@ -41,7 +53,7 @@ public class IOGrid extends GridPane {
     new AnimationTimer() {
       @Override
       public void handle(long now) {
-        // Wecker
+        // Wecker - spielt eine MP3 Datei ab
         var actWecker = drs2.getLampState(Const.Wecker);
         if (actWecker != lastWecker) {
           lastWecker = actWecker;
@@ -51,6 +63,8 @@ public class IOGrid extends GridPane {
             mp3Player.play();
           }
         }
+        
+        // Aktualisiert die Anzeigelampen.
         for (var lamp: lampList) {
           var state = (LabelState)lamp.getUserData();
           var lampState = drs2.getLampState(state.ioId);
@@ -75,6 +89,10 @@ public class IOGrid extends GridPane {
     }.start();
   }
   
+  /**
+   * Erzeugt die Buttons welche die Optokoppler-Eingänge
+   * simulieren.
+   */
   private void addButtons() {
     var label = new Label("Eingaben");
     label.setPrefWidth(Presets.FIELD_WIDTH - 10);
@@ -88,6 +106,9 @@ public class IOGrid extends GridPane {
     rückblockAH = addInput("Von AH", Const.BLOCK_AH_IN, - 1, true);
   }
   
+  /**
+   * Erzeugt die Anzeigen welche die Relaisausgänge simulieren.
+   */
   private void addLamps() {
     var label = new Label("Ausgaben");
     this.add(label, nextLabelCol++, 1);
@@ -98,6 +119,12 @@ public class IOGrid extends GridPane {
     this.addLamp(" RB von AH", Const.StreckeVonAH, rückblockAH);
   }
   
+  /**
+   * Erzeugt eine Lampenanzeige.
+   * @param name
+   * @param ioId
+   * @param assignedOperation 
+   */
   private void addLamp(String name, int ioId, Button assignedOperation) {
     var label = new Label(name);
     label.setPrefWidth(Presets.FIELD_WIDTH - 10);
@@ -110,6 +137,19 @@ public class IOGrid extends GridPane {
     lampList.add(label);
   }
   
+  /**
+   * Erzeugt einen Taster.
+   * 
+   * Ein Taster kann eine externe Abhängigkeit zu einer Lampenanzeige
+   * besitzen. So kann eine Schlüsselentnahme nur erzeugt werden, wenn
+   * es eine Freigabe für diesen Weichenschlüssel gibt.
+   * 
+   * @param name
+   * @param ioId
+   * @param checkId
+   * @param isBlock
+   * @return 
+   */
   private Button addInput(String name, int ioId, int checkId, boolean isBlock) {
     var bt = new Button(name);
     var state = new ButtonState();
@@ -143,6 +183,16 @@ public class IOGrid extends GridPane {
     return bt;
   }
   
+  /**
+   * Taster/ Schalter wurde gedrückt.
+   * 
+   * Es gibt Taster, die ein Setzen, Rücksetzen oder Invertieren
+   * auslösen. Der Zustand wird jeweils über eine Farbänderung
+   * angezeigt.
+   * 
+   * @param bt
+   * @param action 
+   */
   private void processButton(Button bt, ButtonAction action) {
     ButtonState s = (ButtonState) bt.getUserData();
     switch (action) {
@@ -164,6 +214,7 @@ public class IOGrid extends GridPane {
     RESET,
     INVERT
   }
+  
   class ButtonState {
     boolean isPressed;
     boolean isBlockButton;

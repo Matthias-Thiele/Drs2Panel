@@ -7,7 +7,8 @@ package de.mmth.drs2panel.fields;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * Diese Klasse zeichnet das Bedienfeld einer Schlüsselweiche.
+ * 
  * @author matthias
  */
 public class Schluesselweiche extends BaseField {
@@ -19,6 +20,13 @@ public class Schluesselweiche extends BaseField {
   private final int textOffset;
   private final int ioId;
   
+  /**
+   * Konstruktor mit Name, Tastennummer und Lampenanzeige-Ids.
+   * @param name
+   * @param id
+   * @param textOffset
+   * @param lampIds 
+   */
   public Schluesselweiche(String name, int id, int textOffset, int[] lampIds) {
     this.name = name;
     this.ioId = id;
@@ -29,6 +37,9 @@ public class Schluesselweiche extends BaseField {
     });
   }
   
+  /**
+   * Zeichnet den Feldinhalt neu.
+   */
   @Override
   public void update() {
     super.update();
@@ -47,14 +58,26 @@ public class Schluesselweiche extends BaseField {
     gc.fillOval(achtelw * 7 - 12, 4 * achtelh - 4, Presets.LAMP_DIAMETER, Presets.LAMP_DIAMETER);
   }
   
+  /**
+   * Ermittelt aus den Lampendaten die Farbe für die Freigabeanzeige.
+   * @return 
+   */
   private Color getFreigabeColor() {
     return (lampState[0]) ? Presets.RED_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Ermittelt aus den Lampendaten die Farbe für die Entnahmeanzeige.
+   * @return 
+   */
   private Color getEntnommenColor() {
     return (lampState[1]) ? Presets.WHITE_LAMP : Presets.DARK_LAMP;
   }
   
+  /**
+   * Prüft nach, ob sich die Lampenzustände geändert haben und löst
+   * bei Bedarf ein Neuzeichnen aus.
+   */
   @Override
   public void checkedUpdate() {
     if (updateState(lampState, lampIds)) {

@@ -6,7 +6,20 @@ package de.mmth.drs2panel.io;
 
 
 /**
- *
+ * Klasse zur Verwaltung der Taster- und Lampendaten.
+ * 
+ * Diese werden in regelmäßigen Intervallen mit der
+ * DRS 2 Simulation abgeglichen.
+ * 
+ * Tastendaten werden innerhalb eines Intervalls
+ * gesammelt und nur gesendet, wenn ein Tastendruck
+ * erfolgt ist.
+ * 
+ * Lampendaten werden innerhalb eines Intervalls von
+ * der Simulation gesammelt und nur gesendet und
+ * somit hier empfangen, wenn sich ein Lampen-
+ * zustand geändert hat.
+ * 
  * @author matthias
  */
 public class Drs2 {
@@ -43,16 +56,28 @@ public class Drs2 {
   private CommandState actIState = CommandState.WAIT;
   private int outICount = 0;
   
+  /**
+   * Konstruktor mit Aufbau der seriellen Verbindung.
+   */
   public Drs2() {
     uartD = new Uart("/dev/ttyUSB2");
     uartIO = new Uart("/dev/ttyUSB3");
   }
   
+  /**
+   * Intervall, wird von FieldGrid gesteuert.
+   * 
+   * @param now 
+   */
   public void tick(long now) {
     tickD(now);
     tickIO(now);
   }
   
+  /**
+   * Lesen/ Schreiben der DRS 2 Simulation.
+   * @param now 
+   */
   public void tickD(long now) {
     if (uartD.check()) {
       byte next = uartD.readByte();
@@ -91,6 +116,10 @@ public class Drs2 {
     }
   }
   
+  /**
+   * Lesen/ Schreiben der Simulation der IO Karten.
+   * @param now 
+   */
   public void tickIO(long now) {
     if (uartIO.check()) {
       byte next = uartIO.readByte();
@@ -121,10 +150,16 @@ public class Drs2 {
     }
   }
   
+  /**
+   * Signalisiert, dass sich der Zustand einer Lampenanzeige geändert hat.
+   */
   public void setChanged() {
     lampsChanged = true;
   }
   
+  /**
+   * Füllt das Array mit den Lampenzustand aus dem UART Empfangspuffer.
+   */
   private void fillLamps() {
     var lampPos = 0;
     for (var i = 0; i < OUTPUT_BYTE_COUNT; i++) {
@@ -142,6 +177,11 @@ public class Drs2 {
     lampsChanged = true;
   }
   
+  /**
+   * Füllt acht Tastenzustände in byte für den Sendepuffer.
+   * @param bufferPos
+   * @param bitPos 
+   */
   private void fillTransmitBufferByte(int bufferPos, int bitPos) {
     byte value = 0;
     byte mask = 1;
@@ -156,6 +196,9 @@ public class Drs2 {
     transmitBuffer[bufferPos] = value;
   }
   
+  /**
+   * Füllt den DRS 2 Sendepuffer mit den Lampenzuständen.
+   */
   private void fillTransmitBufferD() {
     transmitBuffer[0] = 'B';
     for (int i = 0, bit = 0; i < 6; i++, bit += 8) {
@@ -166,11 +209,17 @@ public class Drs2 {
     transmitBuffer[7] = 'X';
   }
   
+  /**
+   * Füllt den IO Sendpuffer mit den Daten der simulierten IO Karten.
+   */
   private void fillTransmitBufferIO() {
     fillTransmitBufferByte(0, 56);
     fillTransmitBufferByte(1, 64);
   }
   
+  /**
+   * Sendet alle Taster/ Schalterzustände an die DRS 2 Simulation.
+   */
   private void sendInputs() {
     fillTransmitBufferD();
     uartD.sendBytes(transmitBuffer, 0, 8);
@@ -182,6 +231,10 @@ public class Drs2 {
     uartIO.send("T");
   }
   
+  /**
+   * Prüft nach, ob sich ein Tasterzustand verändert hat und sendet
+   * bei Bedarf die aktuellen Tasterzustände an die DRS 2 Simulation.
+   */
   public void checkSend() {
     if (switchesDirty) {
       System.out.println("Send switch state.");
@@ -190,21 +243,42 @@ public class Drs2 {
     }
   }
   
+  /**
+   * Informiert, ob seit der letzten Abfrage neue Lampendaten empfangen wurden.
+   */
   public boolean checkReceived() {
     boolean result = lampsChanged;
     lampsChanged = false;
     return result;
   }
   
+  /**
+   * Setzt einen Tasterzustand.
+   * 
+   * Dabei wird geprüft, ob er sich tatsächlich verändert hat und nur in diesem
+   * Fall wird das Flag zum Senden der Daten gesetzt.
+   * @param id
+   * @param newValue 
+   */
   public void setSwitch(int id, boolean newValue) {
     switchesDirty |= switches[id] != newValue;
     switches[id] = newValue;
   }
   
+  /**
+   * Liest einen Tasterzustand aus.
+   * @param id
+   * @return 
+   */
   public boolean getSwitch(int id) {
     return switches[id];
   }
   
+  /**
+   * Liest einen Lampenzustand aus.
+   * @param id
+   * @return 
+   */
   public boolean getLampState(int id) {
     return lamps[id];
   }
