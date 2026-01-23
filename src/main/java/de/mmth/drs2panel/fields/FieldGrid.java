@@ -281,7 +281,7 @@ public class FieldGrid extends GridPane {
    */
   private void addMelder() {
     int[] lampIds = {Const.WuTS, Const.WuTW};
-    var wut = new Melder("S|WuT|W", "   S", "   W", Const.WuT_S, Const.WuT_W, Color.WHITE, Color.WHITE, Presets.WHITE_LAMP, lampIds);
+    var wut = new Melder("S|WuT|W", "   S", "   W", Const.WuT_S, Const.WuT_W, Color.WHITE, Color.WHITE, Presets.RED_LAMP, lampIds);
     addField(wut, 4, 0);
     
     int[] wk = {Const.Wecker, Const.Klingel};
