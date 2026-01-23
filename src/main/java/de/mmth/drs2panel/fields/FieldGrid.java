@@ -281,23 +281,23 @@ public class FieldGrid extends GridPane {
    */
   private void addMelder() {
     int[] lampIds = {Const.WuTS, Const.WuTW};
-    var wut = new Melder("S|WuT|W", "   S", "   W", Const.WuT_S, Const.WuT_W, Color.WHITE, Color.WHITE, lampIds);
+    var wut = new Melder("S|WuT|W", "   S", "   W", Const.WuT_S, Const.WuT_W, Color.WHITE, Color.WHITE, Presets.WHITE_LAMP, lampIds);
     addField(wut, 4, 0);
     
     int[] wk = {Const.Wecker, Const.Klingel};
-    var wkanzeige = new Melder("Wecker Kl", "  W", " K", 0, 0, null, null, wk);
+    var wkanzeige = new Melder("Wecker Kl", "  W", " K", 0, 0, null, null, Presets.WHITE_LAMP, wk);
     addField(wkanzeige, 4, 4);
     
     int[] induktor = {Const.MJ1, Const.MJ2};
-    var ind = new Melder("", "  MJI", " MJII", 0, 0, null, null, induktor);
+    var ind = new Melder("", "  MJI", " MJII", 0, 0, null, null, Presets.WHITE_LAMP, induktor);
     addField(ind, 12, 1);
     
     int[] tue = {Const.TastenUeberwacher};
-    var tu = new Melder("", "  TÜ", "", 0, 0, null, null, tue);
+    var tu = new Melder("", "  TÜ", "", 0, 0, null, null, Presets.RED_LAMP, tue);
     addField(tu, 3, 4);
     
     int[] zm = {Const.ZSM};
-    var zsm = new Melder("", " ZSM", "", 0, 0, null, null, zm);
+    var zsm = new Melder("", " ZSM", "", 0, 0, null, null,Presets.WHITE_LAMP,  zm);
     addField(zsm, 11, 1);
     
     int[] blink = {Const.BLINK_STOERUNG};

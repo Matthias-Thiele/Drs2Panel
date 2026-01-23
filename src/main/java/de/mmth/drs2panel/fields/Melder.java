@@ -25,6 +25,7 @@ public class Melder extends BaseField {
   
   private final int[] lampIds;
   private final boolean[] lampState = new boolean[2];
+  private final Color melderColor;
   
   /**
    * Konstruktor mit Namen, Tasterdaten und Lampen-Ids.
@@ -38,12 +39,13 @@ public class Melder extends BaseField {
    * @param rightButton   null wenn kein rechter Taster vorhanden ist.
    * @param lampIds 
    */
-  public Melder(String name, String leftView, String rightView, int leftId, int rightId, Color leftButton, Color rightButton, int[] lampIds) {
+  public Melder(String name, String leftView, String rightView, int leftId, int rightId, Color leftButton, Color rightButton, Color melderColor, int[] lampIds) {
     this.name = name;
     this.leftView = leftView;
     this.rightView = rightView;
     this.leftButtonColor = leftButton;
     this.rightButtonColor = rightButton;
+    this.melderColor = melderColor;
     this.lampIds = lampIds;
     this.setOnMouseClicked(ev -> {
       boolean left = ev.getX() < Presets.FIELD_WIDTH / 2;
@@ -67,7 +69,7 @@ public class Melder extends BaseField {
     }
     
     if (!leftView.isEmpty()) {
-      gc.setFill(lampState[0] ? Color.LIGHTYELLOW : Color.GRAY);
+      gc.setFill(lampState[0] ? melderColor : Color.GRAY);
       gc.fillRect(achtel, achtel, 2 * achtel, 2 * achtel - 8);
       gc.setFill(Color.BLACK);
       gc.fillText(leftView, achtel, 2 * achtel);
@@ -79,7 +81,7 @@ public class Melder extends BaseField {
     }
     
     if (!rightView.isEmpty()) {
-      gc.setFill(lampState[1] ? Color.LIGHTYELLOW : Color.GRAY);
+      gc.setFill(lampState[1] ? melderColor : Color.GRAY);
       gc.fillRect(Presets.FIELD_WIDTH - 3 * achtel, achtel, 2 * achtel, 2 * achtel - 8);
       gc.setFill(Color.BLACK);
       gc.fillText(rightView, Presets.FIELD_WIDTH - 3 * achtel, 2 * achtel);
