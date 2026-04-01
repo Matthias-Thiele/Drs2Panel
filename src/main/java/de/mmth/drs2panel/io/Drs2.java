@@ -23,7 +23,7 @@ package de.mmth.drs2panel.io;
  * @author matthias
  */
 public class Drs2 {
-  private final static int OUTPUT_BYTE_COUNT = 15;
+  private final static int OUTPUT_BYTE_COUNT = 14;
   private final static int IO_START = 120;
   private static final int MAX_LAMPS = 136;
   private static final int MAX_SWITCHES = 72;
@@ -32,7 +32,7 @@ public class Drs2 {
   
   private final boolean[] lamps = new boolean[MAX_LAMPS];
   private final boolean[] switches = new boolean[MAX_SWITCHES];
-  private boolean switchesDirty = false;
+  private boolean switchesChanged = false;
   private boolean lampsChanged = false;
   
   private final byte[] receiveBuffer = new byte[BUFFER_SIZE];
@@ -153,8 +153,15 @@ public class Drs2 {
   /**
    * Signalisiert, dass sich der Zustand einer Lampenanzeige geändert hat.
    */
-  public void setChanged() {
+  public void setLampChanged() {
     lampsChanged = true;
+  }
+  
+  /**
+   * Signalisiert, dass sich der Zustand eines Schalters geändert hat.
+   */
+  public void setSwitchChanged() {
+    switchesChanged = true;
   }
   
   /**
@@ -236,9 +243,9 @@ public class Drs2 {
    * bei Bedarf die aktuellen Tasterzustände an die DRS 2 Simulation.
    */
   public void checkSend() {
-    if (switchesDirty) {
+    if (switchesChanged) {
       System.out.println("Send switch state.");
-      switchesDirty = false;
+      switchesChanged = false;
       sendInputs();
     }
   }
@@ -261,7 +268,7 @@ public class Drs2 {
    * @param newValue 
    */
   public void setSwitch(int id, boolean newValue) {
-    switchesDirty |= switches[id] != newValue;
+    switchesChanged |= switches[id] != newValue;
     switches[id] = newValue;
   }
   
