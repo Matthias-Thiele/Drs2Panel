@@ -20,12 +20,14 @@ import javafx.scene.paint.Color;
 public class FieldGrid extends GridPane {
   private final static int[] LINE_FIELD_LIST = {5, 1, 1, 2, 5, 2, 6,2, 7, 2, 9, 2, 12, 2, 2, 3, 3, 3, 4, 3, 7, 3, 10, 3, 11, 3};
   private static final int REFRESH_RATE = 10;
+  private static final int STAY_ALIVE_RATE = 600;
   
   private final List<BaseField> allFields = new ArrayList<>();
   private final boolean[] isSet = new boolean[Presets.GRID_WIDTH * Presets.GRID_HEIGHT];
   
   private final Drs2 drs2;
   private int tickCount = 0;
+  private int stayAliveCount = 0;
   
   /**
    * Konstruktor mit Übergabe des Kommunikations-Objekts zur
@@ -51,6 +53,11 @@ public class FieldGrid extends GridPane {
         // 16 Millisekunden. Auch eine Aktualisierung der
         // Lampenanzeige erfolgt im gleichen Intervall.
         drs2.tick(now);
+        
+        if (stayAliveCount++ > STAY_ALIVE_RATE) {
+          stayAliveCount = 0;
+          drs2.setSwitchChanged();
+        }
         
         if (tickCount++ < REFRESH_RATE) {
           return;
