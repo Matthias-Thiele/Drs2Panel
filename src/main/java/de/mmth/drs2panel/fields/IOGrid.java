@@ -153,7 +153,7 @@ public class IOGrid extends GridPane {
   private Button addInput(String name, int ioId, int checkId, boolean isBlock) {
     var bt = new Button(name);
     var state = new ButtonState();
-    state.isPressed = false;
+    state.isPressed = isBlock;
     state.isBlockButton = isBlock;
     state.ioId = ioId;
     state.checkId = checkId;
@@ -161,6 +161,7 @@ public class IOGrid extends GridPane {
     bt.setPrefWidth(Presets.FIELD_WIDTH - 10);
     if (isBlock) {
       bt.setStyle("-fx-background-color: white");
+      drs2.setSwitch(ioId, true);
     }
     
     bt.setOnAction(e -> {
@@ -175,7 +176,7 @@ public class IOGrid extends GridPane {
       processButton(bt, ButtonAction.INVERT);
       if (checkId == TA_CHANGED) {
         // Tastenabschalter betätigt.
-        drs2.setChanged();
+        drs2.setLampChanged();
       }
     });
     this.add(bt, nextButtonCol++, 0);
@@ -203,10 +204,11 @@ public class IOGrid extends GridPane {
     
     if (s.isBlockButton) {
       bt.setStyle(s.isPressed ? "-fx-background-color: red": "-fx-background-color: white");
+      drs2.setSwitch(s.ioId, !s.isPressed);
     } else {
       bt.setStyle(s.isPressed ? "-fx-background-color: lightgreen": "");
+      drs2.setSwitch(s.ioId, s.isPressed);
     }
-    drs2.setSwitch(s.ioId, s.isPressed);
   }
   
   enum ButtonAction {
