@@ -102,8 +102,11 @@ public class IOGrid extends GridPane {
     addInput("Fa F", Const.SCHLUESSEL_F, -1, false);
     addInput("SW I", Const.WSCHLUESSEL1, Const.SlFT1Relais, false);
     addInput("SW IV", Const.WSCHLUESSEL4, Const.SlFT4Relais, false);
+    addInput("ÜM", Const.WHSPERRE_ZURÜCK, -1, false);
     vorblockAH = addInput("Nach AH", Const.BLOCK_AH_OUT, -1, true);
     rückblockAH = addInput("Von AH", Const.BLOCK_AH_IN, - 1, true);
+    addInput("Pause", Const.PAUSE, -1, false);
+    addInput("Faden", Const.HAUPTFADEN_DEFEKT, -1, false);
   }
   
   /**
