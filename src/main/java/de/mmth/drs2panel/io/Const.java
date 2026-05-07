@@ -68,6 +68,9 @@ public class Const {
     public static final int PAUSE = 64;
     public static final int HAUPTFADEN_DEFEKT = 65;
     
+    // Dritte IO Karte, Bedientasten
+    public static final int SWITCH_LS = 72;
+    
     // Schlüsselweiche
     public static final int WSCHLUESSEL3 = 34;
     public static final int WSCHLUESSEL1 = 58;
@@ -189,6 +192,15 @@ public class Const {
     public static final int StreckeNachAH_VBHT = 124;
     public static final int StrWSP = 125;
     public static final int StreckeVonAH = 126;
+    
+    // Lichtsignal
+    public static final int LS_HP1 = 128;
+    public static final int LS_HP2 = 130;
+    public static final int LS_SH1 = 132;
+    public static final int LS_ZS1 = 134;
+    
+    // Anzeigelampen im Tastenfeld
+    public static final int LS_P1_P3_State = 136;
     
     // Bahnhofsgleise
     public static final int Gleis1Weiss = 30;

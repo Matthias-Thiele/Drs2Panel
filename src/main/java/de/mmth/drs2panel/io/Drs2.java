@@ -26,7 +26,7 @@ public class Drs2 {
   private final static int OUTPUT_BYTE_COUNT = 14;
   private final static int IO_START = 120;
   private static final int MAX_LAMPS = 136;
-  private static final int MAX_SWITCHES = 72;
+  private static final int MAX_SWITCHES = 80;
   private static final int BUFFER_SIZE = 32;
   private static final byte[] switchInverter = {(byte)0x80, (byte)0xff, (byte)0x7e, (byte)0x64, (byte)0x1f, (byte)0xff, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00};
   
@@ -136,7 +136,7 @@ public class Drs2 {
             for (var i = 0; i < outICount; i++) {
               byte c = receiveIBuffer[i];
               boolean isSet = c >= 'a';
-              int pos = (c - 'A') & 0xf;
+              int pos = (c - 'A') & 0x1f;
               lamps[IO_START + pos] = isSet;
             }
             
@@ -222,6 +222,7 @@ public class Drs2 {
   private void fillTransmitBufferIO() {
     fillTransmitBufferByte(0, 56);
     fillTransmitBufferByte(1, 64);
+    fillTransmitBufferByte(2, 72);
   }
   
   /**
@@ -233,7 +234,7 @@ public class Drs2 {
 
     fillTransmitBufferIO();
     uartIO.send("Z5");
-    int ioVal = (transmitBuffer[0] & 0xff) + ((transmitBuffer[1] & 0xff) << 8) + 0x50000;
+    int ioVal = (transmitBuffer[0] & 0xff) + ((transmitBuffer[1] & 0xff) << 8) + ((transmitBuffer[2] & 0xff) << 16) + 0x5000000;
     uartIO.send(Integer.toHexString(ioVal));
     uartIO.send("T");
   }

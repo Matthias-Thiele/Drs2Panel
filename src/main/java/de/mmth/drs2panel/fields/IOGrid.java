@@ -107,6 +107,7 @@ public class IOGrid extends GridPane {
     rückblockAH = addInput("Von AH", Const.BLOCK_AH_IN, - 1, true);
     addInput("Pause", Const.PAUSE, -1, false);
     addInput("Faden", Const.HAUPTFADEN_DEFEKT, -1, false);
+    addInput("LS P1 <-> P3", Const.SWITCH_LS, -1, false);
   }
   
   /**
