@@ -25,7 +25,7 @@ package de.mmth.drs2panel.io;
 public class Drs2 {
   private final static int OUTPUT_BYTE_COUNT = 14;
   private final static int IO_START = 120;
-  private static final int MAX_LAMPS = 136;
+  private static final int MAX_LAMPS = 144;
   private static final int MAX_SWITCHES = 80;
   private static final int BUFFER_SIZE = 32;
   private static final byte[] switchInverter = {(byte)0x80, (byte)0xff, (byte)0x7e, (byte)0x64, (byte)0x1f, (byte)0xff, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00};
@@ -125,14 +125,14 @@ public class Drs2 {
       byte next = uartIO.readByte();
       switch (actIState) {
         case WAIT:
-          if (next == 'X') {
+          if (next == 'Z') {
             actIState = CommandState.IO_RUNNING;
             outICount = 0;
           }
           break;
 
         case IO_RUNNING:
-          if (next == 'y') {
+          if (next == 'z') {
             for (var i = 0; i < outICount; i++) {
               byte c = receiveIBuffer[i];
               boolean isSet = c >= 'a';
@@ -141,6 +141,9 @@ public class Drs2 {
             }
             
             lampsChanged = true;
+            actIState = CommandState.WAIT;
+          } else if (outICount >= receiveIBuffer.length) {
+            System.out.println("Invalid command dropped.");
             actIState = CommandState.WAIT;
           } else {
             receiveIBuffer[outICount++] = next;
