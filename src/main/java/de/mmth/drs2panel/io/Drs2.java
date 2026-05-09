@@ -123,6 +123,7 @@ public class Drs2 {
   public void tickIO(long now) {
     if (uartIO.check()) {
       byte next = uartIO.readByte();
+      System.out.print((char)next);
       switch (actIState) {
         case WAIT:
           if (next == 'Z') {
@@ -132,7 +133,7 @@ public class Drs2 {
           break;
 
         case IO_RUNNING:
-          if (next == 'z') {
+          if (next == 'y') {
             for (var i = 0; i < outICount; i++) {
               byte c = receiveIBuffer[i];
               boolean isSet = c >= 'a';
@@ -141,6 +142,11 @@ public class Drs2 {
             }
             
             lampsChanged = true;
+            System.out.println();
+            actIState = CommandState.WAIT;
+          } else if (next == 'z') {
+            System.out.println("Get IO Status.");
+            sendIO();
             actIState = CommandState.WAIT;
           } else if (outICount >= receiveIBuffer.length) {
             System.out.println("Invalid command dropped.");
@@ -232,9 +238,16 @@ public class Drs2 {
    * Sendet alle Taster/ Schalterzustände an die DRS 2 Simulation.
    */
   private void sendInputs() {
+    sendDrs2();
+    sendIO();
+  }
+  
+  private void sendDrs2() {
     fillTransmitBufferD();
     uartD.sendBytes(transmitBuffer, 0, 8);
+  }
 
+  private void sendIO() {
     fillTransmitBufferIO();
     uartIO.send("Z5");
     int ioVal = (transmitBuffer[0] & 0xff) + ((transmitBuffer[1] & 0xff) << 8) + ((transmitBuffer[2] & 0xff) << 16) + 0x5000000;
