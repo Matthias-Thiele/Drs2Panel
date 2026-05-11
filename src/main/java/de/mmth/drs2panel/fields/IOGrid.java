@@ -34,6 +34,8 @@ public class IOGrid extends GridPane {
   
   private final Drs2 drs2;
   private final List<Label> lampList = new ArrayList<>();
+  private final List<Button> buttonList = new ArrayList<>();
+  
   private Button vorblockAH;
   private Button rückblockAH;
   
@@ -84,6 +86,17 @@ public class IOGrid extends GridPane {
             }
           }
         }
+        
+        // Prüft die Taster
+        for (var button: buttonList) {
+          ButtonState s = (ButtonState) button.getUserData();
+          if (s.isAutoRelease && s.releaseCount > 0) {
+            s.releaseCount--;
+            if (s.releaseCount == 0) {
+              processButton(button, ButtonAction.RESET);
+            }
+          }
+        }
       }
       
     }.start();
@@ -97,17 +110,17 @@ public class IOGrid extends GridPane {
     var label = new Label("Eingaben");
     label.setPrefWidth(Presets.FIELD_WIDTH - 10);
     this.add(label, nextButtonCol++, 0);
-    addInput("TA", Const.TA, TA_CHANGED, false);
-    addInput("Fa A", Const.SCHLUESSEL_A, -1, false);
-    addInput("Fa F", Const.SCHLUESSEL_F, -1, false);
-    addInput("SW I", Const.WSCHLUESSEL1, Const.SlFT1Relais, false);
-    addInput("SW IV", Const.WSCHLUESSEL4, Const.SlFT4Relais, false);
-    addInput("ÜM", Const.WHSPERRE_ZURÜCK, -1, false);
-    vorblockAH = addInput("Nach AH", Const.BLOCK_AH_OUT, -1, true);
-    rückblockAH = addInput("Von AH", Const.BLOCK_AH_IN, - 1, true);
-    addInput("Pause", Const.PAUSE, -1, false);
-    addInput("Faden", Const.HAUPTFADEN_DEFEKT, -1, false);
-    addInput("LS P1 <-> P3", Const.SWITCH_LS, -1, false);
+    addInput("TA", Const.TA, TA_CHANGED, false, false);
+    addInput("Fa A", Const.SCHLUESSEL_A, -1, false, true);
+    addInput("Fa F", Const.SCHLUESSEL_F, -1, false, true);
+    addInput("SW I", Const.WSCHLUESSEL1, Const.SlFT1Relais, false, true);
+    addInput("SW IV", Const.WSCHLUESSEL4, Const.SlFT4Relais, false, true);
+    addInput("ÜM", Const.WHSPERRE_ZURÜCK, -1, false, false);
+    vorblockAH = addInput("Nach AH", Const.BLOCK_AH_OUT, -1, true, false);
+    rückblockAH = addInput("Von AH", Const.BLOCK_AH_IN, - 1, true, false);
+    addInput("Pause", Const.PAUSE, -1, false, false);
+    addInput("Faden", Const.HAUPTFADEN_DEFEKT, -1, false, false);
+    addInput("LS P1 <-> P3", Const.SWITCH_LS, -1, false, true);
   }
   
   /**
@@ -162,13 +175,16 @@ public class IOGrid extends GridPane {
    * @param isBlock
    * @return 
    */
-  private Button addInput(String name, int ioId, int checkId, boolean isBlock) {
+  private Button addInput(String name, int ioId, int checkId, boolean isBlock, boolean isAutoRelease) {
     var bt = new Button(name);
     var state = new ButtonState();
     state.isPressed = isBlock;
     state.isBlockButton = isBlock;
     state.ioId = ioId;
     state.checkId = checkId;
+    state.isAutoRelease = isAutoRelease;
+    state.releaseCount = 0;
+    
     bt.setUserData(state);
     bt.setPrefWidth(Presets.FIELD_WIDTH - 10);
     if (isBlock) {
@@ -185,7 +201,7 @@ public class IOGrid extends GridPane {
         }
       }
       
-      processButton(bt, ButtonAction.INVERT);
+      processButton(bt, isAutoRelease ? ButtonAction.SET : ButtonAction.INVERT);
       if (checkId == TA_CHANGED) {
         // Tastenabschalter betätigt.
         drs2.setLampChanged();
@@ -193,6 +209,7 @@ public class IOGrid extends GridPane {
     });
     this.add(bt, nextButtonCol++, 0);
     
+    buttonList.add(bt);
     return bt;
   }
   
@@ -209,7 +226,12 @@ public class IOGrid extends GridPane {
   private void processButton(Button bt, ButtonAction action) {
     ButtonState s = (ButtonState) bt.getUserData();
     switch (action) {
-      case SET: s.isPressed = true; break;
+      case SET: 
+        s.isPressed = true; 
+        if (s.isAutoRelease) {
+          s.releaseCount = 30;
+        }
+        break;
       case RESET: s.isPressed = false; break;
       case INVERT: s.isPressed = !s.isPressed; break;
     }
@@ -232,8 +254,10 @@ public class IOGrid extends GridPane {
   class ButtonState {
     boolean isPressed;
     boolean isBlockButton;
+    boolean isAutoRelease;
     int ioId;
     int checkId;
+    int releaseCount;
   }
   
   class LabelState {
