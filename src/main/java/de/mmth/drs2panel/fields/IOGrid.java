@@ -121,6 +121,14 @@ public class IOGrid extends GridPane {
     this.addLamp(" SW IV", Const.SlFT4Relais, null);
     this.addLamp(" VB nach AH", Const.StreckeNachAH, vorblockAH);
     this.addLamp(" RB von AH", Const.StreckeVonAH, rückblockAH);
+    this.addLamp(" LS HP1", Const.LS_HP1, null);
+    this.addLamp(" LS HP2", Const.LS_HP2, null);
+    this.addLamp(" LS ZS1", Const.LS_ZS1, null);
+    this.addLamp(" LS SH1", Const.LS_SH1, null);
+    this.addLamp(" RH1 Def.", Const.LS_RH1_DEFEKT, null);
+    this.addLamp(" RN1 Def.", Const.LS_RN1_DEFEKT, null);
+    this.addLamp(" RT2 Def.", Const.LS_RT2_DEFEKT, null);
+    this.addLamp(" FD Def.", Const.LS_FD_DEFEKT, null);
   }
   
   /**
