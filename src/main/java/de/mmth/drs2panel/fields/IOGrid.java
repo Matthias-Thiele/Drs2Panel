@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 
 /**
  * Diese Klasse enthält die Elemente die die beiden
@@ -30,11 +31,13 @@ public class IOGrid extends GridPane {
   private static MediaPlayer mp3Player;
   private int nextButtonCol = 0;
   private int nextLabelCol = 0;
+  private int nextCommandCol = 0;
   private boolean lastWecker = false;
   
   private final Drs2 drs2;
   private final List<Label> lampList = new ArrayList<>();
   private final List<Button> buttonList = new ArrayList<>();
+  private final List<CommandButton> commandList = new ArrayList<>();
   
   private Button vorblockAH;
   private Button rückblockAH;
@@ -52,6 +55,7 @@ public class IOGrid extends GridPane {
     this.setVgap(10);
     addButtons();
     addLamps();
+    addCommandButtons();
     new AnimationTimer() {
       @Override
       public void handle(long now) {
@@ -97,9 +101,28 @@ public class IOGrid extends GridPane {
             }
           }
         }
+        
+        // Aktualisiert die Befehlsabgaben
+        for (var command: commandList) {
+          command.tick();
+        }
       }
       
     }.start();
+  }
+  
+  private void addCommandButtons() {
+    var label = new Label("Befehle");
+    this.add(label, nextCommandCol++, 2);
+    addCommand("Ne1 Einfahrt", Const.NE1_COMMAND, Const.NE1_LED, Color.RED);
+    addCommand("LS P1<->P3",Const.SWITCH_LS, Const.LS_P1_P3_State, Color.BLUE);
+  }
+  
+  private void addCommand(String name, int buttonId, int ledId, Color buttonColor) {
+    var cmd = new CommandButton(drs2, name, buttonId, ledId, buttonColor);
+    this.add(cmd, nextCommandCol++, 2);
+    commandList.add(cmd);
+    
   }
   
   /**
