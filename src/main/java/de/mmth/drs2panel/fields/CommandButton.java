@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
  * @author matthias
  */
 public class CommandButton extends HBox {
-  private final static int SET_TIME = 60;
+  private final static int SET_TIME = 90;
   private final Drs2 drs;
   private final Pane lamp;
   private int resetCount = 0;

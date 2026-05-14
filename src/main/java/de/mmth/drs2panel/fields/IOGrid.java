@@ -116,6 +116,7 @@ public class IOGrid extends GridPane {
     this.add(label, nextCommandCol++, 2);
     addCommand("Ne1 Einfahrt", Const.NE1_COMMAND, Const.NE1_LED, Color.RED);
     addCommand("LS P1<->P3",Const.SWITCH_LS, Const.LS_P1_P3_State, Color.BLUE);
+    addCommand("Weiterfahrt", Const.RF_WAIT, Const.RF_RICHTUNGSWECHSEL, Color.YELLOW);
   }
   
   private void addCommand(String name, int buttonId, int ledId, Color buttonColor) {
