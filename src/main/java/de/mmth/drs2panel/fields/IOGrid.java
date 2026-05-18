@@ -41,6 +41,7 @@ public class IOGrid extends GridPane {
   
   private Button vorblockAH;
   private Button rückblockAH;
+  private final Lichtsignal ls;
   
   /**
    * Konstruktor erzeugt die Anzeigen und Schalter für die
@@ -56,6 +57,9 @@ public class IOGrid extends GridPane {
     addButtons();
     addLamps();
     addCommandButtons();
+    ls = new Lichtsignal(drs2);
+    this.add(ls, Math.max(nextButtonCol, nextLabelCol), 0, 1, 3);
+    
     new AnimationTimer() {
       @Override
       public void handle(long now) {
@@ -102,10 +106,11 @@ public class IOGrid extends GridPane {
           }
         }
         
-        // Aktualisiert die Befehlsabgaben
+        // Aktualisiert die Befehlsabgaben und das Lichtsignal
         for (var command: commandList) {
           command.tick();
         }
+        ls.tick();
       }
       
     }.start();
